@@ -1,24 +1,36 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import axios from 'axios';
+import pullProducts from '../lib/axiosPrefilter.js';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-
+      productTest: ''
 
     };
-    //bind functions herex
+    //bind functions here
 
   }
   //functions/handler section derp
 
+  //api pull test
+  componentDidMount() {
+    axios.get(pullProducts)
+      .then(products => {
+        console.log(products)
+      })
+      .catch(error => {
+        console.error('Error pulling products: ', error)
+      })
+  }
 
 
   render() {
 
-    return(
-    <div>Good day, Planet!</div>
+    return (
+      <div>Good day, Planet!</div>
     )
   }
 }
