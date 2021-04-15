@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import axios from 'axios';
-import pullProducts from '../lib/axiosPrefilter.js';
+import requests from '../lib/axiosPrefilter.js';
 
 class App extends React.Component {
   constructor() {
@@ -17,7 +17,7 @@ class App extends React.Component {
 
   //api pull test
   componentDidMount() {
-    axios.get(pullProducts)
+    axios.get(requests.pullCart)
       .then(products => {
         console.log(products)
       })
