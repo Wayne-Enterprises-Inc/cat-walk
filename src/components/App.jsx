@@ -18,9 +18,11 @@ class App extends React.Component {
     //bind functions here
 
   }
-  //functions/handler section derp
+  //functions/handler section
 
-  //api pull test
+
+  //Michael Note: I am basically just doing this on my own widget.
+  //I can have more control without affecting your code.
   componentDidMount() {
     axios.get(requests.pullProducts+'/19089/styles')
       .then(products => {
@@ -28,7 +30,7 @@ class App extends React.Component {
         this.setState({
           productPics: productArray[0].photos
         })
-        console.log(productArray[0].photos)
+        //console.log(productArray[0].photos)
       })
       .catch(error => {
         console.error('Error pulling products: ', error)

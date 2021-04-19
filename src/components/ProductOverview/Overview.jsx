@@ -11,6 +11,7 @@ class Overview extends React.Component {
     super(props)
     this.state = {
       currentItemId: 19089,
+      selectedStyle: 103466,
       productInfo: {},
       mainPics: [],
       thumbnails: [],
@@ -29,14 +30,15 @@ class Overview extends React.Component {
 
 
   getStyles(id) {
+
     axios.get(requests.pullProducts+`/${id}/styles`)
       .then(styles => {
         this.setState({
           styles: styles.data.results
         }, ()=>{this.getPhotos(this.state.styles)})
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(err => {
+        console.error('Overview get error: ',err);
       })
   }
 
@@ -70,7 +72,10 @@ componentDidMount(){
       <Container>
         <div>
           <Gallery
-            productPics={this.state.productPics}
+            styles={this.state.styles}
+            mainPics={this.state.mainPics}
+            thumbnails={this.state.thumbnails}
+            selectedStyle={this.state.selectedStyle}
           />
         </div>
       </Container>

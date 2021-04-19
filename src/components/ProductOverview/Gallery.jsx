@@ -20,12 +20,34 @@ class Gallery extends React.Component {
   //in the render: map through images
   render() {
     return (
-      <MainImage>
-        {this.state.productPics}
-      </MainImage>
+      <div>
+        {this.props.mainPics.map((image, index) => {
+
+
+          const images = Object.assign({}, {
+
+            height: '600px',
+            width: '600px',
+            backgroundImage: `url(${image})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundSize: 'cover'
+          })
+          return (
+            <MainImage
+            key={index}
+            style={images}
+          />
+          )
+        })
+
+        }
+
+
+
+      </div>
     )
   }
-
 }
 
 const MainImage = styled.div`
