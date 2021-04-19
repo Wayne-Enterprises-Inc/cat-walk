@@ -6,14 +6,22 @@ class Gallery extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentImgIndex: 0,
       productPics: '',//this.props.productPics[0],
       expand: false
     }
     //bindings
-
+    this.imgSelect = this.imgSelect.bind(this)
   }
   //functions/handlers
 
+  imgSelect(selected) {
+    for (let i = 0; i < this.props.styles.length; i++)
+
+      if (this.props.styles[i].style_id === Number(selected)) {
+        return i;
+      }
+  }
 
 
 
@@ -34,14 +42,18 @@ class Gallery extends React.Component {
             backgroundSize: 'cover'
           })
           return (
-            <MainImage
-            key={index}
-            style={images}
-          />
+            <div key={index}>
+              {index === (this.props.selectedStyle ? this.imgSelect(this.props.selectedStyle) : this.state.currentImgIndex) && (
+                <MainImage
+                  key={index}
+                  style={images}
+                />
+              )}
+            </div>
           )
-        })
+        })}
 
-        }
+
 
 
 

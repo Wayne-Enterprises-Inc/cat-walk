@@ -31,14 +31,14 @@ class Overview extends React.Component {
 
   getStyles(id) {
 
-    axios.get(requests.pullProducts+`/${id}/styles`)
+    axios.get(requests.pullProducts + `/${id}/styles`)
       .then(styles => {
         this.setState({
           styles: styles.data.results
-        }, ()=>{this.getPhotos(this.state.styles)})
+        }, () => { this.getPhotos(this.state.styles) })
       })
       .catch(err => {
-        console.error('Overview get error: ',err);
+        console.error('Overview get error: ', err);
       })
   }
 
@@ -58,13 +58,13 @@ class Overview extends React.Component {
       this.setState({
         mainPics: mainPics,
         thumbnails: thumbnails
-      }, () => {console.log('Product State: ', this.state)})
+      }, () => { console.log('Product State: ', this.state) })
     }
   }
 
-componentDidMount(){
-  this.getStyles(this.state.currentItemId)
-}
+  componentDidMount() {
+    this.getStyles(this.state.currentItemId)
+  }
 
 
   render() {
@@ -86,7 +86,8 @@ componentDidMount(){
 
 const Container = styled.div`
   width: 100%;
-  border-bottom: 1px solid #ebedee;
+padding-top: 20px;
+  border-bottom: 1px solid black;
 `;
 
 export default Overview;
