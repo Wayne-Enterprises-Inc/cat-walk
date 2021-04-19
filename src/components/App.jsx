@@ -3,6 +3,8 @@ import ReactDom from 'react-dom';
 import axios from 'axios';
 import requests from '../lib/axiosPrefilter.js';
 
+import Overview from './ProductOverview/Overview.jsx';
+
 // testing out styled components
 import styled from 'styled-components';
 
@@ -10,7 +12,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      productTest: ''
+      productPics: ''
 
     };
     //bind functions here
@@ -20,9 +22,13 @@ class App extends React.Component {
 
   //api pull test
   componentDidMount() {
-    axios.get(requests.pullCart)
+    axios.get(requests.pullProducts+'/19089/styles')
       .then(products => {
-        console.log(products)
+        var productArray = products.data.results
+        this.setState({
+          productPics: productArray[0].photos
+        })
+        console.log(productArray[0].photos)
       })
       .catch(error => {
         console.error('Error pulling products: ', error)
@@ -33,9 +39,13 @@ class App extends React.Component {
   render() {
 
     return (
-      <LogoBar>
-        <p style={{ fontWeight: 'bold' }}>Good day, Planet!</p>
-      </LogoBar>
+      <div>
+        <LogoBar>
+          <p style={{ fontWeight: 'bold' }}>Good day, Planet!</p>
+        </LogoBar>
+
+        <Overview/>
+      </div>
     )
   }
 }
