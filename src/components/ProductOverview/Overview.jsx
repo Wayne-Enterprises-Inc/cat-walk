@@ -21,6 +21,8 @@ class Overview extends React.Component {
     //bindings go here
     this.getStyles = this.getStyles.bind(this);
     this.getPhotos = this.getPhotos.bind(this);
+    this.getProductInfo = this.getProductInfo.bind(this);
+
     this.styleSelectHandle = this.styleSelectHandle.bind(this);
   }
   //hander functions go here.
@@ -42,6 +44,17 @@ class Overview extends React.Component {
     }
   }
 
+  getProductInfo(id) {
+    axios.get(requests.pullProducts + `/${id}`)
+      .then(data => {
+        this.setState({
+          productInfo: data.data,
+        }, () => console.log('Product Info: ', data.data));
+      })
+      .catch((err) => {
+        console.error('Error getting product info', err);
+      });
+  }
 
   getStyles(id) {
 
@@ -63,12 +76,12 @@ class Overview extends React.Component {
     if (styles !== undefined) {
 
       for (let i = 0; i < styles.length; i++) {
-        let pics = styles[i].photos[0].url;
-        let thumbs = [styles[i].photos[0].thumbnail_url, styles[i].style_id];
+        let pics = styles[0].photos[i].url;
+        let thumbs = [styles[0].photos[i].thumbnail_url, styles[0].style_id];
         mainPics.push(pics);
         thumbnails.push(thumbs);
       }
-
+      //console.log('THUMBNAILS',thumbnails);
       this.setState({
         mainPics: mainPics,
         thumbnails: thumbnails
@@ -78,6 +91,7 @@ class Overview extends React.Component {
 
   componentDidMount() {
     this.getStyles(this.state.currentItemId)
+    this.getProductInfo(this.state.currentItemId)
   }
 
 
