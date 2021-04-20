@@ -2,12 +2,14 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import axios from 'axios';
 import requests from '../lib/axiosPrefilter.js';
+import RelatedItems from './relatedItems.jsx';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      productTest: ''
+      productTest: '',
+      relatedProducts: []
 
     };
     //bind functions here
@@ -24,13 +26,27 @@ class App extends React.Component {
       .catch(error => {
         console.error('Error pulling products: ', error)
       })
+    axios.get(requests.pullProducts)
+    .then(allProducts => {
+      this.setState({
+        relatedProducts: allProducts.data
+      })
+    })
+    .catch(error => {
+      console.error('Error pulling products: ', error)
+    })
   }
+
 
 
   render() {
 
     return (
+      <div>
       <div>Good day, Planet!</div>
+
+      <div><RelatedItems allProducts={this.state.relatedProducts}/></div>
+      </div>
     )
   }
 }
