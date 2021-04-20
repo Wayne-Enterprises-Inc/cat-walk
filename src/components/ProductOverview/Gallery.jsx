@@ -1,17 +1,20 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import Carousel from './Carousel.jsx';
+
 
 class Gallery extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       currentImgIndex: 0,
-      productPics: '',//this.props.productPics[0],
+      mainThumbnail: 0,
       expand: false
     }
     //bindings
     this.imgSelect = this.imgSelect.bind(this)
+
   }
   //functions/handlers
 
@@ -23,14 +26,11 @@ class Gallery extends React.Component {
       }
   }
 
-
-
-  //in the render: map through images
+  //in the render: map through images. render based on selected style
   render() {
     return (
-      <div>
+      <GalleryView>
         {this.props.mainPics.map((image, index) => {
-
 
           const images = Object.assign({}, {
 
@@ -52,12 +52,16 @@ class Gallery extends React.Component {
             </div>
           )
         })}
-
-
-
-
-
-      </div>
+        <Thumbnails>
+          <Carousel
+            currentImgIndex={this.state.currentImgIndex}
+            thumbnails={this.props.thumbnails}
+            mainThumbnail={this.state.mainThumbnail}
+            imgSelect={this.imgSelect}
+            selectedStyle={this.props.selectedStyle}
+          />
+        </Thumbnails>
+      </GalleryView>
     )
   }
 }
@@ -67,6 +71,17 @@ const MainImage = styled.div`
   width: 600px;
   height: 600px;
   border-radius: 10px;
+`
+const Thumbnails = styled.div`
+  position: relative;
+  bottom: 95%;
+  width: 10%;
+  padding: 10px;
+`
+const GalleryView = styled.div`
+  position: relative;
+  height: 600px;
+  width: 650px;
 `
 
 export default Gallery;

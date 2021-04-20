@@ -17,16 +17,30 @@ class Overview extends React.Component {
       thumbnails: [],
       styles: [],
       reviewCount: 0,
-      productPics: this.props.productPics,
     };
     //bindings go here
     this.getStyles = this.getStyles.bind(this);
     this.getPhotos = this.getPhotos.bind(this);
+    this.styleSelectHandle = this.styleSelectHandle.bind(this);
   }
   //hander functions go here.
 
 
-
+  styleSelectHandle(event) {
+    if (this.selectedStyle !== '') {
+      this.setState({
+        selectedStyle: ''
+      }, () => {
+        this.setState({
+          selectedStyle: event.target.value
+        })
+      })
+    } else {
+      this.setState({
+        selectedStyle: event.target.value
+      })
+    }
+  }
 
 
   getStyles(id) {
@@ -70,14 +84,14 @@ class Overview extends React.Component {
   render() {
     return (
       <Container>
-        <div>
+        <Images>
           <Gallery
             styles={this.state.styles}
             mainPics={this.state.mainPics}
             thumbnails={this.state.thumbnails}
             selectedStyle={this.state.selectedStyle}
           />
-        </div>
+        </Images>
       </Container>
 
     )
@@ -85,9 +99,15 @@ class Overview extends React.Component {
 }
 
 const Container = styled.div`
-  width: 100%;
-padding-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   border-bottom: 1px solid black;
 `;
+
+const Images = styled.div`
+  display: flex;
+  order: 1;
+  flex-grow: 1;
+`
 
 export default Overview;
