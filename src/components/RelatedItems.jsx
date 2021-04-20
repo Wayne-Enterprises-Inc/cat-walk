@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import requests from '../lib/axiosPrefilter.js';
 import styled from 'styled-components';
+import RelatedItemsCarousel from '../components/RelatedItemsCarousel.jsx'
 
 class RelatedItems extends React.Component {
     constructor(props) {
@@ -128,17 +129,10 @@ class RelatedItems extends React.Component {
 
 
      <div>
+<RelatedItemsCarousel productCard={productDetails} productCardImg={imgDetail}
 
-{imgDetail}<br/>
-    {productDetails[0]}
 
-    {productDetails[1]}
-    {productDetails[2]}
-    {productDetails[3]}
-    {productDetails[4]}
-    {productDetails[5]}
-    {productDetails[6]}
-
+/>
         </div>
 
 
