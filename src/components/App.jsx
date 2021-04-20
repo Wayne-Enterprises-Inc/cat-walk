@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import axios from 'axios';
 import requests from '../lib/axiosPrefilter.js';
+import RelatedItems from './relatedItems.jsx';
 
 import Overview from './ProductOverview/Overview.jsx';
 
@@ -12,7 +13,9 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      productPics: ''
+      productPics: '',
+      productTest: '',
+      relatedProducts: []
 
     };
     //bind functions here
@@ -35,7 +38,17 @@ class App extends React.Component {
       .catch(error => {
         console.error('Error pulling products: ', error)
       })
+    axios.get(requests.pullProducts)
+    .then(allProducts => {
+      this.setState({
+        relatedProducts: allProducts.data
+      })
+    })
+    .catch(error => {
+      console.error('Error pulling products: ', error)
+    })
   }
+
 
 
   render() {
@@ -47,6 +60,7 @@ class App extends React.Component {
         </LogoBar>
 
         <Overview/>
+        <RelatedItems allProducts={this.state.relatedProducts}/>
       </div>
     )
   }
