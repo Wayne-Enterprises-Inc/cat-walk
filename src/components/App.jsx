@@ -1,7 +1,8 @@
 import React from 'react';
-import ReactDom from 'react-dom';
+// import ReactDom from 'react-dom';
 import axios from 'axios';
 import requests from '../lib/axiosPrefilter.js';
+import Stars from  './RatingsReviews/Stars.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -30,7 +31,10 @@ class App extends React.Component {
   render() {
 
     return (
-      <div>Good day, Planet!</div>
+      <div>
+        <div>Good day, Planet!</div>
+        <Stars />
+      </div>
     )
   }
 }
