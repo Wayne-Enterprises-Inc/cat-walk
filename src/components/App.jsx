@@ -4,10 +4,16 @@ import axios from 'axios';
 import requests from '../lib/axiosPrefilter.js';
 import RelatedItems from './relatedItems.jsx';
 
+import Overview from './ProductOverview/Overview.jsx';
+
+// testing out styled components
+import styled from 'styled-components';
+
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      productPics: '',
       productTest: '',
       relatedProducts: []
 
@@ -15,13 +21,19 @@ class App extends React.Component {
     //bind functions here
 
   }
-  //functions/handler section derp
+  //functions/handler section
 
-  //api pull test
+
+  //Michael Note: I am basically just doing this on my own widget.
+  //I can have more control without affecting your code.
   componentDidMount() {
-    axios.get(requests.pullCart)
+    axios.get(requests.pullProducts+'/19089/styles')
       .then(products => {
-        console.log(products)
+        var productArray = products.data.results
+        this.setState({
+          productPics: productArray[0].photos
+        })
+        //console.log(productArray[0].photos)
       })
       .catch(error => {
         console.error('Error pulling products: ', error)
@@ -43,12 +55,24 @@ class App extends React.Component {
 
     return (
       <div>
-      <div>Good day, Planet!</div>
+        <LogoBar>
+          <p style={{ fontWeight: 'bold' }}>Good day, Planet!</p>
+        </LogoBar>
 
-      <div><RelatedItems allProducts={this.state.relatedProducts}/></div>
+        <Overview/>
+        <RelatedItems allProducts={this.state.relatedProducts}/>
       </div>
     )
   }
 }
+// experimenting with the styled-components package
+const LogoBar = styled.div`
+display: flex;
+justify-content: space-around;
+align-items: center;
+width: 100%;
+background-color: grey;
+height: 50px;
+`;
 
 export default App;
