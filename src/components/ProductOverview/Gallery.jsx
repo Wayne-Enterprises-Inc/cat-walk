@@ -8,7 +8,7 @@ class Gallery extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentImgIndex: 0,
+      currentImgIndex: 1,
       mainThumbnail: 0,
       expand: false
     }
@@ -25,9 +25,13 @@ class Gallery extends React.Component {
       }
   }
 
+  // updateImgIndex(event){
+
+  // }
+
   //in the render: map through images. render based on selected style
   render() {
-    console.log('Main pics: ',this.props.mainPics)
+    //console.log('Main pics: ',this.props.mainPics)
     return (
       <GalleryView>
         {this.props.mainPics.map((image, index) => {
@@ -57,8 +61,8 @@ class Gallery extends React.Component {
             currentImgIndex={this.state.currentImgIndex}
             thumbnails={this.props.thumbnails}
             mainThumbnail={this.state.mainThumbnail}
-            imgSelect={this.imgSelect}
             selectedStyle={this.props.selectedStyle}
+            styleSelectHandle={this.props.styleSelectHandle}
           />
         </Thumbnails>
       </GalleryView>

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyleSelect = (props) => {
-  console.log('PROPS: ', props.styles[0])
+  //console.log('PROPS: ', props.styles[0])
   return (
     <Styles>
 

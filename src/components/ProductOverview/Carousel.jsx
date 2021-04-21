@@ -2,7 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Carousel = (props) => {
-  //console.log('PROPS', props.thumbnails)
+  if (props.thumbnails[0]) {
+
+    for (var i = 0; i < props.thumbnails.length; i++) {
+      if (props.thumbnails[i][1] === Number(props.selectedStyle)) {
+        console.log('thumbnails: ', props.thumbnails[i][1])
+        var currentThumbnails = props.thumbnails[i][0];
+
+      }
+    }
+  }
+
   const getIndex = (number, length) => {
     if (number >= length) {
       return number - length + 1;
@@ -10,24 +20,30 @@ const Carousel = (props) => {
       return number;
     }
   }
+  if (currentThumbnails) {
+    return (
 
-  return (
-    <div>
+      <div>
 
-      {props.thumbnails.map((pic, index) => {
+        {currentThumbnails.map((pic, index) => {
 
-        return (
-          <div key={index}>
-            <Thumbnail
-              key={index}
-              style={{ backgroundImage: `url(${pic})` }}
-            />
-          </div>
-        )
-      })}
+          return (
+            <div key={index}>
+              <Thumbnail
+                key={index}
+                style={{ backgroundImage: `url(${pic.thumbnail_url})` }}
+              />
+            </div>
+          )
+        })}
 
-    </div>
-  )
+      </div>
+    )
+  } else {
+    return (
+      <div>loading...</div>
+    )
+  }
 }
 
 const Thumbnail = styled.div`

@@ -75,12 +75,12 @@ class Overview extends React.Component {
     let mainPics = [];
     let thumbnails = [];
     //let stylePics = [];
-
+    //console.log('STYLES: ', styles)
     if (styles !== undefined) {
       //console.log('STYLES: ', styles)
       for (let i = 0; i < styles.length; i++) {
         let pics = styles[i].photos[0].url;
-        let thumbs = [styles[0].photos[i].thumbnail_url, styles[i].style_id];
+        let thumbs = [styles[i].photos, styles[i].style_id];
         //let styles = [styles[i].photos[0].thumbnail_url, styles[i].style_id];
         mainPics.push(pics);
         thumbnails.push(thumbs);
@@ -110,6 +110,7 @@ class Overview extends React.Component {
             mainPics={this.state.mainPics}
             thumbnails={this.state.thumbnails}
             selectedStyle={this.state.selectedStyle}
+            styleSelectHandle={this.styleSelectHandle}
           />
         </Images>
         <div>
