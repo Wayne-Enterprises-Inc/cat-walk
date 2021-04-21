@@ -41,13 +41,13 @@ FUNCTIONS
         this.setState({
           //Sets State to Product's Review Data
           reviewData: data.data,
-        }, () => console.log(this.state.reviewData))
+        }/*, () => console.log(this.state.reviewData)*/)
       }).then(() => {
         this.setState({
           //From data sets seperate state for ratings and recommended
           ratings: this.state.reviewData.ratings,
           recommended: this.state.reviewData.recommended,
-        }, () => console.log(this.state.ratings, this.state.recommended))
+        }/*, () => console.log(this.state.ratings, this.state.recommended)*/)
       }).then(() => {
         this.setState({
           //After ratings state is set, it is used to calculate average rating
@@ -91,7 +91,7 @@ FUNCTIONS
     this.setState({
       starPercentage: starPercentageRounded,
     })
-    console.log(this.state.starPercentage)
+    //console.log(this.state.starPercentage)
   }
 
 

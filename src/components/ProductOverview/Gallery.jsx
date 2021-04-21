@@ -14,7 +14,6 @@ class Gallery extends React.Component {
     }
     //bindings
     this.imgSelect = this.imgSelect.bind(this)
-
   }
   //functions/handlers
 
@@ -28,6 +27,7 @@ class Gallery extends React.Component {
 
   //in the render: map through images. render based on selected style
   render() {
+    console.log('Main pics: ',this.props.mainPics)
     return (
       <GalleryView>
         {this.props.mainPics.map((image, index) => {

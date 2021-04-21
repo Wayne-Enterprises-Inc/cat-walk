@@ -31,16 +31,17 @@ class Overview extends React.Component {
 
   styleSelectHandle(event) {
     if (this.selectedStyle !== '') {
+      console.log('event: ', event)
       this.setState({
         selectedStyle: ''
       }, () => {
         this.setState({
-          selectedStyle: event.target.value
+          selectedStyle: event.target.attributes.value.nodeValue
         })
       })
     } else {
       this.setState({
-        selectedStyle: event.target.value
+        selectedStyle: event.target.attributes.value.nodeValue
       })
     }
   }
@@ -76,9 +77,9 @@ class Overview extends React.Component {
     //let stylePics = [];
 
     if (styles !== undefined) {
-      console.log('STYLES: ', styles)
+      //console.log('STYLES: ', styles)
       for (let i = 0; i < styles.length; i++) {
-        let pics = styles[0].photos[i].url;
+        let pics = styles[i].photos[0].url;
         let thumbs = [styles[0].photos[i].thumbnail_url, styles[i].style_id];
         //let styles = [styles[i].photos[0].thumbnail_url, styles[i].style_id];
         mainPics.push(pics);
@@ -89,7 +90,7 @@ class Overview extends React.Component {
       this.setState({
         mainPics: mainPics,
         thumbnails: thumbnails,
-       // stylePics: stylePics
+        // stylePics: stylePics
       }, () => { console.log('Product State: ', this.state) })
     }
   }
@@ -113,6 +114,7 @@ class Overview extends React.Component {
         </Images>
         <div>
           <StyleSelect
+            styleSelectHandle={this.styleSelectHandle}
             styles={this.state.styles}
             stylePics={this.state.stylePics}
             selectedStyle={this.state.selectedStyle}

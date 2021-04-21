@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyleSelect = (props) => {
-  console.log('PROPS: ', props.styles)
+  console.log('PROPS: ', props.styles[0])
   return (
     <Styles>
 
@@ -19,6 +19,8 @@ const StyleSelect = (props) => {
             < div key={index}>
               < Select
                 style={styleOptions}
+                value={style.style_id}
+                onClick={props.styleSelectHandle}
               />
             </div>
           )
