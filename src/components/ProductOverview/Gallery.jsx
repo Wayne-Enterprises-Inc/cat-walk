@@ -8,14 +8,17 @@ class Gallery extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentImgIndex: 1,
+      currentImgIndex: 0,
       mainThumbnail: 0,
       expand: false
     }
     //bindings
-    this.imgSelect = this.imgSelect.bind(this)
+    this.imgSelect = this.imgSelect.bind(this);
+    this.updateImgIndex = this.updateImgIndex.bind(this);
   }
   //functions/handlers
+
+
 
   imgSelect(selected) {
     for (let i = 0; i < this.props.styles.length; i++)
@@ -25,48 +28,74 @@ class Gallery extends React.Component {
       }
   }
 
-  // updateImgIndex(event){
+  updateImgIndex(event) {
+    event.preventDefault();
+    console.log('Carousel Click: ', event.target.attributes.value.nodeValue)
+    var index = Number(event.target.attributes.value.nodeValue)
+    this.setState({
+      currentImgIndex: index
+    })
+  }
 
-  // }
 
   //in the render: map through images. render based on selected style
   render() {
-    //console.log('Main pics: ',this.props.mainPics)
-    return (
-      <GalleryView>
-        {this.props.mainPics.map((image, index) => {
+    if (this.props.mainPics[0]) {
 
-          const images = Object.assign({}, {
+      for (var i = 0; i < this.props.thumbnails.length; i++) {
+        if (this.props.thumbnails[i][1] === Number(this.props.selectedStyle)) {
+          console.log('Mains: ', this.props.mainPics[i])
 
-            height: '600px',
-            width: '600px',
-            backgroundImage: `url(${image})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
-            backgroundSize: 'cover'
-          })
-          return (
-            <div key={index}>
-              {index === (this.props.selectedStyle ? this.imgSelect(this.props.selectedStyle) : this.state.currentImgIndex) && (
-                <MainImage
-                  key={index}
-                  style={images}
-                />
-              )}
-            </div>
-          )
-        })}
-        <Thumbnails>
-          <Carousel
-            currentImgIndex={this.state.currentImgIndex}
-            thumbnails={this.props.thumbnails}
-            mainThumbnail={this.state.mainThumbnail}
-            selectedStyle={this.props.selectedStyle}
-            styleSelectHandle={this.props.styleSelectHandle}
-          />
-        </Thumbnails>
-      </GalleryView>
-    )
+          var currentMains = this.props.mainPics[i];
+
+        }
+      }
+    } else {
+      return (
+        <div>loading...</div>
+      )
+    }
+    if (currentMains) {
+      return (
+        <GalleryView>
+          {currentMains.map((image, index) => {
+
+            const images = Object.assign({}, {
+
+              height: '600px',
+              width: '600px',
+              backgroundImage: `url(${image.url})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
+              backgroundSize: 'cover'
+            })
+            return (
+              <div key={index}>
+                {index === (this.state.currentImgIndex) && (
+                  <MainImage
+                    key={index}
+                    style={images}
+                  />
+                )}
+              </div>
+            )
+          })}
+          <Thumbnails>
+            <Carousel
+              currentImgIndex={this.state.currentImgIndex}
+              thumbnails={this.props.thumbnails}
+              mainThumbnail={this.state.mainThumbnail}
+              selectedStyle={this.props.selectedStyle}
+              updateImgIndex={this.updateImgIndex}
+            />
+          </Thumbnails>
+        </GalleryView>
+      )
+    } else {
+      return (
+        <div>loading...</div>
+      )
+    }
   }
 }
 

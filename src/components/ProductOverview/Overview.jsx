@@ -79,7 +79,7 @@ class Overview extends React.Component {
     if (styles !== undefined) {
       //console.log('STYLES: ', styles)
       for (let i = 0; i < styles.length; i++) {
-        let pics = styles[i].photos[0].url;
+        let pics = styles[i].photos;
         let thumbs = [styles[i].photos, styles[i].style_id];
         //let styles = [styles[i].photos[0].thumbnail_url, styles[i].style_id];
         mainPics.push(pics);
