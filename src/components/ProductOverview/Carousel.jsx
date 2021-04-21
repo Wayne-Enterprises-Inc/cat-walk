@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Carousel = (props) => {
-  console.log('PROPS', props.thumbnails)
+  //console.log('PROPS', props.thumbnails)
   const getIndex = (number, length) => {
     if (number >= length) {
       return number - length + 1;
@@ -18,28 +18,10 @@ const Carousel = (props) => {
 
         return (
           <div key={index}>
-            {index === (props.selectedStyle ? props.imgSelect(props.selectedStyle) : props.mainThumbnail) && (
-              <>
-                <Thumbnail
-                  style={{ backgroundImage: `url(${props.thumbnails[getIndex(index, props.thumbnails.length)]})` }}
-                />
-                <Thumbnail
-                  style={{ backgroundImage: `url(${props.thumbnails[getIndex(index + 1, props.thumbnails.length)]})` }}
-                />
-                <Thumbnail
-                  style={{ backgroundImage: `url(${props.thumbnails[getIndex(index + 2, props.thumbnails.length)]})` }}
-                />
-                <Thumbnail
-                  style={{ backgroundImage: `url(${props.thumbnails[getIndex(index + 3, props.thumbnails.length)]})` }}
-                />
-                <Thumbnail
-                  style={{ backgroundImage: `url(${props.thumbnails[getIndex(index + 4, props.thumbnails.length)]})` }}
-                />
-                <Thumbnail
-                  style={{ backgroundImage: `url(${props.thumbnails[getIndex(index + 5, props.thumbnails.length)]})` }}
-                />
-              </>
-            )}
+            <Thumbnail
+              key={index}
+              style={{ backgroundImage: `url(${pic})` }}
+            />
           </div>
         )
       })}
@@ -65,3 +47,26 @@ const Thumbnail = styled.div`
 `
 
 export default Carousel;
+
+// {index === (props.selectedStyle ? props.imgSelect(props.selectedStyle) : props.mainThumbnail) && (
+//   <>
+//     <Thumbnail
+//       style={{ backgroundImage: `url(${props.thumbnails[getIndex(index, props.thumbnails.length)]})` }}
+//     />
+//     <Thumbnail
+//       style={{ backgroundImage: `url(${props.thumbnails[getIndex(index + 1, props.thumbnails.length)]})` }}
+//     />
+//     <Thumbnail
+//       style={{ backgroundImage: `url(${props.thumbnails[getIndex(index + 2, props.thumbnails.length)]})` }}
+//     />
+//     <Thumbnail
+//       style={{ backgroundImage: `url(${props.thumbnails[getIndex(index + 3, props.thumbnails.length)]})` }}
+//     />
+//     <Thumbnail
+//       style={{ backgroundImage: `url(${props.thumbnails[getIndex(index + 4, props.thumbnails.length)]})` }}
+//     />
+//     <Thumbnail
+//       style={{ backgroundImage: `url(${props.thumbnails[getIndex(index + 5, props.thumbnails.length)]})` }}
+//     />
+//   </>
+// )}
