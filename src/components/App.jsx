@@ -2,17 +2,21 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import axios from 'axios';
 import requests from '../lib/axiosPrefilter.js';
-import RelatedItems from './relatedItems.jsx';
+import RelatedItems from './RelatedItems.jsx';
+import CompareModal from "./CompareModal";
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       productTest: '',
-      relatedProducts: []
+      relatedProducts: [],
+
 
     };
+
     //bind functions here
+
 
   }
   //functions/handler section derp
@@ -46,6 +50,7 @@ class App extends React.Component {
       <div>Good day, Planet!</div>
 
       <div><RelatedItems allProducts={this.state.relatedProducts}/></div>
+
       </div>
     )
   }

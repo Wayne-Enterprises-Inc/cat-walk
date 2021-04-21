@@ -3,6 +3,7 @@ import axios from 'axios';
 import requests from '../lib/axiosPrefilter.js';
 import styled from 'styled-components';
 import RelatedItemsCarousel from '../components/RelatedItemsCarousel.jsx'
+import CompareModal from "./CompareModal";
 
 class RelatedItems extends React.Component {
     constructor(props) {
@@ -79,6 +80,8 @@ class RelatedItems extends React.Component {
         })
 
     }
+
+
   render() {
 
     const Card = styled.section`
@@ -121,7 +124,9 @@ class RelatedItems extends React.Component {
       </Card>
       </Wrapper>
 
+
     ))
+
 
 
     return (
@@ -129,7 +134,9 @@ class RelatedItems extends React.Component {
 
 
      <div>
-<RelatedItemsCarousel productCard={productDetails} productCardImg={imgDetail}
+
+
+<RelatedItemsCarousel  productCard={productDetails} productCardImg={imgDetail}
 
 
 />
