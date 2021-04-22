@@ -11,14 +11,10 @@ class RelatedItemsCarousel extends React.Component {
     }
     this.showModal = this.showModal.bind(this)
   }
-  //console.log('Admin props', props);
-//   const Car = styled.section`
-//   display: flex;
-//   max-width: 57rem;
-//   overflow-y: auto;
-// `;
+
 showModal(e) {
-console.log(this.props.productCard[0])
+
+
   this.setState({
     nameCompare: e.target.innerHTML,
     show: !this.state.show
@@ -28,17 +24,33 @@ render() {
 
 
   return (
-    <div onClick={((e) =>
-      this.showModal(e))
- }>
- <CompareModal nameForCompare = {this.state.nameCompare} allProducts={this.props.allProducts} onClose={this.showModal} show={this.state.show}/>
+    <div>
 
-    <div >
+Related Items
+ <CompareModal nameForCompare = {this.state.nameCompare} allProducts={this.props.allProducts} onClose={this.showModal} show={this.state.show}/>
+<carouselContainer>
+
+    <div className="carousel-container">
+      <carouselWarpper>
+
+      <div className='carousel-wrapper'>
+      <button className="left-arrow">
+        &lt;
+    </button>
+        <carouselContentWrapper>
+
+        <div className='carousel-content-wrapper'>
+          <carouselContent>
+          <button className="right-arrow">
+        &gt;
+    </button>
+          <div  onClick={((e) =>
+      this.showModal(e))
+ }className='carousel-content'>
+
+
 
    {this.props.productCardImg}<br/>
-
-
-
    {this.props.productCard [0]}
    {this.props.productCard [1]}
    {this.props.productCard [2]}
@@ -46,12 +58,38 @@ render() {
    {this.props.productCard [4]}
    {this.props.productCard [5]}
    {this.props.productCard [6]}
+          </div>
+          </carouselContent>
+        </div>
+      </carouselContentWrapper>
    </div>
-
+    </carouselWarpper>
+   </div>
+</carouselContainer>
    </div>
   );
 }
 };
-
+const carouselContainer = styled.section`
+width: 100%;
+    display: flex;
+    flex-direction: column;
+`;
+const carouselWarpper = styled.section`
+display: flex;
+    width: 100%;
+    position: relative;
+`;
+const carouselContentWrapper = styled.section`
+overflow: hidden;
+    width: 100%;
+    height: 100%;
+`;
+const carouselContent = styled.section`
+display: flex;
+transition: all 250ms linear;
+-ms-overflow-style: none;
+scrollbar-width: none;
+`;
 
 export default RelatedItemsCarousel ;

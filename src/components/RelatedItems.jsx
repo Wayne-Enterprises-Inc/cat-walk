@@ -18,7 +18,7 @@ class RelatedItems extends React.Component {
     }
 
     componentDidMount() {
-      axios.get(`${requests.pullProducts}/19089/related`)
+      axios.get(`${requests.pullProducts}/19092/related`)
         .then(relatedProducts => {
 
           this.setState({
@@ -116,6 +116,7 @@ class RelatedItems extends React.Component {
 
       <Card >
       <div >
+      <span id = 'idNumber' style={{visibility: 'hidden'}}>{productForRender.id}</span><br/>
         <span>{productForRender.category}</span><br/>
         <span>{productForRender.name}</span><br/>
         <span>${productForRender.default_price}</span><br/>
@@ -136,10 +137,8 @@ class RelatedItems extends React.Component {
      <div>
 
 
-<RelatedItemsCarousel  productCard={productDetails} productCardImg={imgDetail}
-
-
-/>
+<RelatedItemsCarousel allProducts={this.props.allProducts}  productCard={productDetails} productCardImg={imgDetail}/>
+Related Items
         </div>
 
 

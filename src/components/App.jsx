@@ -4,6 +4,7 @@ import axios from 'axios';
 import requests from '../lib/axiosPrefilter.js';
 import RelatedItems from './RelatedItems.jsx';
 import CompareModal from "./CompareModal";
+import YourOutfit from './YourOutfit'
 
 class App extends React.Component {
   constructor() {
@@ -50,7 +51,7 @@ class App extends React.Component {
       <div>Good day, Planet!</div>
 
       <div><RelatedItems allProducts={this.state.relatedProducts}/></div>
-
+      <YourOutfit allProducts={this.state.relatedProducts}/>
       </div>
     )
   }
