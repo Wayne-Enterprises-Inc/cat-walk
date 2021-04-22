@@ -5,6 +5,7 @@ import requests from '../../lib/axiosPrefilter.js';
 
 import Gallery from './Gallery.jsx'
 import StyleSelect from './StyleSelect.jsx';
+import ProductInfo from './ProductInfo.jsx';
 
 class Overview extends React.Component {
   constructor(props) {
@@ -17,12 +18,14 @@ class Overview extends React.Component {
       thumbnails: [],
       styles: [],
       stylePics: [],
-      reviewCount: 0,
+      ratingCount: 0,
+      rating: 0
     };
     //bindings go here
     this.getStyles = this.getStyles.bind(this);
     this.getPhotos = this.getPhotos.bind(this);
     this.getProductInfo = this.getProductInfo.bind(this);
+    this.getReviewInfo = this.getReviewInfo.bind(this);
 
     this.styleSelectHandle = this.styleSelectHandle.bind(this);
   }
@@ -49,6 +52,7 @@ class Overview extends React.Component {
   getProductInfo(id) {
     axios.get(requests.pullProducts + `/${id}`)
       .then(data => {
+        console.log('all info: ', data.data)
         this.setState({
           productInfo: data.data,
         }, () => console.log('Product Info: ', data.data));
@@ -91,13 +95,31 @@ class Overview extends React.Component {
         mainPics: mainPics,
         thumbnails: thumbnails,
         // stylePics: stylePics
-      }, () => { console.log('Product State: ', this.state) })
+      }/*, () => { console.log('Product State: ', this.state) }*/)
     }
+  }
+
+  getReviewInfo(id) {
+    axios.get(requests.pullReviews + `/meta/?product_id=${id}`)
+      .then(reviews => {
+        //console.log('All reviews: ', reviews.data.ratings)
+        var totalRatings = 0;
+        for (var key in reviews.data.ratings) {
+          totalRatings += Number(reviews.data.ratings[key])
+        }
+        this.setState({
+          ratingCount: totalRatings
+        }/*, () => {console.log(this.state.ratingCount)}*/)
+      })
+      .catch(err => {
+        console.error('Error getting review info: ', err)
+      })
   }
 
   componentDidMount() {
     this.getStyles(this.state.currentItemId)
     this.getProductInfo(this.state.currentItemId)
+    this.getReviewInfo(this.state.currentItemId)
   }
 
 
@@ -112,20 +134,26 @@ class Overview extends React.Component {
             selectedStyle={this.state.selectedStyle}
             styleSelectHandle={this.styleSelectHandle}
           />
-        </Images>
-        <div>
-          <StyleSelect
+        <SelectionContainer>
+          <ProductInfo
+            productInfo={this.state.productInfo}
+            totalRatings={this.state.totalRatings}
+            selectedStyle={this.state.selectedStyle}
+
             styleSelectHandle={this.styleSelectHandle}
             styles={this.state.styles}
             stylePics={this.state.stylePics}
             selectedStyle={this.state.selectedStyle}
-          />
-        </div>
+            />
+
+        </SelectionContainer>
+            </Images>
       </Container>
 
     )
   }
 }
+
 
 const Container = styled.div`
   padding-top: 20px;
@@ -133,10 +161,18 @@ const Container = styled.div`
   border-bottom: 1px solid black;
 `;
 
+const SelectionContainer = styled.div`
+ display: flex;
+ flex-direction: column;
+ flex-grow: 1;
+ order: 2;
+`
+
 const Images = styled.div`
   display: flex;
   order: 1;
-  flex-grow: 1;
+  width: 600px;
+  margin-right: 0px;
 `
 
 export default Overview;

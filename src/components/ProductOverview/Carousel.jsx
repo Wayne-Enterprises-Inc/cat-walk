@@ -6,7 +6,7 @@ const Carousel = (props) => {
 
     for (var i = 0; i < props.thumbnails.length; i++) {
       if (props.thumbnails[i][1] === Number(props.selectedStyle)) {
-        console.log('thumbnails: ', props.thumbnails[i][0])
+        //console.log('thumbnails: ', props.thumbnails[i][0])
         var currentThumbnails = props.thumbnails[i][0];
 
       }
