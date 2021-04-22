@@ -4,7 +4,7 @@ import axios from 'axios';
 import requests from '../../lib/axiosPrefilter.js';
 
 import Gallery from './Gallery.jsx'
-
+import StyleSelect from './StyleSelect.jsx';
 
 class Overview extends React.Component {
   constructor(props) {
@@ -16,6 +16,7 @@ class Overview extends React.Component {
       mainPics: [],
       thumbnails: [],
       styles: [],
+      stylePics: [],
       reviewCount: 0,
     };
     //bindings go here
@@ -30,16 +31,17 @@ class Overview extends React.Component {
 
   styleSelectHandle(event) {
     if (this.selectedStyle !== '') {
+      console.log('event: ', event)
       this.setState({
         selectedStyle: ''
       }, () => {
         this.setState({
-          selectedStyle: event.target.value
+          selectedStyle: event.target.attributes.value.nodeValue
         })
       })
     } else {
       this.setState({
-        selectedStyle: event.target.value
+        selectedStyle: event.target.attributes.value.nodeValue
       })
     }
   }
@@ -72,19 +74,23 @@ class Overview extends React.Component {
   getPhotos(styles) {
     let mainPics = [];
     let thumbnails = [];
-
+    //let stylePics = [];
+    //console.log('STYLES: ', styles)
     if (styles !== undefined) {
-
+      //console.log('STYLES: ', styles)
       for (let i = 0; i < styles.length; i++) {
-        let pics = styles[0].photos[i].url;
-        let thumbs = [styles[0].photos[i].thumbnail_url, styles[0].style_id];
+        let pics = styles[i].photos;
+        let thumbs = [styles[i].photos, styles[i].style_id];
+        //let styles = [styles[i].photos[0].thumbnail_url, styles[i].style_id];
         mainPics.push(pics);
         thumbnails.push(thumbs);
+        //stylePics.push(styles);
       }
       //console.log('THUMBNAILS',thumbnails);
       this.setState({
         mainPics: mainPics,
-        thumbnails: thumbnails
+        thumbnails: thumbnails,
+        // stylePics: stylePics
       }, () => { console.log('Product State: ', this.state) })
     }
   }
@@ -104,8 +110,17 @@ class Overview extends React.Component {
             mainPics={this.state.mainPics}
             thumbnails={this.state.thumbnails}
             selectedStyle={this.state.selectedStyle}
+            styleSelectHandle={this.styleSelectHandle}
           />
         </Images>
+        <div>
+          <StyleSelect
+            styleSelectHandle={this.styleSelectHandle}
+            styles={this.state.styles}
+            stylePics={this.state.stylePics}
+            selectedStyle={this.state.selectedStyle}
+          />
+        </div>
       </Container>
 
     )
