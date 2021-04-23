@@ -24,11 +24,12 @@ class App extends React.Component {
     this.state = {
       relatedProducts: [],
       productPics: '',
-      productTest: ''
+      productTest: '',
+      starData: 0,
     };
 
     //bind functions here
-
+    this.handleStarData = this.handleStarData.bind(this);
 
   }
   //functions/handler section
@@ -44,6 +45,12 @@ class App extends React.Component {
   //     })
   // }
 
+  handleStarData(data) {
+    this.setState({
+      starData: data
+    })
+  }
+
 
   render() {
 
@@ -52,14 +59,14 @@ class App extends React.Component {
         <LogoBar>
           <p style={{ fontWeight: 'bold' }}>Good day, Planet!</p>
         </LogoBar>
-        <Overview/>
-      
-      <div><RelatedItems allProducts={this.state.relatedProducts}/></div>
+        <Overview starData={this.state.starData}/>
+
+      <div><RelatedItems allProducts={this.state.relatedProducts} starData={this.state.starData}/></div>
       <YourOutfit allProducts={this.state.relatedProducts}/>
       <OutFitCreater allProducts={this.state.relatedProducts}/>
         <RelatedItems allProducts={this.state.relatedProducts}/>
-      
-        <RatingBreakdown />
+
+        <RatingBreakdown onRatingChange = {this.handleStarData} />
       </div>
     )
   }

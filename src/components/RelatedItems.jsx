@@ -14,7 +14,19 @@ class RelatedItems extends React.Component {
       images: [],
       images2: [],
       imagesToSend: [],
+      starData: 0,
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    let updatedData = this.props.starData
+    if (prevProps.starData !== updatedData) {
+      this.setState({
+        starData: updatedData
+      }, () => {
+        console.log('HERE IS THE STAR DATA YOU WILL NEED', this.state.starData)
+      })
+    }
   }
 
   componentDidMount() {

@@ -22,7 +22,8 @@ class Overview extends React.Component {
       styles: [],
       stylePics: [],
       ratingCount: 0,
-      rating: 0
+      rating: 0,
+      starData: 0,
     };
     //bindings go here
     this.getStyles = this.getStyles.bind(this);
@@ -34,6 +35,18 @@ class Overview extends React.Component {
     this.sizeSelectHandle = this.sizeSelectHandle.bind(this);
   }
   //hander functions go here.
+
+  componentDidUpdate(prevProps) {
+    let updatedData = this.props.starData
+    if (prevProps.starData !== updatedData) {
+      this.setState({
+        starData: updatedData
+      }, () => {
+        console.log('HERE IS THE STAR DATA YOU WILL NEED', this.state.starData)
+      })
+    }
+  }
+
 
   sizeSelectHandle(event, id){
     this.setState({
