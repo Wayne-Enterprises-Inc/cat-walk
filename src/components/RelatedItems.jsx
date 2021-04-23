@@ -24,7 +24,7 @@ class RelatedItems extends React.Component {
       this.setState({
         starData: updatedData
       }, () => {
-        console.log('HERE IS THE STAR DATA YOU WILL NEED', this.state.starData)
+        console.log('asfasHERE IS THE STAR DATA YOU WILL NEED', this.state.starData)
       })
     }
   }
