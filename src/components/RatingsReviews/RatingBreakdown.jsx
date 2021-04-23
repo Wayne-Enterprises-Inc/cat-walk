@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import ReactDOM from 'react-dom';
 import requests from '../../lib/axiosPrefilter.js';
 import styled from 'styled-components';
 
@@ -16,13 +15,16 @@ class RatingBreakdown extends React.Component {
       ratings: 0,
       averageRating: 0,
       recommended: 0,
+      recommendedPercentage: 0,
       starPercentage: 0,
+      reviewAverages: [],
     };
 
   //BINDINGS
   this.getReviews = this.getReviews.bind(this);
   this.averageReviews = this.averageReviews.bind(this);
   this.displayStars = this.displayStars.bind(this);
+  this.eachStarAverage = this.eachStarAverage.bind(this);
 
   }
 
@@ -49,9 +51,10 @@ FUNCTIONS
           recommended: this.state.reviewData.recommended,
         }/*, () => console.log(this.state.ratings, this.state.recommended)*/)
       }).then(() => {
+        this.recommendedReviews(this.state.recommended)
         this.setState({
           //After ratings state is set, it is used to calculate average rating
-          averageRating: this.averageReviews(this.state.ratings)
+          averageRating: this.averageReviews(this.state.ratings),
         });
       }).then(() => {
         //Runs function to display graph corresponding to AverageRating
@@ -60,6 +63,16 @@ FUNCTIONS
         //Catches any errors in process
         console.error('ERROR GETTING REVIEWS: ', err);
       })
+  }
+
+  recommendedReviews(recommended) {
+    let total = 0;
+    total = Number(recommended.true) + Number(recommended.false);
+    console.log('TOTAL REC', total);
+    let positiveRecommended = (Math.round((Number(recommended.true) / total) * 100) + '%')
+    this.setState({
+      recommendedPercentage: positiveRecommended
+    })
   }
 
   averageReviews(reviews) {
@@ -73,8 +86,21 @@ FUNCTIONS
       number = number + (key * value);
     })
     //Numeric rating sum divided by total number of reviews give average review, which is rounded to one decimal point
+    this.eachStarAverage(reviewsArray, total);
     average = Number((number / total).toFixed(1));
     return average;
+  }
+
+  eachStarAverage(array, total) {
+    console.log('ARRAY', array)
+    console.log('TOTAL', total)
+    let averagesArray = {};
+    array.forEach(([key, value]) => {
+      averagesArray[key] = [value, (((value / total)*100).toFixed(2) + '%')];
+    })
+    this.setState({
+      reviewAverages: averagesArray
+    })
   }
 
 
@@ -103,31 +129,37 @@ MAIN RENDER
 */
 
   render() {
-    const { stars, rating, hovered, deselectedIcon, selectedIcon } = this.state;
+    const {reviewAverages, recommendedPercentage} = this.state
     return (
     <Container>
-      <h4>Ratings & Reviews</h4>
+      <MainHeading>RATINGS & REVIEWS</MainHeading>
       <LeftWrapper>
         <Wrapper>
-          <h2>{this.state.averageRating}</h2>
+          <AverageStar>{this.state.averageRating}</AverageStar>
           <Ratings>
             <StarsOuter>
               <StarsInner starsPercent={this.state.starPercentage}></StarsInner>
             </StarsOuter>
           </Ratings>
         </Wrapper>
-        <div>
-          <Label>5 stars</Label>
-            <ProgressBar><Bar width='65%'/></ProgressBar>
-          <Label>4 stars</Label>
-            <ProgressBar><Bar width='40%'/></ProgressBar>
-          <Label>3 stars</Label>
-            <ProgressBar><Bar width='100%'/></ProgressBar>
-          <Label>2 stars</Label>
-            <ProgressBar><Bar width='50%'/></ProgressBar>
-          <Label>1 stars</Label>
-            <ProgressBar><Bar width='25%'/></ProgressBar>
-        </div>
+        <Graph>
+          <NumberLabel>{reviewAverages[5] ? reviewAverages[5][0] : null}</NumberLabel>
+          <StarLabel>5 stars</StarLabel>
+          <ProgressBar><Bar width={reviewAverages[5] ? reviewAverages[5][1] : null}/></ProgressBar>
+            <NumberLabel>{reviewAverages[4] ? reviewAverages[4][0] : null}</NumberLabel>
+            <StarLabel>4 stars</StarLabel>
+            <ProgressBar><Bar width={reviewAverages[4] ? reviewAverages[4][1] : null}/></ProgressBar>
+          <NumberLabel>{reviewAverages[3] ? reviewAverages[3][0] : null}</NumberLabel>
+          <StarLabel>3 stars</StarLabel>
+          <ProgressBar><Bar width={reviewAverages[3] ? reviewAverages[3][1] : null}/></ProgressBar>
+            <NumberLabel>{reviewAverages[2] ? reviewAverages[2][0] : null}</NumberLabel>
+            <StarLabel>2 stars</StarLabel>
+            <ProgressBar><Bar width={reviewAverages[2] ? reviewAverages[2][1] : null}/></ProgressBar>
+          <NumberLabel>{reviewAverages[1] ? reviewAverages[1][0] : null}</NumberLabel>
+          <StarLabel>1 stars</StarLabel>
+          <ProgressBar><Bar width={reviewAverages[1] ? reviewAverages[1][1] : null}/></ProgressBar>
+        </Graph>
+        <Recommended>{recommendedPercentage} of reviews recommended this product</Recommended>
       </LeftWrapper>
     </Container>
     );
@@ -149,22 +181,31 @@ const Container = styled.div`
   padding-top: 20px;
   padding-bottom: 20px;
   border-top: 1px solid black;
+  margin-left: 10%;
 `;
 
+const MainHeading = styled.div`
+  font-size: 20px;
+`;
 
 const LeftWrapper = styled.div`
-  width: 20%;
+  width: 30%;
 `;
 
 
 const Wrapper = styled.div`
   display: flex;
-  align-items: center;
+  margin-bottom: 30px;
 `;
 
+const AverageStar = styled.div`
+  font-size: 72px;
+`;
 
 const Ratings = styled.div`
   padding-left: 20px;
+  padding-top: 10px;
+  margin-top: 5px;
 `;
 
 
@@ -198,18 +239,32 @@ const StarsInner = styled.div`
   }
 `;
 
-const Label = styled.div`
-  float: left;
-  font-size:20px;
+const Graph = styled.div`
+  margin-bottom: 25px;
 `;
 
+const StarLabel = styled.div`
+  float: left;
+  font-size:16px;
+  text-decoration: underline;
+  display:block;
+  margin-right: 5px;
+`;
+
+const NumberLabel = styled.div`
+  display: inline-block;
+  font-size: 16px;
+  margin-left: 5px;
+  float: right;
+`;
 const ProgressBar = styled.div`
-  padding:0;
-  width:90%;
-  height:10px;
+  margin: 0px 0px 15px 0px;
+  width:80%;
+  height:18px;
   overflow:hidden;
-  background:#e5e5e5;
-  border-radius:6px;
+  background: #d3d3d3;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
 `;
 
 const Bar = styled.div`
@@ -217,10 +272,14 @@ const Bar = styled.div`
   float:left;
   min-width:1%;
   height:100%;
-  background:	#585858;
+  background-color:#64dd17;
   width: ${props => props.width};
 `;
 
+const Recommended = styled.div`
+  font-size: 16px;
+  width: 100%;
+`;
 
 
 

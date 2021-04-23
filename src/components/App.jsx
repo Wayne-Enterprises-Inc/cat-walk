@@ -3,6 +3,7 @@ import ReactDom from 'react-dom';
 import axios from 'axios';
 import requests from '../lib/axiosPrefilter.js';
 import RatingBreakdown from  './RatingsReviews/RatingBreakdown.jsx';
+import RelatedItems from './relatedItems.jsx';
 
 import Overview from './ProductOverview/Overview.jsx';
 
@@ -42,7 +43,7 @@ class App extends React.Component {
         </LogoBar>
 
         <Overview/>
-        <div>Good day, Planet!</div>
+        <RelatedItems allProducts={this.state.relatedProducts}/>
         <RatingBreakdown />
       </div>
     )
