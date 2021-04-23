@@ -18,6 +18,7 @@ const StyleSelect = (props) => {
           return (
             < div key={index}>
               < Select
+                key={style.style_id}
                 style={styleOptions}
                 value={style.style_id}
                 onClick={props.styleSelectHandle}
