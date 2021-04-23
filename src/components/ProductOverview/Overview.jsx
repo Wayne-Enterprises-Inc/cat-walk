@@ -12,7 +12,7 @@ class Overview extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentItemId: 19089,
+      currentItemId: 19091,
       selectedStyle: 103466,
       selectedSize: '',
       sizeId: '',
@@ -166,6 +166,7 @@ class Overview extends React.Component {
               productInfo={this.state.productInfo}
               totalRatings={this.state.totalRatings}
               selectedStyle={this.state.selectedStyle}
+              starData={this.state.starData}
 
               styleSelectHandle={this.styleSelectHandle}
               styles={this.state.styles}

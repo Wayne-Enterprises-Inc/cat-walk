@@ -13,7 +13,11 @@ const ProductInfo = (props) => {
           width: "300px",
           padding: "10px"
           }}>
-            <div>*stars go here*</div>
+            <Ratings>
+            <StarsOuter>
+              <StarsInner starsPercent={props.starData}></StarsInner>
+            </StarsOuter>
+          </Ratings>
           <div>
             Read all reviews
         </div>
@@ -70,6 +74,41 @@ const StyledStyleSelector = styled.div`
 const OriginalPrice = styled.p`
   text-decoration: line-through;
 `
+const Ratings = styled.div`
+  padding-left: 20px;
+  padding-top: 10px;
+  margin-top: 5px;
+`;
 
+
+const StarsOuter = styled.div`
+  & {
+    position: relative;
+    display: inline-block;
+  }
+  &:before {
+    content: '\f005 \f005 \f005 \f005 \f005';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: #ccc;
+  }
+`;
+
+const StarsInner = styled.div`
+  & {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: ${props => props.starsPercent}
+  }
+  &:before {
+    content: '\f005 \f005 \f005 \f005 \f005';
+    font-family:"Font Awesome 5 Free";
+    font-weight:900;
+    color: #f8ce0b;
+  }
+`;
 
 export default ProductInfo;
