@@ -6,13 +6,16 @@ import requests from '../../lib/axiosPrefilter.js';
 import Gallery from './Gallery.jsx'
 import StyleSelect from './StyleSelect.jsx';
 import ProductInfo from './ProductInfo.jsx';
+import Cart from './Cart.jsx';
 
 class Overview extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentItemId: 19091,
+      currentItemId: 19089,
       selectedStyle: 103466,
+      selectedSize: '',
+      sizeId: '',
       productInfo: {},
       mainPics: [],
       thumbnails: [],
@@ -28,9 +31,16 @@ class Overview extends React.Component {
     this.getReviewInfo = this.getReviewInfo.bind(this);
 
     this.styleSelectHandle = this.styleSelectHandle.bind(this);
+    this.sizeSelectHandle = this.sizeSelectHandle.bind(this);
   }
   //hander functions go here.
 
+  sizeSelectHandle(event, id){
+    this.setState({
+      selectedSize: event.target.value,
+      sizeId: id
+    })
+  }
 
   styleSelectHandle(event) {
     if (this.selectedStyle !== '') {
@@ -70,7 +80,7 @@ class Overview extends React.Component {
           styles: styles.data.results,
           selectedStyle: styles.data.results[0].style_id
         }, () => {
-          //console.log('All Styles', styles)
+          console.log('All Styles', styles)
           this.getPhotos(this.state.styles)
         })
       })
@@ -149,12 +159,17 @@ class Overview extends React.Component {
               stylePics={this.state.stylePics}
               selectedStyle={this.state.selectedStyle}
             />
-
+            <Cart
+              styles={this.state.styles}
+              selected={this.state.selectedStyle}
+              selectedSize={this.state.selectedSize}
+              sizeSelectHandle={this.sizeSelectHandle}
+            />
           </SelectionContainer>
         </Images>
         <DescStyle>
           <div><em><b>{this.state.productInfo.slogan}</b></em></div>
-          <br/>
+          <br />
           <div>{this.state.productInfo.description}</div>
 
         </DescStyle>

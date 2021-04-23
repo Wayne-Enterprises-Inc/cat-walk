@@ -26,17 +26,18 @@ const Carousel = (props) => {
       <div>
 
         {currentThumbnails.map((pic, index) => {
-
-          return (
-            <div key={index}>
-              <Thumbnail
-                key={index}
-                style={{ backgroundImage: `url(${pic.thumbnail_url})` }}
-                onClick={props.updateImgIndex}
-                value={index}
-              />
-            </div>
-          )
+          if (index <= 5) {
+            return (
+              <div key={index}>
+                <Thumbnail
+                  key={index}
+                  style={{ backgroundImage: `url(${pic.thumbnail_url})` }}
+                  onClick={props.updateImgIndex}
+                  value={index}
+                />
+              </div>
+            )
+          }
         })}
 
       </div>
