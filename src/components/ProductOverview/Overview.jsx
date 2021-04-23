@@ -134,20 +134,26 @@ class Overview extends React.Component {
             selectedStyle={this.state.selectedStyle}
             styleSelectHandle={this.styleSelectHandle}
           />
-        <SelectionContainer>
-          <ProductInfo
-            productInfo={this.state.productInfo}
-            totalRatings={this.state.totalRatings}
-            selectedStyle={this.state.selectedStyle}
+          <SelectionContainer>
+            <ProductInfo
+              productInfo={this.state.productInfo}
+              totalRatings={this.state.totalRatings}
+              selectedStyle={this.state.selectedStyle}
 
-            styleSelectHandle={this.styleSelectHandle}
-            styles={this.state.styles}
-            stylePics={this.state.stylePics}
-            selectedStyle={this.state.selectedStyle}
+              styleSelectHandle={this.styleSelectHandle}
+              styles={this.state.styles}
+              stylePics={this.state.stylePics}
+              selectedStyle={this.state.selectedStyle}
             />
 
-        </SelectionContainer>
-            </Images>
+          </SelectionContainer>
+        </Images>
+        <DescStyle>
+          <div><em><b>{this.state.productInfo.slogan}</b></em></div>
+          <br/>
+          <div>{this.state.productInfo.description}</div>
+
+        </DescStyle>
       </Container>
 
     )
@@ -173,6 +179,11 @@ const Images = styled.div`
   order: 1;
   width: 600px;
   margin-right: 0px;
+`
+
+const DescStyle = styled.div`
+  display: relative;
+  padding: 15px;
 `
 
 export default Overview;
