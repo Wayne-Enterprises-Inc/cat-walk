@@ -5,6 +5,8 @@ import requests from '../../lib/axiosPrefilter.js';
 
 import Gallery from './Gallery.jsx'
 import StyleSelect from './StyleSelect.jsx';
+import ProductInfo from './ProductInfo.jsx';
+import Cart from './Cart.jsx';
 
 class Overview extends React.Component {
   constructor(props) {
@@ -12,26 +14,37 @@ class Overview extends React.Component {
     this.state = {
       currentItemId: 19089,
       selectedStyle: 103466,
+      selectedSize: '',
+      sizeId: '',
       productInfo: {},
       mainPics: [],
       thumbnails: [],
       styles: [],
       stylePics: [],
-      reviewCount: 0,
+      ratingCount: 0,
+      rating: 0
     };
     //bindings go here
     this.getStyles = this.getStyles.bind(this);
     this.getPhotos = this.getPhotos.bind(this);
     this.getProductInfo = this.getProductInfo.bind(this);
+    this.getReviewInfo = this.getReviewInfo.bind(this);
 
     this.styleSelectHandle = this.styleSelectHandle.bind(this);
+    this.sizeSelectHandle = this.sizeSelectHandle.bind(this);
   }
   //hander functions go here.
 
+  sizeSelectHandle(event, id){
+    this.setState({
+      selectedSize: event.target.value,
+      sizeId: id
+    })
+  }
 
   styleSelectHandle(event) {
     if (this.selectedStyle !== '') {
-      console.log('event: ', event)
+      //console.log('event: ', event)
       this.setState({
         selectedStyle: ''
       }, () => {
@@ -49,9 +62,10 @@ class Overview extends React.Component {
   getProductInfo(id) {
     axios.get(requests.pullProducts + `/${id}`)
       .then(data => {
+        //console.log('all info: ', data.data)
         this.setState({
           productInfo: data.data,
-        }, () => console.log('Product Info: ', data.data));
+        });
       })
       .catch((err) => {
         console.error('Error getting product info', err);
@@ -63,8 +77,12 @@ class Overview extends React.Component {
     axios.get(requests.pullProducts + `/${id}/styles`)
       .then(styles => {
         this.setState({
-          styles: styles.data.results
-        }, () => { this.getPhotos(this.state.styles) })
+          styles: styles.data.results,
+          selectedStyle: styles.data.results[0].style_id
+        }, () => {
+          console.log('All Styles', styles)
+          this.getPhotos(this.state.styles)
+        })
       })
       .catch(err => {
         console.error('Overview get error: ', err);
@@ -91,13 +109,31 @@ class Overview extends React.Component {
         mainPics: mainPics,
         thumbnails: thumbnails,
         // stylePics: stylePics
-      }, () => { console.log('Product State: ', this.state) })
+      }/*, () => { console.log('Product State: ', this.state) }*/)
     }
+  }
+
+  getReviewInfo(id) {
+    axios.get(requests.pullReviews + `/meta/?product_id=${id}`)
+      .then(reviews => {
+        //console.log('All reviews: ', reviews.data.ratings)
+        var totalRatings = 0;
+        for (var key in reviews.data.ratings) {
+          totalRatings += Number(reviews.data.ratings[key])
+        }
+        this.setState({
+          ratingCount: totalRatings
+        }/*, () => {console.log(this.state.ratingCount)}*/)
+      })
+      .catch(err => {
+        console.error('Error getting review info: ', err)
+      })
   }
 
   componentDidMount() {
     this.getStyles(this.state.currentItemId)
     this.getProductInfo(this.state.currentItemId)
+    this.getReviewInfo(this.state.currentItemId)
   }
 
 
@@ -112,20 +148,37 @@ class Overview extends React.Component {
             selectedStyle={this.state.selectedStyle}
             styleSelectHandle={this.styleSelectHandle}
           />
+          <SelectionContainer>
+            <ProductInfo
+              productInfo={this.state.productInfo}
+              totalRatings={this.state.totalRatings}
+              selectedStyle={this.state.selectedStyle}
+
+              styleSelectHandle={this.styleSelectHandle}
+              styles={this.state.styles}
+              stylePics={this.state.stylePics}
+              selectedStyle={this.state.selectedStyle}
+            />
+            <Cart
+              styles={this.state.styles}
+              selected={this.state.selectedStyle}
+              selectedSize={this.state.selectedSize}
+              sizeSelectHandle={this.sizeSelectHandle}
+            />
+          </SelectionContainer>
         </Images>
-        <div>
-          <StyleSelect
-            styleSelectHandle={this.styleSelectHandle}
-            styles={this.state.styles}
-            stylePics={this.state.stylePics}
-            selectedStyle={this.state.selectedStyle}
-          />
-        </div>
+        <DescStyle>
+          <div><em><b>{this.state.productInfo.slogan}</b></em></div>
+          <br />
+          <div>{this.state.productInfo.description}</div>
+
+        </DescStyle>
       </Container>
 
     )
   }
 }
+
 
 const Container = styled.div`
   padding-top: 20px;
@@ -133,10 +186,23 @@ const Container = styled.div`
   border-bottom: 1px solid black;
 `;
 
+const SelectionContainer = styled.div`
+ display: flex;
+ flex-direction: column;
+ flex-grow: 1;
+ order: 2;
+`
+
 const Images = styled.div`
   display: flex;
   order: 1;
-  flex-grow: 1;
+  width: 600px;
+  margin-right: 0px;
+`
+
+const DescStyle = styled.div`
+  display: relative;
+  padding: 15px;
 `
 
 export default Overview;
