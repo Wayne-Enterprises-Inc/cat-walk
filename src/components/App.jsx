@@ -50,15 +50,15 @@ class App extends React.Component {
     return (
       <div>
         <LogoBar>
-          <p style={{ fontWeight: 'bold' }}>Good day, Planet!</p>
+          <p style={{ fontWeight: 'bold' }}>Clothing Inc.</p>
         </LogoBar>
         <Overview/>
-      
+
       <div><RelatedItems allProducts={this.state.relatedProducts}/></div>
       <YourOutfit allProducts={this.state.relatedProducts}/>
       <OutFitCreater allProducts={this.state.relatedProducts}/>
         <RelatedItems allProducts={this.state.relatedProducts}/>
-      
+
         <RatingBreakdown />
       </div>
     )

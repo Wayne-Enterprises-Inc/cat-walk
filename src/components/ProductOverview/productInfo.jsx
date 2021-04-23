@@ -13,6 +13,7 @@ const ProductInfo = (props) => {
           width: "300px",
           padding: "10px"
           }}>
+            <div>*stars go here*</div>
           <div>
             Read all reviews
         </div>
