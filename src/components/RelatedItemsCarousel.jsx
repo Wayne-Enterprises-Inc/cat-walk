@@ -1,95 +1,61 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 import CompareModal from "./CompareModal";
 class RelatedItemsCarousel extends React.Component {
   constructor(props) {
-    super (props);
+    super(props);
     this.state = {
       show: false,
-      nameCompare: ''
-
-    }
-    this.showModal = this.showModal.bind(this)
+      nameCompare: "",
+    };
+    this.showModal = this.showModal.bind(this);
   }
 
-showModal(e) {
-
-
-  this.setState({
-    nameCompare: e.target.innerHTML,
-    show: !this.state.show
-  });
-}
-render() {
-
-
-  return (
-    <div>
-
-Related Items
- <CompareModal nameForCompare = {this.state.nameCompare} allProducts={this.props.allProducts} onClose={this.showModal} show={this.state.show}/>
-<carouselContainer>
-
-    <div className="carousel-container">
-      <carouselWarpper>
-
-      <div className='carousel-wrapper'>
-      <button className="left-arrow">
-        &lt;
-    </button>
-        <carouselContentWrapper>
-
-        <div className='carousel-content-wrapper'>
-          <carouselContent>
-          <button className="right-arrow">
-        &gt;
-    </button>
-          <div  onClick={((e) =>
-      this.showModal(e))
- }className='carousel-content'>
-
-
-
-   {this.props.productCardImg}<br/>
-   {this.props.productCard [0]}
-   {this.props.productCard [1]}
-   {this.props.productCard [2]}
-   {this.props.productCard [3]}
-   {this.props.productCard [4]}
-   {this.props.productCard [5]}
-   {this.props.productCard [6]}
-          </div>
-          </carouselContent>
+  showModal(e) {
+    this.setState({
+      nameCompare: e.target.innerHTML,
+      show: !this.state.show,
+    });
+  }
+  render() {
+    return (
+      <div>
+        <h4>Related Items</h4>
+        <CompareModal
+          nameForCompare={this.state.nameCompare}
+          allProducts={this.props.allProducts}
+          onClose={this.showModal}
+          show={this.state.show}
+        />
+        <div onClick={(e) => this.showModal(e)}>
+          {this.props.productCardImg.map((el, index) => {
+            return (
+              <Wrapper key={index}>
+                <Card>
+                <img style={{width: "200px", height: '200px' }}  src={el.thumbnail_url}  alt='Clothes Picture' />
+                </Card>
+              </Wrapper>
+            );
+          })}
+          <br />
+          {this.props.productCard.map((single, index) => {
+            return <Wrapper key={index}>{single}</Wrapper>;
+          })}
         </div>
-      </carouselContentWrapper>
-   </div>
-    </carouselWarpper>
-   </div>
-</carouselContainer>
-   </div>
-  );
+      </div>
+    );
+  }
 }
-};
-const carouselContainer = styled.section`
-width: 100%;
-    display: flex;
-    flex-direction: column;
+const Card = styled.section`
+  text-align: left;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  width: 200px;
+  padding: 2px 16px;
 `;
-const carouselWarpper = styled.section`
-display: flex;
-    width: 100%;
-    position: relative;
-`;
-const carouselContentWrapper = styled.section`
-overflow: hidden;
-    width: 100%;
-    height: 100%;
-`;
-const carouselContent = styled.section`
-display: flex;
-transition: all 250ms linear;
--ms-overflow-style: none;
-scrollbar-width: none;
+const Wrapper = styled.section`
+  display: inline-block;
+  margin-right: 10px;
 `;
 
-export default RelatedItemsCarousel ;
+export default RelatedItemsCarousel;

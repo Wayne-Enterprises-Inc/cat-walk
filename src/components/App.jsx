@@ -5,6 +5,7 @@ import requests from '../lib/axiosPrefilter.js';
 import RelatedItems from './RelatedItems.jsx';
 import CompareModal from "./CompareModal";
 import YourOutfit from './YourOutfit'
+import OutFitCreater from './OutFitCreater'
 
 class App extends React.Component {
   constructor() {
@@ -52,6 +53,7 @@ class App extends React.Component {
 
       <div><RelatedItems allProducts={this.state.relatedProducts}/></div>
       <YourOutfit allProducts={this.state.relatedProducts}/>
+      <OutFitCreater allProducts={this.state.relatedProducts}/>
       </div>
     )
   }
