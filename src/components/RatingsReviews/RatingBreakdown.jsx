@@ -25,6 +25,7 @@ class RatingBreakdown extends React.Component {
   this.averageReviews = this.averageReviews.bind(this);
   this.displayStars = this.displayStars.bind(this);
   this.eachStarAverage = this.eachStarAverage.bind(this);
+  this.handleRatingChange = this.handleRatingChange.bind(this);
 
   }
 
@@ -64,6 +65,12 @@ FUNCTIONS
         console.error('ERROR GETTING REVIEWS: ', err);
       })
   }
+
+  handleRatingChange () {
+    var starData = this.state.starPercentage
+    this.props.onRatingChange(starData);
+  }
+
 
   recommendedReviews(recommended) {
     let total = 0;
@@ -117,6 +124,7 @@ FUNCTIONS
     this.setState({
       starPercentage: starPercentageRounded,
     })
+    this.handleRatingChange();
     //console.log(this.state.starPercentage)
   }
 
@@ -252,12 +260,14 @@ const StarLabel = styled.div`
 `;
 
 const NumberLabel = styled.div`
+  position: relative;
   display: inline-block;
   font-size: 16px;
   margin-left: 5px;
   float: right;
 `;
 const ProgressBar = styled.div`
+  position: relative;
   margin: 0px 0px 15px 0px;
   width:80%;
   height:18px;
@@ -265,6 +275,7 @@ const ProgressBar = styled.div`
   background: #d3d3d3;
   border-radius: 2px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+  min-height: 1%;
 `;
 
 const Bar = styled.div`
