@@ -6,21 +6,27 @@ import StyleSelect from './StyleSelect.jsx';
 const ProductInfo = (props) => {
   //console.log('productInfo: ',props.productInfo)
 
+  const reviewSroll = (e) => {
+    e.preventDefault()
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }
+
+
   if (props.selectedStyle) {
     return (
       <StyledInfo>
         <div style={{
           width: "300px",
           padding: "10px"
-          }}>
-            <Ratings>
+        }}>
+          <Ratings>
             <StarsOuter>
               <StarsInner starsPercent={props.starData}></StarsInner>
             </StarsOuter>
           </Ratings>
-          <div>
+          <ReviewStyle onClick={reviewSroll}>
             Read all reviews
-        </div>
+        </ReviewStyle>
           <h5>{props.productInfo.category}:</h5>
           <h2>{props.productInfo.name}</h2>
           <h3>{props.styles.map((style) => {
@@ -93,6 +99,11 @@ const StarsOuter = styled.div`
     color: #ccc;
   }
 `;
+
+const ReviewStyle = styled.div`
+  cursor: pointer;
+  left: 30px;
+`
 
 const StarsInner = styled.div`
   & {
