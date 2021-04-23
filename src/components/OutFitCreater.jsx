@@ -69,7 +69,7 @@ class OutFitCreater extends React.Component {
     return (
       <div>
         <h4 onClick={(e) => this.renderYourOutift(this.state.renderId)}>
-          Your Outfit
+          Click to Show
         </h4>
         <div>
         {this.state.toggle ? outfitImg : ""}
