@@ -18,6 +18,7 @@ class RelatedItemsCarousel extends React.Component {
     });
   }
   render() {
+
     return (
       <div>
         <h4>Related Items</h4>
@@ -39,9 +40,17 @@ class RelatedItemsCarousel extends React.Component {
           })}
           <br />
           {this.props.productCard.map((single, index) => {
-            return <Wrapper key={index}>{single}</Wrapper>;
+            return (
+
+            <Wrapper key={index}>{single}</Wrapper>
+
+
+            )
           })}
+
+
         </div>
+
       </div>
     );
   }
@@ -57,5 +66,8 @@ const Wrapper = styled.section`
   display: inline-block;
   margin-right: 10px;
 `;
+
+
+
 
 export default RelatedItemsCarousel;
