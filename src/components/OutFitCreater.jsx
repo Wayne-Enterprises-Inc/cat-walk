@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import requests from "../lib/axiosPrefilter.js";
+
 import axios from "axios";
 class OutFitCreater extends React.Component {
   constructor(props) {
@@ -44,6 +45,7 @@ class OutFitCreater extends React.Component {
 
 
     var outfitImg = (
+
       <Wrapper>
         <Card>
           <img  src ={this.state.imageUrl}  alt='Clothes Picture' width="283"/>
@@ -55,6 +57,7 @@ class OutFitCreater extends React.Component {
           <br />
         </Card>
       </Wrapper>
+
     );
 
 

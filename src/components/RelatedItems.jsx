@@ -19,7 +19,7 @@ class RelatedItems extends React.Component {
 
   componentDidMount() {
     axios
-      .get(`${requests.pullProducts}/19089/related`)
+      .get(`${requests.pullProducts}/19090/related`)
       .then((relatedProducts) => {
         this.setState(
           {
@@ -84,8 +84,8 @@ class RelatedItems extends React.Component {
   render() {
     var productDetails = this.state.allRelated.map(
       (productForRender, index) => (
-        <Card key={index}>
-          <div>
+
+          <div key={index}>
             <span id="idNumber" style={{ visibility: "hidden" }}>
               {productForRender.id}
             </span>
@@ -98,7 +98,7 @@ class RelatedItems extends React.Component {
             <br />
             <span></span>
           </div>
-        </Card>
+
       )
     );
 

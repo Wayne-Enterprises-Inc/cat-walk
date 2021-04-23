@@ -21,7 +21,7 @@ class YourOutfit extends React.Component {
 
   });
   // this.props.create
-  console.log(this.state)
+
 }
   // renderYourOutift(id) {
   //   axios.get(requests.pullProducts)
@@ -51,7 +51,7 @@ class YourOutfit extends React.Component {
 
   render() {
 
- console.log(this.state)
+
 
     return (
       <div>

@@ -52,8 +52,11 @@ class App extends React.Component {
       <div>Good day, Planet!</div>
 
       <div><RelatedItems allProducts={this.state.relatedProducts}/></div>
+      <div>
+
       <YourOutfit allProducts={this.state.relatedProducts}/>
-      <OutFitCreater allProducts={this.state.relatedProducts}/>
+      {/* <OutFitCreater allProducts={this.state.relatedProducts}/> */}
+      </div>
       </div>
     )
   }
