@@ -11,7 +11,7 @@ class Overview extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentItemId: 19089,
+      currentItemId: 19091,
       selectedStyle: 103466,
       productInfo: {},
       mainPics: [],
@@ -34,7 +34,7 @@ class Overview extends React.Component {
 
   styleSelectHandle(event) {
     if (this.selectedStyle !== '') {
-      console.log('event: ', event)
+      //console.log('event: ', event)
       this.setState({
         selectedStyle: ''
       }, () => {
@@ -52,10 +52,10 @@ class Overview extends React.Component {
   getProductInfo(id) {
     axios.get(requests.pullProducts + `/${id}`)
       .then(data => {
-        console.log('all info: ', data.data)
+        //console.log('all info: ', data.data)
         this.setState({
           productInfo: data.data,
-        }, () => console.log('Product Info: ', data.data));
+        });
       })
       .catch((err) => {
         console.error('Error getting product info', err);
@@ -67,8 +67,12 @@ class Overview extends React.Component {
     axios.get(requests.pullProducts + `/${id}/styles`)
       .then(styles => {
         this.setState({
-          styles: styles.data.results
-        }, () => { this.getPhotos(this.state.styles) })
+          styles: styles.data.results,
+          selectedStyle: styles.data.results[0].style_id
+        }, () => {
+          //console.log('All Styles', styles)
+          this.getPhotos(this.state.styles)
+        })
       })
       .catch(err => {
         console.error('Overview get error: ', err);

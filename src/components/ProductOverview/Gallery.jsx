@@ -30,7 +30,7 @@ class Gallery extends React.Component {
 
   updateImgIndex(event) {
     event.preventDefault();
-    //console.log('Carousel Click: ', event.target.attributes.value.nodeValue)
+    console.log('Carousel Click: ', event.target.attributes.value.nodeValue)
     var index = Number(event.target.attributes.value.nodeValue)
     this.setState({
       currentImgIndex: index
