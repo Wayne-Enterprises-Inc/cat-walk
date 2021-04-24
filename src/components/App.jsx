@@ -59,6 +59,20 @@ class App extends React.Component {
         <LogoBar>
           <p style={{ fontWeight: 'bold' }}>Clothing Inc.</p>
         </LogoBar>
+
+        <Overview/>
+
+      <div><RelatedItems allProducts={this.state.relatedProducts}/></div>
+      <div>
+
+      <YourOutfit allProducts={this.state.relatedProducts}/>
+      {/* <OutFitCreater allProducts={this.state.relatedProducts}/> */}
+      </div>
+      <OutFitCreater allProducts={this.state.relatedProducts}/>
+        <RelatedItems allProducts={this.state.relatedProducts}/>
+
+        <RatingBreakdown />
+
         <Overview starData={this.state.starData}/>
 
       <div><RelatedItems allProducts={this.state.relatedProducts} starData={this.state.starData}/></div>
@@ -67,6 +81,7 @@ class App extends React.Component {
 
 
         <RatingBreakdown onRatingChange = {this.handleStarData} />
+
       </div>
     )
   }

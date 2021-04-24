@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import CompareModal from "./CompareModal";
+import Carousel from "./Carousel"
 class RelatedItemsCarousel extends React.Component {
   constructor(props) {
     super(props);
@@ -19,6 +20,10 @@ class RelatedItemsCarousel extends React.Component {
   }
   render() {
 
+// <<<<<<< compareModal
+
+// =======
+// >>>>>>> master
     return (
       <div>
         <h4>Related Items</h4>
@@ -28,6 +33,13 @@ class RelatedItemsCarousel extends React.Component {
           onClose={this.showModal}
           show={this.state.show}
         />
+
+        {/* click modal replace */}
+        <div >
+        <div style={{ marginLeft: '25%'}}>
+        <Carousel show={this.state.show} onClick={(e) => this.showModal(e)} slides={this.props.productCardImg} cards={this.props.productCard}/>
+        </div>
+
         <div onClick={(e) => this.showModal(e)}>
           {this.props.productCardImg.map((el, index) => {
             return (
@@ -47,6 +59,7 @@ class RelatedItemsCarousel extends React.Component {
 
             )
           })}
+
 
 
         </div>

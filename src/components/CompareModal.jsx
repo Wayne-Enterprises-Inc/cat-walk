@@ -3,12 +3,12 @@ import styled from "styled-components";
 class CompareModal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
-    this.onClose = this.onClose.bind(this);
+    this.state = {
+
+    };
+
   }
-  onClose(e) {
-    this.props.show = false;
-  }
+
 
   renderTableData() {
     var check = <i style={{ textAlign: "left" }} className="fas fa-check"></i>;

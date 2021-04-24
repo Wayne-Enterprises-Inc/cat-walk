@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import requests from "../lib/axiosPrefilter.js";
+
 import axios from "axios";
 class OutFitCreater extends React.Component {
   constructor(props) {
@@ -59,6 +60,7 @@ class OutFitCreater extends React.Component {
 console.log(this.props)
 
     var outfitImg = (
+
       <Wrapper>
         <Card>
           <img  src ={this.state.imageUrl}  alt='Clothes Picture' width="283"/>
@@ -79,6 +81,7 @@ console.log(this.props)
           <br />
         </Card>
       </Wrapper>
+
     );
 
 
@@ -90,7 +93,7 @@ console.log(this.props)
     return (
       <div>
         <h4 onClick={(e) => this.renderYourOutift(this.state.renderId)}>
-          Your Outfit
+          Click to Show
         </h4>
         <div>
         {this.state.toggle ? outfitImg : ""}
