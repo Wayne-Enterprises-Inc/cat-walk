@@ -62,9 +62,9 @@ class App extends React.Component {
         <Overview starData={this.state.starData}/>
 
       <div><RelatedItems allProducts={this.state.relatedProducts} starData={this.state.starData}/></div>
-      <YourOutfit allProducts={this.state.relatedProducts}/>
-      <OutFitCreater allProducts={this.state.relatedProducts}/>
-        <RelatedItems allProducts={this.state.relatedProducts}/>
+      <YourOutfit allProducts={this.state.relatedProducts} starData={this.state.starData}/>
+      {/* <OutFitCreater allProducts={this.state.relatedProducts}/> */}
+
 
         <RatingBreakdown onRatingChange = {this.handleStarData} />
       </div>
