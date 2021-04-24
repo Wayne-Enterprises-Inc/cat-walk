@@ -16,21 +16,20 @@ class YourOutfit extends React.Component {
 
   this.setState({
 
-  outfit: this.state.outfit.concat(<OutFitCreater/>)
-
-
-  });
-
+  // outfit: this.state.outfit.concat(<OutFitCreater/>)
 
   outfit: this.state.outfit.concat(<OutFitCreater stars={this.props.starData}/>)
-    // or {AnimatedDiv} or {new AnimatedDiv}, depends on how AnimatedDiv is written
-    // I don't know, I haven't been using React as much lately, give me some slack
-
   });
+
+
+  // outfit: this.state.outfit.concat(<OutFitCreater stars={this.props.starData}/>)
+
+
+  };
   // this.props.create
 
 
-}
+//}
 
 
   render() {

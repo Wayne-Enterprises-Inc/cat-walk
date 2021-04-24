@@ -15,23 +15,17 @@ class RelatedItems extends React.Component {
       images2: [],
       imagesToSend: [],
       starData: 0,
+      currentItemId: 19089
     };
   }
 
-  componentDidUpdate(prevProps) {
-    let updatedData = this.props.starData
-    if (prevProps.starData !== updatedData) {
-      this.setState({
-        starData: updatedData
-      }, () => {
-        console.log('asfasHERE IS THE STAR DATA YOU WILL NEED', this.state.starData)
-      })
-    }
-  }
+
 
   componentDidMount() {
+
+
     axios
-      .get(`${requests.pullProducts}/19090/related`)
+      .get(`${requests.pullProducts}/${this.state.currentItemId}/related`)
       .then((relatedProducts) => {
         this.setState(
           {
@@ -70,7 +64,7 @@ class RelatedItems extends React.Component {
                           this.state.images2.map((ek) => {
 
                             if (el.id === Number(ek.product_id)) {
-                              iOutput.push(ek.results[1].photos[0]);
+                              iOutput.push([ek.results[1].photos[0], ek.product_id]);
                               this.setState({
                                 imagesToSend: iOutput,
                               });
@@ -93,39 +87,125 @@ class RelatedItems extends React.Component {
       });
   }
 
+  componentDidUpdate(prevProps) {
+    let updatedData = this.props.starData
+    if (prevProps.starData !== updatedData) {
+      this.setState({
+        starData: updatedData
+      }, () => {
+        //console.log('HERE IS THE STAR DATA YOU WILL NEED', this.state.starData)
+      })
+    }
+
+    //update currentId
+    if (Number(this.state.currentItemId) !== Number(this.props.productId) && this.props.productId) {
+      this.setState({
+        currentItemId: this.props.productId
+      }, () => {
+
+        axios
+          .get(`${requests.pullProducts}/${this.state.currentItemId}/related`)
+          .then((relatedProducts) => {
+            this.setState(
+              {
+                relatedId: relatedProducts.data,
+              },
+              () => {
+                var output = [];
+                this.state.relatedId.map((singleProduct) => {
+                  axios.get(`${requests.pullProducts}/${singleProduct}`)
+                    .then((oneProduct) => {
+                      output.push(oneProduct.data);
+
+                      var sortedProducts = output.sort(
+                        (a, b) => parseFloat(a.id) - parseFloat(b.id)
+                      );
+
+                      this.setState({
+                        allRelated: sortedProducts,
+                      });
+                    })
+                    .then(() => {
+                      var secondOutput = [];
+                      this.state.relatedId.map((oneElement) => {
+                        axios.get(`${requests.pullProducts}/${oneElement}/styles`)
+                          .then((response) => {
+                            secondOutput.push(response.data);
+
+
+                            this.setState({
+                              images2: secondOutput,
+                            });
+                          })
+                          .then(() => {
+                            var iOutput = [];
+                            this.state.allRelated.map((el) => {
+                              this.state.images2.map((ek) => {
+
+                                if (el.id === Number(ek.product_id)) {
+                                  if (ek.results[1]) {
+                                    iOutput.push([ek.results[1].photos[0], ek.product_id]);
+                                    this.setState({
+                                      imagesToSend: iOutput,
+                                    });
+                                  }
+                                }
+                              });
+                            });
+                          });
+                      });
+                    })
+                    .catch((error) => {
+                      console.error("Error pulling products: ", error);
+                    });
+                });
+              }
+            );
+          })
+
+          .catch((error) => {
+            console.error("Error pulling products: ", error);
+          });
+
+
+      })
+    }
+  }
+
   render() {
+    // console.log('IMAGES2', this.state.imagesToSend)
 
     var productDetails = this.state.allRelated.map(
       (productForRender, index) => (
 
-          <div key={index}>
-            <span id="idNumber" style={{ visibility: "hidden" }}>
-              {productForRender.id}
-            </span>
-            <br />
-            <span>{productForRender.category}</span>
-            <br />
-            <span>{productForRender.name}</span>
-            <br />
-            <span>${productForRender.default_price}</span>
-            <br />
-            <span>
-              <StarsOuter>
+        <div key={index}>
+          <span id="idNumber" style={{ visibility: "hidden" }}>
+            {productForRender.id}
+          </span>
+          <br />
+          <span>{productForRender.category}</span>
+          <br />
+          <span>{productForRender.name}</span>
+          <br />
+          <span>${productForRender.default_price}</span>
+          <br />
+          <span>
+            <StarsOuter>
 
               <StarsInner starsPercent={this.state.starData}>
 
 
               </StarsInner>
-              </StarsOuter>
-              </span>
-          </div>
+            </StarsOuter>
+          </span>
+        </div>
 
       )
     );
 
     return (
       <div>
-        <RelatedItemsCarousel
+        <RelatedItemsCarousel getId={this.props.getId}
           allProducts={this.props.allProducts}
           productCard={productDetails}
           productCardImg={this.state.imagesToSend}

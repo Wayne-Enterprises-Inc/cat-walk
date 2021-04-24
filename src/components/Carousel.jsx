@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 
-const Carousel = ({ slides, cards, onClick, show }) => {
+const Carousel = ({ slides, cards, onClick, show, getId }) => {
   const [current, setCurrent] = useState(0);
   const length = slides.length;
 
@@ -22,26 +22,28 @@ const Carousel = ({ slides, cards, onClick, show }) => {
     return null;
   }
 
-  console.log('PROPS', onClick);
+
 
   return (
     <div>
       <section className="slider">
         <LeftArrow>
-          <FaArrowAltCircleLeft style={{marginLeft: '250px'}} className="left-arrow" onClick={prevSlide} />
+          <FaArrowAltCircleLeft style={{ marginLeft: '250px' }} className="left-arrow" onClick={prevSlide} />
         </LeftArrow>
         <RightArrow>
-          <FaArrowAltCircleRight style={{marginRight: '300px'}} className="right-arrow" onClick={nextSlide} />
+          <FaArrowAltCircleRight style={{ marginRight: '300px' }} className="right-arrow" onClick={nextSlide} />
         </RightArrow>
         {slides.map((slide, index) => {
+          // console.log('SLIDE', slide)
           return (
             <Wrapper key={index}>
               <div>
                 <div className={index === current ? "slide active" : "slide"}>
                   {index === current && (
-                    <img
+                    <img onClick={getId}
                       style={{ width: "200px", height: "200px" }}
-                      src={slide.thumbnail_url}
+                      src={slide[0].thumbnail_url}
+                      value={slide[1]}
                       alt="clothes picture"
                     />
                   )}
@@ -49,8 +51,10 @@ const Carousel = ({ slides, cards, onClick, show }) => {
                 <div className={index === current ? "slide active" : "slide"}>
                   {index === current + 1 && (
                     <img
+                      onClick={getId}
                       style={{ width: "200px", height: "200px" }}
-                      src={slide.thumbnail_url}
+                      src={slide[0].thumbnail_url}
+                      value={slide[1]}
                       alt="clothes picture"
                     />
                   )}
@@ -58,8 +62,10 @@ const Carousel = ({ slides, cards, onClick, show }) => {
                 <div className={index === current ? "slide active" : "slide"}>
                   {index === current + 2 && (
                     <img
+                      onClick={getId}
                       style={{ width: "200px", height: "200px" }}
-                      src={slide.thumbnail_url}
+                      src={slide[0].thumbnail_url}
+                      value={slide[1]}
                       alt="clothes picture"
                     />
                   )}
@@ -69,7 +75,7 @@ const Carousel = ({ slides, cards, onClick, show }) => {
           );
         })}
       </section>
-      <section onClick={onClick}className="card-slider">
+      <section onClick={onClick} className="card-slider">
         {cards.map((card, index) => {
           return (
             <Wrapper key={index}>
@@ -92,16 +98,16 @@ const Carousel = ({ slides, cards, onClick, show }) => {
 };
 const RightArrow = styled.section`
   position: absolute;
-  top: 50%;
-  right: 32px;
+  top: 60rem;
+  right: -70px;
   font-size: 1rem;
   z-index: 10;
 
 `;
 const LeftArrow = styled.section`
   position: absolute;
-  top: 50%;
-  left: 32px;
+  top: 60rem;
+  left: 20px;
   font-size: 1rem;
   z-index: 10;
 `;
