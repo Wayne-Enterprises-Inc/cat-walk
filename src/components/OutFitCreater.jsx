@@ -10,10 +10,13 @@ class OutFitCreater extends React.Component {
       toggle: false,
       renderId: 19091,
       renderProduct: {},
-      img: ''
+      img: '',
+      starData: 0
     };
     this.renderYourOutift = this.renderYourOutift.bind(this);
+    this.starRender = this.starRender.bind(this)
   }
+
 
   renderYourOutift(id) {
     axios.get(requests.pullProducts)
@@ -39,10 +42,22 @@ class OutFitCreater extends React.Component {
         toggle: !this.state.toggle
       })
 
+      this.starRender(this.props.stars)
+
+  }
+  starRender(prevProps) {
+    let updatedData = this.props.stars
+    if (prevProps.stars !== updatedData) {
+      this.setState({
+        starData: updatedData
+      }, () => {
+        console.log('OUTHERE IS THE STAR DATA YOU WILL NEED', this.state.starData)
+      })
+    }
   }
 
   render() {
-
+console.log(this.props)
 
     var outfitImg = (
 
@@ -54,6 +69,15 @@ class OutFitCreater extends React.Component {
           <span>{this.state.renderProduct.category}</span>
           <br />
           <span>{this.state.renderProduct.default_price}</span>
+          <span>
+              <StarsOuter>
+
+              <StarsInner starsPercent={this.state.starData}>
+
+
+              </StarsInner>
+              </StarsOuter>
+              </span>
           <br />
         </Card>
       </Wrapper>
@@ -91,6 +115,35 @@ const Card = styled.section`
 const Wrapper = styled.section`
   display: inline-block;
   margin-right: 10px;
+`;
+const StarsOuter = styled.div`
+  & {
+    position: relative;
+    display: inline-block;
+  }
+  &:before {
+    content: '\f005 \f005 \f005 \f005 \f005';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: #ccc;
+  }
+`;
+
+const StarsInner = styled.div`
+  & {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: ${props => props.starsPercent}
+  }
+  &:before {
+    content: '\f005 \f005 \f005 \f005 \f005';
+    font-family:"Font Awesome 5 Free";
+    font-weight:900;
+    color: #f8ce0b;
+  }
 `;
 
 export default OutFitCreater;

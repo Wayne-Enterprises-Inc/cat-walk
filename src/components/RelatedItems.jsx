@@ -14,7 +14,19 @@ class RelatedItems extends React.Component {
       images: [],
       images2: [],
       imagesToSend: [],
+      starData: 0,
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    let updatedData = this.props.starData
+    if (prevProps.starData !== updatedData) {
+      this.setState({
+        starData: updatedData
+      }, () => {
+        console.log('asfasHERE IS THE STAR DATA YOU WILL NEED', this.state.starData)
+      })
+    }
   }
 
   componentDidMount() {
@@ -82,6 +94,7 @@ class RelatedItems extends React.Component {
   }
 
   render() {
+
     var productDetails = this.state.allRelated.map(
       (productForRender, index) => (
 
@@ -96,7 +109,15 @@ class RelatedItems extends React.Component {
             <br />
             <span>${productForRender.default_price}</span>
             <br />
-            <span></span>
+            <span>
+              <StarsOuter>
+
+              <StarsInner starsPercent={this.state.starData}>
+
+
+              </StarsInner>
+              </StarsOuter>
+              </span>
           </div>
 
       )
@@ -108,6 +129,7 @@ class RelatedItems extends React.Component {
           allProducts={this.props.allProducts}
           productCard={productDetails}
           productCardImg={this.state.imagesToSend}
+
         />
       </div>
     );
@@ -119,6 +141,36 @@ const Card = styled.section`
   transition: 0.3s;
   width: 200px;
   padding: 2px 16px;
+`;
+
+const StarsOuter = styled.div`
+  & {
+    position: relative;
+    display: inline-block;
+  }
+  &:before {
+    content: '\f005 \f005 \f005 \f005 \f005';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: #ccc;
+  }
+`;
+
+const StarsInner = styled.div`
+  & {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: ${props => props.starsPercent}
+  }
+  &:before {
+    content: '\f005 \f005 \f005 \f005 \f005';
+    font-family:"Font Awesome 5 Free";
+    font-weight:900;
+    color: #f8ce0b;
+  }
 `;
 
 export default RelatedItems;

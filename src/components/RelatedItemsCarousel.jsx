@@ -20,7 +20,10 @@ class RelatedItemsCarousel extends React.Component {
   }
   render() {
 
+// <<<<<<< compareModal
 
+// =======
+// >>>>>>> master
     return (
       <div>
         <h4>Related Items</h4>
@@ -30,12 +33,37 @@ class RelatedItemsCarousel extends React.Component {
           onClose={this.showModal}
           show={this.state.show}
         />
+
         {/* click modal replace */}
         <div >
         <div style={{ marginLeft: '25%'}}>
         <Carousel show={this.state.show} onClick={(e) => this.showModal(e)} slides={this.props.productCardImg} cards={this.props.productCard}/>
         </div>
+
+        <div onClick={(e) => this.showModal(e)}>
+          {this.props.productCardImg.map((el, index) => {
+            return (
+              <Wrapper key={index}>
+                <Card>
+                <img style={{width: "200px", height: '200px' }}  src={el.thumbnail_url}  alt='Clothes Picture' />
+                </Card>
+              </Wrapper>
+            );
+          })}
+          <br />
+          {this.props.productCard.map((single, index) => {
+            return (
+
+            <Wrapper key={index}>{single}</Wrapper>
+
+
+            )
+          })}
+
+
+
         </div>
+
       </div>
     );
   }
@@ -51,5 +79,8 @@ const Wrapper = styled.section`
   display: inline-block;
   margin-right: 10px;
 `;
+
+
+
 
 export default RelatedItemsCarousel;

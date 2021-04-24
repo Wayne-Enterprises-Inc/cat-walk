@@ -44,7 +44,7 @@ class Gallery extends React.Component {
 
       for (var i = 0; i < this.props.thumbnails.length; i++) {
         if (this.props.thumbnails[i][1] === Number(this.props.selectedStyle)) {
-          console.log('Mains: ', this.props.mainPics[i])
+          //console.log('Mains: ', this.props.mainPics[i])
 
           var currentMains = this.props.mainPics[i];
 
@@ -114,7 +114,7 @@ const Thumbnails = styled.div`
 const GalleryView = styled.div`
   position: relative;
   height: 600px;
-  width: 650px;
+  width: 600px;
 `
 
 export default Gallery;
