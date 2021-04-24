@@ -57,7 +57,7 @@ class App extends React.Component {
     return (
       <div>
         <LogoBar>
-          <p style={{ fontWeight: 'bold' }}>Good day, Planet!</p>
+          <p style={{ fontWeight: 'bold' }}>Clothing Inc.</p>
         </LogoBar>
         <Overview starData={this.state.starData}/>
 

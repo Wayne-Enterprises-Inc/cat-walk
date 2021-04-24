@@ -40,7 +40,7 @@ const Cart = (props) => {
     return (
       <div>
         <form>
-          <select onChange={props.sizeSelectHandle}>
+          <SizeStyles onChange={props.sizeSelectHandle}>
             <option>Select a Size</option>
             {Object.keys(allSizes).map(sizeId => {
               return (
@@ -53,9 +53,9 @@ const Cart = (props) => {
                 </option>
               )
             })}
-          </select>
+          </SizeStyles>
 
-          <select>
+          <QuantityStyles>
             <option>
               Qty: 0
               </option>
@@ -69,10 +69,13 @@ const Cart = (props) => {
                 </option>
               )
             })}
-          </select>
+          </QuantityStyles>
 
           <br></br>
-          <button>Add to Cart</button>
+          <CartStyles>Add to Cart</CartStyles>
+          <br></br>
+
+          <OutfitStyle></OutfitStyle>
         </form>
       </div>
     )
@@ -82,5 +85,56 @@ const Cart = (props) => {
     )
   }
 };
+
+const CartStyles = styled.button`
+position: relative;
+height: 40px;
+width: 100px;
+background-color: LightGray;
+top: 40px;
+left: 20px;
+order: 3;
+&:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+font-size: 16px;
+`
+const SizeStyles = styled.select`
+
+  position: relative;
+  height: 40px;
+  width: 100px;
+  top: 25px;
+  left: 20px;
+  background-color: LightGray;
+  color: black;
+  order: 1;
+`
+const QuantityStyles = styled.select`
+  position: relative;
+  height: 40px;
+  width: 50px;
+  top: 25px;
+  left: 40px;
+  background-color: LightGray;
+  color: black;
+  order: 2;
+`
+const OutfitStyle = styled.button`
+  position: relative;
+  display: inline-block;
+  &:before {
+    content: '\f005';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: white;
+  }
+  order: 4;
+  background-color: LightGray;
+  height: 40px;
+  width: 50px;
+  left: 140px;
+`
 
 export default Cart;
