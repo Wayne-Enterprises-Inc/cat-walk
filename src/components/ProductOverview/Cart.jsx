@@ -73,6 +73,9 @@ const Cart = (props) => {
 
           <br></br>
           <CartStyles>Add to Cart</CartStyles>
+          <br></br>
+
+          <OutfitStyle></OutfitStyle>
         </form>
       </div>
     )
@@ -117,6 +120,21 @@ const QuantityStyles = styled.select`
   background-color: LightGray;
   color: black;
   order: 2;
+`
+const OutfitStyle = styled.button`
+  position: relative;
+  display: inline-block;
+  &:before {
+    content: '\f005';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: white;
+  }
+  order: 4;
+  background-color: LightGray;
+  height: 40px;
+  width: 50px;
+  left: 140px;
 `
 
 export default Cart;
