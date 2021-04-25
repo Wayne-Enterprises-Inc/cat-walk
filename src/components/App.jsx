@@ -7,7 +7,7 @@ import requests from '../lib/axiosPrefilter.js';
 import CompareModal from "./CompareModal";
 import YourOutfit from './YourOutfit'
 import OutFitCreater from './OutFitCreater'
-import RatingBreakdown from  './RatingsReviews/RatingBreakdown.jsx';
+import RatingBreakdown from './RatingsReviews/RatingBreakdown.jsx';
 
 import RelatedItems from './RelatedItems.jsx';
 
@@ -26,11 +26,12 @@ class App extends React.Component {
       productPics: '',
       productTest: '',
       starData: 0,
+      productId: '',
     };
 
     //bind functions here
     this.handleStarData = this.handleStarData.bind(this);
-
+    this.relatedSelectHandle = this.relatedSelectHandle.bind(this)
   }
   //functions/handler section
 
@@ -51,6 +52,27 @@ class App extends React.Component {
     })
   }
 
+  relatedSelectHandle(event) {
+    if (this.state.productId !== '') {
+      console.log('event: ', event.target.attributes.value.nodeValue)
+      this.setState({
+        productId: ''
+      }, () => {
+        this.setState({
+          productId: event.target.attributes.value.nodeValue
+        })
+      }, () => {
+        console.log('updated productId: ', this.state.productId)
+      })
+    } else {
+      this.setState({
+        productId: event.target.attributes.value.nodeValue
+      }, () => {
+        console.log('updated productId: ', this.state.productId)
+      })
+    }
+  }
+
 
   render() {
 
@@ -60,27 +82,21 @@ class App extends React.Component {
           <p style={{ fontWeight: 'bold' }}>Clothing Inc.</p>
         </LogoBar>
 
-        <Overview/>
+        <Overview
+          starData={this.state.starData}
+          productId={this.state.productId} />
 
-      <div><RelatedItems allProducts={this.state.relatedProducts}/></div>
-      <div>
+        <div><RelatedItems
+        productId={this.state.productId}
+        getId={this.relatedSelectHandle}
+        allProducts={this.state.relatedProducts}
+        starData={this.state.starData} /></div>
 
-      <YourOutfit allProducts={this.state.relatedProducts}/>
-      {/* <OutFitCreater allProducts={this.state.relatedProducts}/> */}
-      </div>
-      <OutFitCreater allProducts={this.state.relatedProducts}/>
-        <RelatedItems allProducts={this.state.relatedProducts}/>
-
-        <RatingBreakdown />
-
-        <Overview starData={this.state.starData}/>
-
-      <div><RelatedItems allProducts={this.state.relatedProducts} starData={this.state.starData}/></div>
-      <YourOutfit allProducts={this.state.relatedProducts} starData={this.state.starData}/>
-      {/* <OutFitCreater allProducts={this.state.relatedProducts}/> */}
+        <YourOutfit allProducts={this.state.relatedProducts} starData={this.state.starData} />
+        {/* <OutFitCreater allProducts={this.state.relatedProducts}/> */}
 
 
-        <RatingBreakdown onRatingChange = {this.handleStarData} />
+        <RatingBreakdown onRatingChange={this.handleStarData} />
 
       </div>
     )

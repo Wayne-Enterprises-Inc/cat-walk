@@ -73,7 +73,7 @@ class CompareModal extends React.Component {
 
 const ModOn = styled.section`
   position: absolute;
-  top: 10rem;
+  top: 50rem;
   left: 30rem;
 
   width: 300px;

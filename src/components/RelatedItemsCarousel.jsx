@@ -20,10 +20,7 @@ class RelatedItemsCarousel extends React.Component {
   }
   render() {
 
-// <<<<<<< compareModal
 
-// =======
-// >>>>>>> master
     return (
       <div>
         <h4>Related Items</h4>
@@ -37,30 +34,8 @@ class RelatedItemsCarousel extends React.Component {
         {/* click modal replace */}
         <div >
         <div style={{ marginLeft: '25%'}}>
-        <Carousel show={this.state.show} onClick={(e) => this.showModal(e)} slides={this.props.productCardImg} cards={this.props.productCard}/>
+        <Carousel getId={this.props.getId} show={this.state.show} onClick={(e) => this.showModal(e)} slides={this.props.productCardImg} cards={this.props.productCard}/>
         </div>
-
-        <div onClick={(e) => this.showModal(e)}>
-          {this.props.productCardImg.map((el, index) => {
-            return (
-              <Wrapper key={index}>
-                <Card>
-                <img style={{width: "200px", height: '200px' }}  src={el.thumbnail_url}  alt='Clothes Picture' />
-                </Card>
-              </Wrapper>
-            );
-          })}
-          <br />
-          {this.props.productCard.map((single, index) => {
-            return (
-
-            <Wrapper key={index}>{single}</Wrapper>
-
-
-            )
-          })}
-
-
 
         </div>
 
@@ -68,6 +43,7 @@ class RelatedItemsCarousel extends React.Component {
     );
   }
 }
+
 const Card = styled.section`
   text-align: left;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -84,3 +60,24 @@ const Wrapper = styled.section`
 
 
 export default RelatedItemsCarousel;
+
+/* <div onClick={(e) => this.showModal(e)}>
+{this.props.productCardImg.map((el, index) => {
+  return (
+    <Wrapper key={index}>
+      <Card>
+      <img style={{width: "200px", height: '200px' }}  src={el.thumbnail_url}  alt='Clothes Picture' />
+      </Card>
+    </Wrapper>
+  );
+})}
+</div>
+<br />
+{this.props.productCard.map((single, index) => {
+  return (
+
+  <Wrapper key={index}>{single}</Wrapper>
+
+
+  )
+})} */

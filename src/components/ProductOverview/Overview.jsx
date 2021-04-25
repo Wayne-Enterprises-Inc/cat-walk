@@ -12,7 +12,7 @@ class Overview extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentItemId: 19091,
+      currentItemId: 19089,
       selectedStyle: 103466,
       selectedSize: '',
       sizeId: '',
@@ -36,19 +36,19 @@ class Overview extends React.Component {
   }
   //hander functions go here.
 
-  componentDidUpdate(prevProps) {
-    let updatedData = this.props.starData
-    if (prevProps.starData !== updatedData) {
-      this.setState({
-        starData: updatedData
-      }, () => {
-        console.log('HERE IS THE STAR DATA YOU WILL NEED', this.state.starData)
-      })
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   let updatedData = this.props.starData
+  //   if (prevProps.starData !== updatedData) {
+  //     this.setState({
+  //       starData: updatedData
+  //     }, () => {
+  //       console.log('HERE IS THE STAR DATA YOU WILL NEED', this.state.starData)
+  //     })
+  //   }
+  // }
 
 
-  sizeSelectHandle(event, id){
+  sizeSelectHandle(event, id) {
     this.setState({
       selectedSize: event.target.value,
       sizeId: id
@@ -93,7 +93,7 @@ class Overview extends React.Component {
           styles: styles.data.results,
           selectedStyle: styles.data.results[0].style_id
         }, () => {
-          console.log('All Styles', styles)
+          //console.log('All Styles', styles)
           this.getPhotos(this.state.styles)
         })
       })
@@ -141,6 +141,30 @@ class Overview extends React.Component {
       .catch(err => {
         console.error('Error getting review info: ', err)
       })
+  }
+
+  componentDidUpdate(prevProps) {
+    // console.log('currentId: ', this.state.currentItemId)
+    // console.log('props Id: ', this.props.productId)
+    if (Number(this.state.currentItemId) !== Number(this.props.productId) && this.props.productId) {
+      this.setState({
+        currentItemId: this.props.productId
+      }, () => {
+        this.getProductInfo(this.state.currentItemId)
+        this.getStyles(this.state.currentItemId)
+      })
+    }
+
+    //star data
+    let updatedData = this.props.starData
+    if (prevProps.starData !== updatedData) {
+      this.setState({
+        starData: updatedData
+      }, () => {
+        //console.log('HERE IS THE STAR DATA YOU WILL NEED', this.state.starData)
+      })
+    }
+
   }
 
   componentDidMount() {
