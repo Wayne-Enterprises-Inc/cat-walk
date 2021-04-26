@@ -221,6 +221,8 @@ class Overview extends React.Component {
 const Container = styled.div`
   padding-top: 20px;
   padding-bottom: 20px;
+  margin-left: 20%;
+  margin-right: 20%;
   border-bottom: 1px solid black;
 `;
 
