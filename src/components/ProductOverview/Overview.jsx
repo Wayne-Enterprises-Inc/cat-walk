@@ -14,7 +14,7 @@ class Overview extends React.Component {
     this.state = {
       currentItemId: 19089,
       selectedStyle: 103466,
-      selectedSize: '',
+      selectedSize: 0,
       sizeId: '',
       productInfo: {},
       mainPics: [],
@@ -24,6 +24,7 @@ class Overview extends React.Component {
       ratingCount: 0,
       rating: 0,
       starData: 0,
+      disabled: true,
     };
     //bindings go here
     this.getStyles = this.getStyles.bind(this);
@@ -33,6 +34,7 @@ class Overview extends React.Component {
 
     this.styleSelectHandle = this.styleSelectHandle.bind(this);
     this.sizeSelectHandle = this.sizeSelectHandle.bind(this);
+    this.handleDisable = this.handleDisable.bind(this);
   }
   //hander functions go here.
 
@@ -49,16 +51,37 @@ class Overview extends React.Component {
 
 
   sizeSelectHandle(event, id) {
-    this.setState({
-      selectedSize: event.target.value,
-      sizeId: id
-    })
+    if (event) {
+      this.setState({
+        selectedSize: event.target.value,
+        sizeId: id,
+        disabled: false
+      }, () => { console.log(this.state.selectedSize) })
+    } else {
+      this.setState({
+        selectedSize: null,
+        sizeId: null
+      }, () => { console.log(this.state.selectedSize) })
+    }
+  }
+
+  handleDisable() {
+    if (this.state.selectedSize) {
+      this.setState({
+        disabled: false
+      })
+    } else {
+      this.setState({
+        disabled: true
+      })
+    }
   }
 
   styleSelectHandle(event) {
     if (this.selectedStyle !== '') {
       //console.log('event: ', event)
       this.setState({
+        selectedSize: null,
         selectedStyle: ''
       }, () => {
         this.setState({
@@ -174,6 +197,7 @@ class Overview extends React.Component {
   }
 
 
+
   render() {
     return (
       <Container>
@@ -202,6 +226,8 @@ class Overview extends React.Component {
               selected={this.state.selectedStyle}
               selectedSize={this.state.selectedSize}
               sizeSelectHandle={this.sizeSelectHandle}
+              handleDisable={this.handleDisable}
+              disabled={this.state.disabled}
             />
           </SelectionContainer>
         </Images>
