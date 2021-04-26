@@ -20,10 +20,10 @@ const Cart = (props) => {
 
 
   // useEffect(() => {
-    //   props.sizeSelectHandle()
-    //   console.log(props.selectedSize)
-    // }, [props.selectedStyle])
-    if (props.selected) {
+  //   props.sizeSelectHandle()
+  //   console.log(props.selectedSize)
+  // }, [props.selectedStyle])
+  if (props.selected) {
 
     let Skus = [];
     let allSizes = {};
@@ -62,35 +62,39 @@ const Cart = (props) => {
             })}
           </SizeStyles>
 
-          <QuantityStyles disabled={props.disabled}>
+          <QuantityStyles
+            onClick={props.quantitySelect}
+            disabled={props.disabled}
+          >
             <option>
               Qty: 0
               </option>
             {stockArray(totalStock).map((quantity, index) => {
               return (
                 <option
-                  key={index}
-                  value={quantity}
-                >
-                  {quantity}
+                  onClick={props.quantitySelect}
+                  key = { index }
+                  value = { quantity }
+              >
+              { quantity }
                 </option>
               )
             })}
           </QuantityStyles>
 
-          <br></br>
-          <CartStyles disabled={props.disabled}>Add to Cart</CartStyles>
-          <br></br>
+        <br></br>
+        <CartStyles disabled={!props.selectedQuantity}>Add to Cart</CartStyles>
+        <br></br>
 
-          <OutfitStyle></OutfitStyle>
+        <OutfitStyle></OutfitStyle>
         </form>
-      </div>
+      </div >
     )
   } else {
-    return (
-      <div>Loading...</div>
-    )
-  }
+  return (
+    <div>Loading...</div>
+  )
+}
 };
 
 const CartStyles = styled.button`

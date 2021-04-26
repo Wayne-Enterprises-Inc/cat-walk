@@ -16,6 +16,7 @@ class Overview extends React.Component {
       selectedStyle: 103466,
       selectedSize: 0,
       sizeId: '',
+      selectedQuantity: 0,
       productInfo: {},
       mainPics: [],
       thumbnails: [],
@@ -35,6 +36,7 @@ class Overview extends React.Component {
     this.styleSelectHandle = this.styleSelectHandle.bind(this);
     this.sizeSelectHandle = this.sizeSelectHandle.bind(this);
     this.handleDisable = this.handleDisable.bind(this);
+    this.quantitySelect = this.quantitySelect.bind(this);
   }
   //hander functions go here.
 
@@ -62,6 +64,14 @@ class Overview extends React.Component {
         selectedSize: null,
         sizeId: null
       }, () => { console.log(this.state.selectedSize) })
+    }
+  }
+
+  quantitySelect(event) {
+    if (event) {
+      this.setState({
+        selectedQuantity: event.target.value
+      }, () => { console.log(this.state.selectedQuantity) })
     }
   }
 
@@ -228,6 +238,8 @@ class Overview extends React.Component {
               sizeSelectHandle={this.sizeSelectHandle}
               handleDisable={this.handleDisable}
               disabled={this.state.disabled}
+              selectedQuantity={this.state.selectedQuantity}
+              quantitySelect={this.quantitySelect}
             />
           </SelectionContainer>
         </Images>
