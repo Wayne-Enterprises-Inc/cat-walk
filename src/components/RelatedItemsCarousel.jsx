@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import CompareModal from "./CompareModal";
+import Carousel from "./Carousel"
 class RelatedItemsCarousel extends React.Component {
   constructor(props) {
     super(props);
@@ -18,6 +19,8 @@ class RelatedItemsCarousel extends React.Component {
     });
   }
   render() {
+
+
     return (
       <div>
         <h4>Related Items</h4>
@@ -27,25 +30,20 @@ class RelatedItemsCarousel extends React.Component {
           onClose={this.showModal}
           show={this.state.show}
         />
-        <div onClick={(e) => this.showModal(e)}>
-          {this.props.productCardImg.map((el, index) => {
-            return (
-              <Wrapper key={index}>
-                <Card>
-                <img style={{width: "200px", height: '200px' }}  src={el.thumbnail_url}  alt='Clothes Picture' />
-                </Card>
-              </Wrapper>
-            );
-          })}
-          <br />
-          {this.props.productCard.map((single, index) => {
-            return <Wrapper key={index}>{single}</Wrapper>;
-          })}
+
+        {/* click modal replace */}
+        <div >
+        <div style={{ marginLeft: '25%'}}>
+        <Carousel getId={this.props.getId} show={this.state.show} onClick={(e) => this.showModal(e)} slides={this.props.productCardImg} cards={this.props.productCard}/>
         </div>
+
+        </div>
+
       </div>
     );
   }
 }
+
 const Card = styled.section`
   text-align: left;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -58,4 +56,28 @@ const Wrapper = styled.section`
   margin-right: 10px;
 `;
 
+
+
+
 export default RelatedItemsCarousel;
+
+/* <div onClick={(e) => this.showModal(e)}>
+{this.props.productCardImg.map((el, index) => {
+  return (
+    <Wrapper key={index}>
+      <Card>
+      <img style={{width: "200px", height: '200px' }}  src={el.thumbnail_url}  alt='Clothes Picture' />
+      </Card>
+    </Wrapper>
+  );
+})}
+</div>
+<br />
+{this.props.productCard.map((single, index) => {
+  return (
+
+  <Wrapper key={index}>{single}</Wrapper>
+
+
+  )
+})} */

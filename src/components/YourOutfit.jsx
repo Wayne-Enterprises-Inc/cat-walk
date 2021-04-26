@@ -15,43 +15,26 @@ class YourOutfit extends React.Component {
   createDivs() {
 
   this.setState({
-  outfit: this.state.outfit.concat(<OutFitCreater/>)
-    // or {AnimatedDiv} or {new AnimatedDiv}, depends on how AnimatedDiv is written
-    // I don't know, I haven't been using React as much lately, give me some slack
 
+  // outfit: this.state.outfit.concat(<OutFitCreater/>)
+
+  outfit: this.state.outfit.concat(<OutFitCreater stars={this.props.starData}/>)
   });
-  // this.props.create
-  console.log(this.state)
-}
-  // renderYourOutift(id) {
-  //   axios.get(requests.pullProducts)
-  //     .then((allProducts) => {
-  //       allProducts.data.map((oneProduct) => {
-  //         if (oneProduct.id === id) {
-  //           this.setState({
-  //             renderProduct: oneProduct,
-  //           });
-  //         }
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error pulling products: ", error);
-  //     });
-  //   axios.get(`${requests.pullProducts}/${id}/styles`)
-  //     .then((img)=>{
-  //       this.setState({
-  //         imageUrl: img.data.results[0].photos[0].thumbnail_url
-  //       })
-  //     })
-  //     this.setState({
-  //       toggle: !this.state.toggle
-  //     })
 
-  // }
+
+  // outfit: this.state.outfit.concat(<OutFitCreater stars={this.props.starData}/>)
+
+
+  };
+  // this.props.create
+
+
+//}
+
 
   render() {
 
- console.log(this.state)
+
 
     return (
       <div>

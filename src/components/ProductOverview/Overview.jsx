@@ -22,7 +22,8 @@ class Overview extends React.Component {
       styles: [],
       stylePics: [],
       ratingCount: 0,
-      rating: 0
+      rating: 0,
+      starData: 0,
     };
     //bindings go here
     this.getStyles = this.getStyles.bind(this);
@@ -35,7 +36,19 @@ class Overview extends React.Component {
   }
   //hander functions go here.
 
-  sizeSelectHandle(event, id){
+  // componentDidUpdate(prevProps) {
+  //   let updatedData = this.props.starData
+  //   if (prevProps.starData !== updatedData) {
+  //     this.setState({
+  //       starData: updatedData
+  //     }, () => {
+  //       console.log('HERE IS THE STAR DATA YOU WILL NEED', this.state.starData)
+  //     })
+  //   }
+  // }
+
+
+  sizeSelectHandle(event, id) {
     this.setState({
       selectedSize: event.target.value,
       sizeId: id
@@ -80,7 +93,7 @@ class Overview extends React.Component {
           styles: styles.data.results,
           selectedStyle: styles.data.results[0].style_id
         }, () => {
-          console.log('All Styles', styles)
+          //console.log('All Styles', styles)
           this.getPhotos(this.state.styles)
         })
       })
@@ -130,6 +143,30 @@ class Overview extends React.Component {
       })
   }
 
+  componentDidUpdate(prevProps) {
+    // console.log('currentId: ', this.state.currentItemId)
+    // console.log('props Id: ', this.props.productId)
+    if (Number(this.state.currentItemId) !== Number(this.props.productId) && this.props.productId) {
+      this.setState({
+        currentItemId: this.props.productId
+      }, () => {
+        this.getProductInfo(this.state.currentItemId)
+        this.getStyles(this.state.currentItemId)
+      })
+    }
+
+    //star data
+    let updatedData = this.props.starData
+    if (prevProps.starData !== updatedData) {
+      this.setState({
+        starData: updatedData
+      }, () => {
+        //console.log('HERE IS THE STAR DATA YOU WILL NEED', this.state.starData)
+      })
+    }
+
+  }
+
   componentDidMount() {
     this.getStyles(this.state.currentItemId)
     this.getProductInfo(this.state.currentItemId)
@@ -153,6 +190,7 @@ class Overview extends React.Component {
               productInfo={this.state.productInfo}
               totalRatings={this.state.totalRatings}
               selectedStyle={this.state.selectedStyle}
+              starData={this.state.starData}
 
               styleSelectHandle={this.styleSelectHandle}
               styles={this.state.styles}
