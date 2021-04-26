@@ -211,7 +211,6 @@ const LeftWrapper = styled.div`
 
 const RightWrapper = styled.div`
   float: left;
-  background: #b0f0b0;
   display:inline-block
   width: 60%;
   max-width: 60%;

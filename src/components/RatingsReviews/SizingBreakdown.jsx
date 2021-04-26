@@ -9,8 +9,6 @@ function SizeBreakdown(props) {
     }
   ]);
 
-  axios.get()
-
 
   return (
     <div className="sizeBreakdown">
