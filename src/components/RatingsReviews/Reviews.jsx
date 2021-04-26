@@ -21,6 +21,7 @@ class Reviews extends React.Component {
       isOpen: false,
       isT: false,
       reviewCounter: 2,
+      starPercentage: null,
       // review_id: 289132,
       // rating: 4,
       // summary: 'Best purchase ever',
@@ -37,6 +38,7 @@ class Reviews extends React.Component {
     this.getMoreText = this.getMoreText.bind(this);
     this.currentSelection = this.currentSelection.bind(this);
     this.moreReviews = this.moreReviews.bind(this);
+    this.displayStars = this.displayStars.bind(this);
 
 
     // this.isT = this.isT.bind(this);
@@ -83,7 +85,7 @@ class Reviews extends React.Component {
           reviewData: data.data,
           visibleReviews: data.data.results.slice(0, this.state.reviewCounter)
         }, () => {
-          console.log(this.state.visibleReviews)
+          console.log(this.state.product_id)
         })
       }).catch(err => {
         console.log('ERROR', err);
@@ -92,6 +94,7 @@ class Reviews extends React.Component {
 
   componentDidUpdate(prevProps) {
     let updatedData = this.props.totalReviews
+    let updatedProduct = this.props.id
     if (prevProps.totalReviews !== updatedData) {
       this.setState({
         count: updatedData || 5,
@@ -99,6 +102,25 @@ class Reviews extends React.Component {
         this.getReviews();
       })
     }
+
+    if (prevProps.id !== updatedProduct) {
+      this.setState({
+        product_id: updatedProduct,
+      }, () => {
+        this.getReviews();
+      })
+    }
+
+    //star data
+    // let updatedStars = this.props.starData
+    // if (prevProps.starData !== updatedStars) {
+    //   this.setState({
+    //     starPercentage: updatedStars
+    //   }, () => {
+    //     //console.log('HERE IS THE STAR DATA YOU WILL NEED', this.state.starData)
+    //   })
+    // }
+
   }
 
   currentSelection(selection)  {
@@ -108,6 +130,18 @@ class Reviews extends React.Component {
     }, () => {
       this.getReviews()
     });
+  }
+
+  displayStars(rating) {
+    console.log('here')
+    const starsTotal = 5;
+    //Gives percentage of reviews based on a 5 star count
+    const starPercentage = (rating / starsTotal) * 100;
+    //Rounds percentage so each Star is worth "20%" and each quarter will be at ex: 0%(empty), 5%(quarter), 10%(half), 15%(3/4), 20%(filled star)
+    const starPercentageRounded = `${Math.round(starPercentage/5) * 5}%`
+    this.setState({
+      starPercentage: starPercentageRounded,
+    }, () => console.log(this.state.starPercentage))
   }
 
   render() {
@@ -145,7 +179,11 @@ class Reviews extends React.Component {
             <IndividualReview key={review.review_id}>
 
               <ReviewHead>
-                <Rating>{review.rating}</Rating>
+                <Rating>
+                  <StarsOuter>
+                    <StarsInner starsPercent={this.state.starPercentage ? this.displayStars(review.rating) : null}></StarsInner>
+                  </StarsOuter>
+                </Rating>
                 <TimeStamp>{review.reviewer_name}, {moment(review.date).format('LL')}</TimeStamp>
               </ReviewHead>
 
@@ -256,6 +294,36 @@ const Rating = styled.div`
 float: left;
 `;
 
+const StarsOuter = styled.div`
+  & {
+    position: relative;
+    display: inline-block;
+  }
+  &:before {
+    content: '\f005 \f005 \f005 \f005 \f005';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: #ccc;
+  }
+`;
+
+const StarsInner = styled.div`
+  & {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: ${props => props.starsPercent}
+  }
+  &:before {
+    content: '\f005 \f005 \f005 \f005 \f005';
+    font-family:"Font Awesome 5 Free";
+    font-weight:900;
+    color: #f8ce0b;
+  }
+`;
+
 const TimeStamp = styled.div`
 float: right;
 `;
@@ -268,6 +336,8 @@ const MoreReviewsButton = styled.div`
 
 const AddReviewButton = styled.div`
 `;
+
+
 
 
 
