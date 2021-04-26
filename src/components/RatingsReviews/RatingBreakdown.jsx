@@ -2,6 +2,10 @@ import React from 'react';
 import axios from 'axios';
 import requests from '../../lib/axiosPrefilter.js';
 import styled from 'styled-components';
+import SizeBreakdown from './SizingBreakdown.jsx'
+import Reviews from './Reviews.jsx'
+
+
 
 
 
@@ -18,17 +22,19 @@ class RatingBreakdown extends React.Component {
       recommendedPercentage: 0,
       starPercentage: 0,
       reviewAverages: [],
+      characteristics: 0,
+      totalReviews: 0,
     };
 
   //BINDINGS
-  this.getReviews = this.getReviews.bind(this);
+  this.getRatings = this.getRatings.bind(this);
   this.averageReviews = this.averageReviews.bind(this);
   this.displayStars = this.displayStars.bind(this);
   this.eachStarAverage = this.eachStarAverage.bind(this);
   this.handleRatingChange = this.handleRatingChange.bind(this);
 
-  }
 
+  }
 
 /*
 ==============================================
@@ -37,9 +43,9 @@ FUNCTIONS
 */
 
 
-  getReviews(id) {
+  getRatings(id) {
     //Initial GET
-    axios.get((`${requests.pullReviews}/meta/?product_id=${id}`))
+    axios.get(`${requests.pullReviews}/meta/?product_id=${id}`)
       .then(data => {
         this.setState({
           //Sets State to Product's Review Data
@@ -48,9 +54,10 @@ FUNCTIONS
       }).then(() => {
         this.setState({
           //From data sets seperate state for ratings and recommended
+          characteristics: this.state.reviewData.characteristics,
           ratings: this.state.reviewData.ratings,
           recommended: this.state.reviewData.recommended,
-        }/*, () => console.log(this.state.ratings, this.state.recommended)*/)
+        }/*, () => console.log(this.state.characteristics)*/)
       }).then(() => {
         this.recommendedReviews(this.state.recommended)
         this.setState({
@@ -75,7 +82,6 @@ FUNCTIONS
   recommendedReviews(recommended) {
     let total = 0;
     total = Number(recommended.true) + Number(recommended.false);
-    console.log('TOTAL REC', total);
     let positiveRecommended = (Math.round((Number(recommended.true) / total) * 100) + '%')
     this.setState({
       recommendedPercentage: positiveRecommended
@@ -93,14 +99,15 @@ FUNCTIONS
       number = number + (key * value);
     })
     //Numeric rating sum divided by total number of reviews give average review, which is rounded to one decimal point
+    this.setState({
+      totalReviews: total,
+    })
     this.eachStarAverage(reviewsArray, total);
     average = Number((number / total).toFixed(1));
     return average;
   }
 
   eachStarAverage(array, total) {
-    console.log('ARRAY', array)
-    console.log('TOTAL', total)
     let averagesArray = {};
     array.forEach(([key, value]) => {
       averagesArray[key] = [value, (((value / total)*100).toFixed(2) + '%')];
@@ -112,7 +119,7 @@ FUNCTIONS
 
 
   componentDidMount() {
-    this.getReviews(this.state.currentItemId)
+    this.getRatings(this.state.currentItemId)
   }
 
   displayStars() {
@@ -127,6 +134,7 @@ FUNCTIONS
     this.handleRatingChange();
     //console.log(this.state.starPercentage)
   }
+
 
 
 
@@ -168,7 +176,11 @@ MAIN RENDER
           <ProgressBar><Bar width={reviewAverages[1] ? reviewAverages[1][1] : null}/></ProgressBar>
         </Graph>
         <Recommended>{recommendedPercentage} of reviews recommended this product</Recommended>
+        {/* <SizeBreakdown /> */}
       </LeftWrapper>
+      <RightWrapper>
+        <Reviews id={this.state.currentItemId} totalReviews={this.state.totalReviews}></Reviews>
+      </RightWrapper>
     </Container>
     );
   }
@@ -190,6 +202,8 @@ const Container = styled.div`
   padding-bottom: 20px;
   border-top: 1px solid black;
   margin-left: 10%;
+  margin-right: 10%;
+  overflow: hidden;
 `;
 
 const MainHeading = styled.div`
@@ -197,7 +211,17 @@ const MainHeading = styled.div`
 `;
 
 const LeftWrapper = styled.div`
-  width: 30%;
+  width: 35%;
+  float: left;
+  display:inline-block;
+  margin-right: 5%;
+`;
+
+const RightWrapper = styled.div`
+  float: left;
+  display:inline-block
+  width: 60%;
+  max-width: 60%;
 `;
 
 
@@ -291,6 +315,7 @@ const Recommended = styled.div`
   font-size: 16px;
   width: 100%;
 `;
+
 
 
 
