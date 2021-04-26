@@ -96,7 +96,8 @@ class App extends React.Component {
         {/* <OutFitCreater allProducts={this.state.relatedProducts}/> */}
 
 
-        <RatingBreakdown onRatingChange={this.handleStarData} />
+        <RatingBreakdown onRatingChange={this.handleStarData}
+        productId={this.state.productId} />
 
       </div>
     )

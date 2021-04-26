@@ -14,7 +14,7 @@ class RatingBreakdown extends React.Component {
     super(props);
 
     this.state = {
-      currentItemId: 19092,
+      currentItemId: 19089,
       reviewData: {},
       ratings: 0,
       averageRating: 0,
@@ -118,6 +118,16 @@ FUNCTIONS
   }
 
 
+  componentDidUpdate(prevProps) {
+    if (Number(this.state.currentItemId) !== Number(this.props.productId) && this.props.productId) {
+      this.setState({
+        currentItemId: this.props.productId
+      }, () => {
+        this.getRatings(this.state.currentItemId)
+      })
+    }
+  }
+
   componentDidMount() {
     this.getRatings(this.state.currentItemId)
   }
@@ -151,7 +161,7 @@ MAIN RENDER
       <MainHeading>RATINGS & REVIEWS</MainHeading>
       <LeftWrapper>
         <Wrapper>
-          <AverageStar>{this.state.averageRating}</AverageStar>
+          <AverageStar>{this.state.averageRating ? this.state.averageRating : 'N/A'}</AverageStar>
           <Ratings>
             <StarsOuter>
               <StarsInner starsPercent={this.state.starPercentage}></StarsInner>
@@ -179,7 +189,7 @@ MAIN RENDER
         {/* <SizeBreakdown /> */}
       </LeftWrapper>
       <RightWrapper>
-        <Reviews id={this.state.currentItemId} totalReviews={this.state.totalReviews}></Reviews>
+        <Reviews id={this.state.currentItemId} totalReviews={this.state.totalReviews} starData={this.state.starPercentage}></Reviews>
       </RightWrapper>
     </Container>
     );
