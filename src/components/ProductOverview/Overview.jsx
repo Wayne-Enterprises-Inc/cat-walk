@@ -31,12 +31,13 @@ class Overview extends React.Component {
     this.getStyles = this.getStyles.bind(this);
     this.getPhotos = this.getPhotos.bind(this);
     this.getProductInfo = this.getProductInfo.bind(this);
-    this.getReviewInfo = this.getReviewInfo.bind(this);
+    // this.getReviewInfo = this.getReviewInfo.bind(this);
 
     this.styleSelectHandle = this.styleSelectHandle.bind(this);
     this.sizeSelectHandle = this.sizeSelectHandle.bind(this);
     this.handleDisable = this.handleDisable.bind(this);
     this.quantitySelect = this.quantitySelect.bind(this);
+    this.parseReviews = this.parseReviews.bind(this);
   }
   //hander functions go here.
 
@@ -159,21 +160,14 @@ class Overview extends React.Component {
     }
   }
 
-  getReviewInfo(id) {
-    axios.get(requests.pullReviews + `/meta/?product_id=${id}`)
-      .then(reviews => {
-        //console.log('All reviews: ', reviews.data.ratings)
-        var totalRatings = 0;
-        for (var key in reviews.data.ratings) {
-          totalRatings += Number(reviews.data.ratings[key])
-        }
-        this.setState({
-          ratingCount: totalRatings
-        }/*, () => {console.log(this.state.ratingCount)}*/)
-      })
-      .catch(err => {
-        console.error('Error getting review info: ', err)
-      })
+  parseReviews() {
+    var totalRatings = 0;
+    for (var key in this.props.reviewData.data.ratings) {
+      totalRatings += Number(this.props.reviewData.data.ratings[key])
+    }
+    this.setState({
+      ratingCount: totalRatings
+    }/*, () => {console.log(this.state.ratingCount)}*/)
   }
 
   componentDidUpdate(prevProps) {
@@ -203,7 +197,10 @@ class Overview extends React.Component {
   componentDidMount() {
     this.getStyles(this.state.currentItemId)
     this.getProductInfo(this.state.currentItemId)
-    this.getReviewInfo(this.state.currentItemId)
+    // this.getReviewInfo(this.state.currentItemId)
+    if (this.props.reviewData) {
+      this.parseReviews();
+    }
   }
 
 

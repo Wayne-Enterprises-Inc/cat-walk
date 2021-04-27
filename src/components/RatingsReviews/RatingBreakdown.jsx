@@ -36,48 +36,42 @@ class RatingBreakdown extends React.Component {
 
   }
 
-/*
-==============================================
-FUNCTIONS
-==============================================
-*/
 
+getRatings(id) {
+  //Initial GET
+  axios.get(`${requests.pullReviews}/meta/?product_id=${id}`)
+    .then(data => {
+      this.setState({
+        //Sets State to Product's Review Data
+        reviewData: data.data,
+      }/*, () => console.log(this.state.reviewData)*/)
+    }).then(() => {
+      this.setState({
+        //From data sets seperate state for ratings and recommended
+        characteristics: this.state.reviewData.characteristics,
+        ratings: this.state.reviewData.ratings,
+        recommended: this.state.reviewData.recommended,
+      }/*, () => console.log(this.state.characteristics)*/)
+    }).then(() => {
+      this.recommendedReviews(this.state.recommended)
+      this.setState({
+        //After ratings state is set, it is used to calculate average rating
+        averageRating: this.averageReviews(this.state.ratings),
+      });
+    }).then(() => {
+      //Runs function to display graph corresponding to AverageRating
+      this.displayStars();
+    }).catch(err => {
+      //Catches any errors in process
+      console.error('ERROR GETTING REVIEWS: ', err);
+    })
+}
 
-  getRatings(id) {
-    //Initial GET
-    axios.get(`${requests.pullReviews}/meta/?product_id=${id}`)
-      .then(data => {
-        this.setState({
-          //Sets State to Product's Review Data
-          reviewData: data.data,
-        }/*, () => console.log(this.state.reviewData)*/)
-      }).then(() => {
-        this.setState({
-          //From data sets seperate state for ratings and recommended
-          characteristics: this.state.reviewData.characteristics,
-          ratings: this.state.reviewData.ratings,
-          recommended: this.state.reviewData.recommended,
-        }/*, () => console.log(this.state.characteristics)*/)
-      }).then(() => {
-        this.recommendedReviews(this.state.recommended)
-        this.setState({
-          //After ratings state is set, it is used to calculate average rating
-          averageRating: this.averageReviews(this.state.ratings),
-        });
-      }).then(() => {
-        //Runs function to display graph corresponding to AverageRating
-        this.displayStars();
-      }).catch(err => {
-        //Catches any errors in process
-        console.error('ERROR GETTING REVIEWS: ', err);
-      })
-  }
 
   handleRatingChange () {
     var starData = this.state.starPercentage
     this.props.onRatingChange(starData);
   }
-
 
   recommendedReviews(recommended) {
     let total = 0;

@@ -23,15 +23,16 @@ class App extends React.Component {
     super();
     this.state = {
       relatedProducts: [],
-      productPics: '',
-      productTest: '',
       starData: 0,
-      productId: '',
+
+      productId: 19089,
+      reviewData: null,
     };
 
     //bind functions here
     this.handleStarData = this.handleStarData.bind(this);
     this.relatedSelectHandle = this.relatedSelectHandle.bind(this)
+    this.getReviewInfo = this.getReviewInfo.bind(this)
   }
   //functions/handler section
 
@@ -73,6 +74,22 @@ class App extends React.Component {
     }
   }
 
+  getReviewInfo(id) {
+    axios.get(requests.pullReviews + `/meta/?product_id=${id}`)
+      .then(reviews => {
+        //console.log('All reviews: ', reviews.data.ratings)
+        this.setState({
+          reviewData: reviews
+        })
+      })
+      .catch(err => {
+        console.error('Error getting review info: ', err)
+      })
+  }
+
+  componentDidMount() {
+    this.getReviewInfo(this.state.productId)
+  }
 
   render() {
 
@@ -84,20 +101,30 @@ class App extends React.Component {
 
         <Overview
           starData={this.state.starData}
-          productId={this.state.productId} />
+          productId={this.state.productId}
+          reviewData={this.state.reviewData}
+        />
 
-        <div><RelatedItems
-        productId={this.state.productId}
-        getId={this.relatedSelectHandle}
-        allProducts={this.state.relatedProducts}
-        starData={this.state.starData} /></div>
+        <div>
+          <RelatedItems
+          productId={this.state.productId}
+          getId={this.relatedSelectHandle}
+          allProducts={this.state.relatedProducts}
+          starData={this.state.starData}
+          reviewData={this.state.reviewData}
+           />
+          </div>
 
-        <YourOutfit allProducts={this.state.relatedProducts} starData={this.state.starData} />
+        <YourOutfit allProducts={this.state.relatedProducts}
+        reviewData={this.state.reviewData} starData={this.state.starData} />
         {/* <OutFitCreater allProducts={this.state.relatedProducts}/> */}
 
 
-        <RatingBreakdown onRatingChange={this.handleStarData}
-        productId={this.state.productId} />
+        <RatingBreakdown
+        onRatingChange={this.handleStarData}
+        productId={this.state.productId}
+        reviewData={this.state.reviewData}
+        />
 
       </div>
     )
