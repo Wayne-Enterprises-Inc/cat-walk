@@ -94,9 +94,30 @@ class App extends React.Component {
   render() {
 
     return (
-      <div>
+      <SyledApp>
         <LogoBar>
-          <p style={{ fontWeight: 'bold' }}>Clothing Inc.</p>
+        <i class="fas fa-tshirt" style={{
+            fontWeight: 'bold',
+            float: 'left',
+            marginLeft: '20px',
+            marginTop: '16px',
+            marginBottom: '16px',
+            backgroundColor: '#f8b500'}}></i>
+          <p style={{
+            fontWeight: 'bold',
+            float: 'left',
+            backgroundColor: '#f8b500'
+        }}>Clothing Inc.</p>
+        <input
+        style= {{
+          float: 'right',
+          marginRight: '40px',
+          marginTop: '15px'
+        }}
+        type='text'
+        placeholder='Product Search...'
+
+        ></input>
         </LogoBar>
 
         <Overview
@@ -126,18 +147,23 @@ class App extends React.Component {
         reviewData={this.state.reviewData}
         />
 
-      </div>
+      </SyledApp>
     )
   }
 }
 // experimenting with the styled-components package
+
+const SyledApp = styled.div`
+  font-family: helvetica;
+  background: #f7f7f7;
+  color: #393e46;
+`
+
 const LogoBar = styled.div`
-display: flex;
-justify-content: space-around;
-align-items: center;
-width: 100%;
-background-color: grey;
+
+left: 50px;
 height: 50px;
+background: #5c636e;
 `;
 
 export default App;

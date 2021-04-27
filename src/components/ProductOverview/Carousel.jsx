@@ -27,19 +27,18 @@ const Carousel = (props) => {
 
         {currentThumbnails.map((pic, index) => {
 
-            return (
-              <div key={index}>
-                <Thumbnail
-                  key={index}
-                  style={{ backgroundImage: `url(${pic.thumbnail_url})` }}
-                  onClick={props.updateImgIndex}
-                  value={index}
-                />
-              </div>
-            )
+          return (
+            <div key={index}>
+              <Thumbnail
+                key={index}
+                style={{ backgroundImage: `url(${pic.thumbnail_url})` }}
+                onClick={props.updateImgIndex}
+                value={index}
+              />
+            </div>
+          )
 
         })}
-
       </Container>
     )
   } else {
@@ -63,11 +62,13 @@ const Thumbnail = styled.div`
   margin-bottom: 10px;
   cursor: pointer;
   border: 1px solid black;
+  border-radius: 30%;
   opacity: 0.75;
   background-position: center;
   background-size: cover;
   ${Thumbnail}:hover {
     border: 2px solid black;
+    border-radius: 30%;
     opacity: 1;
   }
 `
