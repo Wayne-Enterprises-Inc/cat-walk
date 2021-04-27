@@ -23,10 +23,10 @@ const Carousel = (props) => {
   if (currentThumbnails) {
     return (
 
-      <div>
+      <Container>
 
         {currentThumbnails.map((pic, index) => {
-          if (index <= 5) {
+
             return (
               <div key={index}>
                 <Thumbnail
@@ -37,10 +37,10 @@ const Carousel = (props) => {
                 />
               </div>
             )
-          }
+
         })}
 
-      </div>
+      </Container>
     )
   } else {
     return (
@@ -48,6 +48,13 @@ const Carousel = (props) => {
     )
   }
 }
+
+const Container = styled.div`
+  overflow: scroll;
+  width: 75px;
+  height: 455px;
+  background-color: rgba(255, 255, 255, .4);
+`
 
 const Thumbnail = styled.div`
   display: relative;
