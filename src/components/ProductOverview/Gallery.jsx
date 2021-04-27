@@ -15,6 +15,7 @@ class Gallery extends React.Component {
     //bindings
     this.imgSelect = this.imgSelect.bind(this);
     this.updateImgIndex = this.updateImgIndex.bind(this);
+    this.getNextImage = this.getNextImage.bind(this);
   }
   //functions/handlers
 
@@ -28,9 +29,25 @@ class Gallery extends React.Component {
       }
   }
 
+  getNextImage(event) {
+    event.preventDefault();
+
+    var index = this.state.currentImgIndex;
+
+    if (this.props.mainPics[index + 1]) {
+      this.setState({
+        currentImgIndex: (index + 1)
+      })
+    } else {
+      this.setState({
+        currentImgIndex: 0
+      })
+    }
+  }
+
   updateImgIndex(event) {
     event.preventDefault();
-    console.log('Carousel Click: ', event.target.attributes.value.nodeValue)
+    //console.log('Carousel Click: ', event.target.attributes.value.nodeValue)
     var index = Number(event.target.attributes.value.nodeValue)
     this.setState({
       currentImgIndex: index
@@ -75,12 +92,25 @@ class Gallery extends React.Component {
                   <MainImage
                     key={index}
                     style={images}
+                    value={index}
+
                   />
                 )}
               </div>
             )
           })}
           <Thumbnails>
+            <i class="fas fa-arrow-right" style={{
+              marginLeft: '20px',
+              marginBottom: '5px',
+              padding: '5px',
+              backgroundColor: '#f7f7f7',
+              color: '#393e46',
+              border: '1px solid rgba(0, 0, 0, 1)',
+              borderRadius: '30%',
+            }}
+              onClick={this.getNextImage}
+            ></i>
             <Carousel
               currentImgIndex={this.state.currentImgIndex}
               thumbnails={this.props.thumbnails}
@@ -89,6 +119,7 @@ class Gallery extends React.Component {
               updateImgIndex={this.updateImgIndex}
             />
           </Thumbnails>
+
         </GalleryView>
       )
     } else {
@@ -105,6 +136,13 @@ const MainImage = styled.div`
   height: 600px;
   border-radius: 10px;
 `
+const Arrow = styled.i`
+  color: white;
+  background: white;
+  height: 50px;
+  width: 50px;
+`
+
 const Thumbnails = styled.div`
   position: relative;
   bottom: 95%;

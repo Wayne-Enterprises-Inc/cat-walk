@@ -14,8 +14,9 @@ class Overview extends React.Component {
     this.state = {
       currentItemId: 19089,
       selectedStyle: 103466,
-      selectedSize: '',
+      selectedSize: 0,
       sizeId: '',
+      selectedQuantity: 0,
       productInfo: {},
       mainPics: [],
       thumbnails: [],
@@ -24,15 +25,19 @@ class Overview extends React.Component {
       ratingCount: 0,
       rating: 0,
       starData: 0,
+      disabled: true,
     };
     //bindings go here
     this.getStyles = this.getStyles.bind(this);
     this.getPhotos = this.getPhotos.bind(this);
     this.getProductInfo = this.getProductInfo.bind(this);
-    this.getReviewInfo = this.getReviewInfo.bind(this);
+    // this.getReviewInfo = this.getReviewInfo.bind(this);
 
     this.styleSelectHandle = this.styleSelectHandle.bind(this);
     this.sizeSelectHandle = this.sizeSelectHandle.bind(this);
+    this.handleDisable = this.handleDisable.bind(this);
+    this.quantitySelect = this.quantitySelect.bind(this);
+    this.parseReviews = this.parseReviews.bind(this);
   }
   //hander functions go here.
 
@@ -49,16 +54,45 @@ class Overview extends React.Component {
 
 
   sizeSelectHandle(event, id) {
-    this.setState({
-      selectedSize: event.target.value,
-      sizeId: id
-    })
+    if (event) {
+      this.setState({
+        selectedSize: event.target.value,
+        sizeId: id,
+        disabled: false
+      }, () => { console.log(this.state.selectedSize) })
+    } else {
+      this.setState({
+        selectedSize: null,
+        sizeId: null
+      }, () => { console.log(this.state.selectedSize) })
+    }
+  }
+
+  quantitySelect(event) {
+    if (event) {
+      this.setState({
+        selectedQuantity: event.target.value
+      }, () => { console.log(this.state.selectedQuantity) })
+    }
+  }
+
+  handleDisable() {
+    if (this.state.selectedSize) {
+      this.setState({
+        disabled: false
+      })
+    } else {
+      this.setState({
+        disabled: true
+      })
+    }
   }
 
   styleSelectHandle(event) {
     if (this.selectedStyle !== '') {
       //console.log('event: ', event)
       this.setState({
+        selectedSize: null,
         selectedStyle: ''
       }, () => {
         this.setState({
@@ -126,21 +160,14 @@ class Overview extends React.Component {
     }
   }
 
-  getReviewInfo(id) {
-    axios.get(requests.pullReviews + `/meta/?product_id=${id}`)
-      .then(reviews => {
-        //console.log('All reviews: ', reviews.data.ratings)
-        var totalRatings = 0;
-        for (var key in reviews.data.ratings) {
-          totalRatings += Number(reviews.data.ratings[key])
-        }
-        this.setState({
-          ratingCount: totalRatings
-        }/*, () => {console.log(this.state.ratingCount)}*/)
-      })
-      .catch(err => {
-        console.error('Error getting review info: ', err)
-      })
+  parseReviews() {
+    var totalRatings = 0;
+    for (var key in this.props.reviewData.data.ratings) {
+      totalRatings += Number(this.props.reviewData.data.ratings[key])
+    }
+    this.setState({
+      ratingCount: totalRatings
+    }/*, () => {console.log(this.state.ratingCount)}*/)
   }
 
   componentDidUpdate(prevProps) {
@@ -170,8 +197,12 @@ class Overview extends React.Component {
   componentDidMount() {
     this.getStyles(this.state.currentItemId)
     this.getProductInfo(this.state.currentItemId)
-    this.getReviewInfo(this.state.currentItemId)
+    // this.getReviewInfo(this.state.currentItemId)
+    if (this.props.reviewData) {
+      this.parseReviews();
+    }
   }
+
 
 
   render() {
@@ -202,6 +233,10 @@ class Overview extends React.Component {
               selected={this.state.selectedStyle}
               selectedSize={this.state.selectedSize}
               sizeSelectHandle={this.sizeSelectHandle}
+              handleDisable={this.handleDisable}
+              disabled={this.state.disabled}
+              selectedQuantity={this.state.selectedQuantity}
+              quantitySelect={this.quantitySelect}
             />
           </SelectionContainer>
         </Images>
@@ -221,6 +256,8 @@ class Overview extends React.Component {
 const Container = styled.div`
   padding-top: 20px;
   padding-bottom: 20px;
+  margin-left: 20%;
+  margin-right: 20%;
   border-bottom: 1px solid black;
 `;
 

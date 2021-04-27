@@ -23,24 +23,23 @@ const Carousel = (props) => {
   if (currentThumbnails) {
     return (
 
-      <div>
+      <Container>
 
         {currentThumbnails.map((pic, index) => {
-          if (index <= 5) {
-            return (
-              <div key={index}>
-                <Thumbnail
-                  key={index}
-                  style={{ backgroundImage: `url(${pic.thumbnail_url})` }}
-                  onClick={props.updateImgIndex}
-                  value={index}
-                />
-              </div>
-            )
-          }
-        })}
 
-      </div>
+          return (
+            <div key={index}>
+              <Thumbnail
+                key={index}
+                style={{ backgroundImage: `url(${pic.thumbnail_url})` }}
+                onClick={props.updateImgIndex}
+                value={index}
+              />
+            </div>
+          )
+
+        })}
+      </Container>
     )
   } else {
     return (
@@ -49,6 +48,13 @@ const Carousel = (props) => {
   }
 }
 
+const Container = styled.div`
+  overflow: scroll;
+  width: 75px;
+  height: 455px;
+  background-color: rgba(255, 255, 255, .4);
+`
+
 const Thumbnail = styled.div`
   display: relative;
   height: 65px;
@@ -56,11 +62,13 @@ const Thumbnail = styled.div`
   margin-bottom: 10px;
   cursor: pointer;
   border: 1px solid black;
+  border-radius: 30%;
   opacity: 0.75;
   background-position: center;
   background-size: cover;
   ${Thumbnail}:hover {
     border: 2px solid black;
+    border-radius: 30%;
     opacity: 1;
   }
 `
