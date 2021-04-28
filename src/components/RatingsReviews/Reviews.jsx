@@ -167,6 +167,7 @@ class Reviews extends React.Component {
         value: 'Newest'
       },
     ]
+
     return (
       <RightWrapper>
         <WrapperHeader>

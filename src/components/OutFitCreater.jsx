@@ -15,14 +15,17 @@ class OutFitCreater extends React.Component {
     };
     this.renderYourOutift = this.renderYourOutift.bind(this);
     this.starRender = this.starRender.bind(this)
+    // this.handleDelete= this.handleDelete.bind(this)
   }
 
 
   renderYourOutift(id) {
+
     axios.get(requests.pullProducts)
       .then((allProducts) => {
         allProducts.data.map((oneProduct) => {
-          if (oneProduct.id === id) {
+
+          if (Number(oneProduct.id) === Number(id)) {
             this.setState({
               renderProduct: oneProduct,
             });
@@ -44,6 +47,7 @@ class OutFitCreater extends React.Component {
 
       this.starRender(this.props.stars)
 
+
   }
   starRender(prevProps) {
     let updatedData = this.props.stars
@@ -55,16 +59,40 @@ class OutFitCreater extends React.Component {
       })
     }
   }
+  // handleDelete(e){
+
+  //   var myobj = document.getElementById('trash');
+  // // var mydiv = document.getElementById('trash');
+  // //  console.log(mydiv)
+  // //  while (mydiv.firstChild) {
+  // //    mydiv.removeChild(mydiv.firstChild);
+  // //  }
+
+  //   // thingToRemove.parentNode.removeChild(thingToRemove);
+  //   var myobj1 = document.getElementById('trash-title');
+  //   var myobj2 = document.getElementById('trash-click');
+
+
+  //    myobj.remove();
+  //    myobj1.remove();
+  //    myobj2.remove();
+
+
+
+  // }
+
+
 
   render() {
-console.log(this.props)
+
 
     var outfitImg = (
 
-      <Wrapper>
-        <Card>
-          <img  src ={this.state.imageUrl}  alt='Clothes Picture' width="283"/>
-          <span>{this.state.renderProduct.name}</span>
+      <Wrapper >
+        <Card id='trash'>
+
+          <img style={{ height: "200px" }}  src ={this.state.imageUrl}  alt='Clothes Picture' width="283"/>
+          <span >{this.state.renderProduct.name}</span>
           <br />
           <span>{this.state.renderProduct.category}</span>
           <br />
@@ -89,13 +117,21 @@ console.log(this.props)
     // })
 
     //)
+    console.log('props', this.state.toggle)
+      var cts = "Click To Show"
+      var ctd = (
 
+          'Click Trash To Delete'
+      )
     return (
+
       <div>
-        <h4 onClick={(e) => this.renderYourOutift(this.state.renderId)}>
-          Click to Show
+        <h4 id='trash-title' onClick={(e) =>  this.renderYourOutift(this.props.productId)}>
+          {!this.state.toggle ? cts : ctd}
+
         </h4>
         <div>
+
         {this.state.toggle ? outfitImg : ""}
         </div>
       </div>

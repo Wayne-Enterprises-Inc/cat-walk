@@ -10,6 +10,8 @@ class CompareModal extends React.Component {
   }
 
 
+
+
   renderTableData() {
     var check = <i style={{ textAlign: "left" }} className="fas fa-check"></i>;
 
@@ -19,33 +21,44 @@ class CompareModal extends React.Component {
 
             <span>Comparing</span><br/><br/>
 
-            <CheckStyleLeft>{this.props.nameForCompare}</CheckStyleLeft>
-            <CheckStyleRight>{this.props.nameForCompare}</CheckStyleRight>
+            <CheckStyleLeft>{this.props.oModalName}</CheckStyleLeft>
+            <CheckStyleRight>{this.props.modalName}</CheckStyleRight>
             <div>
               <br />
               <br />
         <TextStyle>
               <div>
+              <CheckStyleLeft>  <span style={{fontSize: "x-small" }}>
+                  {this.props.oModalFeature1}
+                </span></CheckStyleLeft>
+              <CheckStyleRight>
                 <span style={{fontSize: "x-small" }}>
-                  GMO and Pesticide-free<CheckStyleRight>{check}</CheckStyleRight>
+                  {this.props.modalFeature1}
                 </span>
+                  </CheckStyleRight>
               </div>
               <br />
               <br />
               <div>
                 <span style={{ fontSize: "x-small" }}>
-                  <CheckStyleLeft>{check}</CheckStyleLeft>Made with 100% Genetic Modification<CheckStyleRight>{check}</CheckStyleRight>
+                  <CheckStyleLeft> {this.props.oModalFeature2}</CheckStyleLeft><CheckStyleRight>{this.props.modalFeature2}</CheckStyleRight>
                 </span>
               </div>
               <br />
               <br />
               <div>
-                <span style={{ fontSize: "x-small" }}><CheckStyleLeft>{check}</CheckStyleLeft> Made in USA </span>
+
+                <span style={{ fontSize: "x-small" }}><CheckStyleLeft className="GMO">GMO and Pesticide Free</CheckStyleLeft>  </span>
+                {check}
+                <span style={{ fontSize: "x-small" }}><CheckStyleRight className="GMO">GMO and Pesticide Free</CheckStyleRight> </span>
               </div>
               <br />
               <br />
               <div>
-              <span style={{ fontSize: "x-small" }}><CheckStyleLeft>{check}</CheckStyleLeft>Machine Washable</span> <br /> <br />
+              <span style={{ fontSize: "x-small" }}><CheckStyleLeft>Machine Washable</CheckStyleLeft>  </span>
+              {check}
+                <span style={{ fontSize: "x-small" }}><CheckStyleRight>Machine Washable</CheckStyleRight> </span>
+              <br /> <br />
             </div>
         </TextStyle>
             </div>
@@ -60,6 +73,7 @@ class CompareModal extends React.Component {
     if (!this.props.show) {
       return null;
     }
+
 
     return (
       <div>
