@@ -4,6 +4,7 @@ import requests from '../../lib/axiosPrefilter.js';
 import styled from 'styled-components';
 import SortedBy from './SortedBy.jsx'
 import moment from 'moment';
+import WriteAReview from './WriteAReview.jsx'
 
 
 
@@ -22,6 +23,7 @@ class Reviews extends React.Component {
       isT: false,
       reviewCounter: 2,
       starPercentage: null,
+      showModal: false,
       // review_id: 289132,
       // rating: 4,
       // summary: 'Best purchase ever',
@@ -39,12 +41,20 @@ class Reviews extends React.Component {
     this.currentSelection = this.currentSelection.bind(this);
     this.moreReviews = this.moreReviews.bind(this);
     this.displayStars = this.displayStars.bind(this);
+    this.setShowModal = this.setShowModal.bind(this);
 
 
-    // this.isT = this.isT.bind(this);
+
 
 
   }
+
+  setShowModal(e) {
+    this.setState({
+      showModal: !this.state.showModal
+    }, () => {console.log(this.state.showModal)})
+  }
+
 
   textToggle() {
     this.setState({ isOpen: !this.state.isOpen })
@@ -216,9 +226,12 @@ class Reviews extends React.Component {
             <button onClick={() => this.moreReviews()}>MORE REVIEWS</button>
           </MoreReviewsButton>
 
-          <AddReviewButton>
-            <button> ADD A REVIEW &nbsp;&nbsp; +</button>
-          </AddReviewButton>
+          <AddReview>
+            <AddReviewButton>
+                <button onClick={e => {this.setShowModal(e);}}> ADD A REVIEW &nbsp;&nbsp; +</button>
+            </AddReviewButton>
+            <WriteAReview onClose = {this.setShowModal} showModal={this.state.showModal} />
+          </AddReview>
         </WrapperFooter>
 
       </RightWrapper>
@@ -236,7 +249,8 @@ const WrapperHeader = styled.div`
 `;
 
 const ReviewList = styled.div`
-
+  max-height: 600px;
+  overflow-y: scroll;
 `;
 
 const IndividualReview = styled.div`
@@ -332,9 +346,34 @@ const WrapperFooter = styled.div`
 `;
 
 const MoreReviewsButton = styled.div`
+  height: 40px;
+  width: 100px;
+  background-color: LightGray;
+  top: 40px;
+  left: 20px;
+  order: 3;
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  font-size: 16px;
+`;
+
+const AddReview = styled.div`
 `;
 
 const AddReviewButton = styled.div`
+  height: 40px;
+  width: 100px;
+  background-color: LightGray;
+  top: 40px;
+  left: 20px;
+  order: 3;
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  font-size: 16px;
 `;
 
 

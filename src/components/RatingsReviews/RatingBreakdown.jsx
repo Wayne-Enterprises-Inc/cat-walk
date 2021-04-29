@@ -104,6 +104,7 @@ FUNCTIONS
     })
     this.eachStarAverage(reviewsArray, total);
     average = Number((number / total).toFixed(1));
+    console.log('AVERAGE', average)
     return average;
   }
 
@@ -135,6 +136,7 @@ FUNCTIONS
   displayStars() {
     const starsTotal = 5;
     //Gives percentage of reviews based on a 5 star count
+    console.log('AVERAGE RATING', this.state.averageRating)
     const starPercentage = (this.state.averageRating / starsTotal) * 100;
     //Rounds percentage so each Star is worth "20%" and each quarter will be at ex: 0%(empty), 5%(quarter), 10%(half), 15%(3/4), 20%(filled star)
     const starPercentageRounded = `${Math.round(starPercentage/5) * 5}%`
