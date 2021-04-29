@@ -24,9 +24,9 @@ class App extends React.Component {
     this.state = {
       relatedProducts: [],
       starData: 0,
-
       productId: 19089,
       reviewData: null,
+
     };
 
     //bind functions here
@@ -54,6 +54,7 @@ class App extends React.Component {
   }
 
   relatedSelectHandle(event) {
+    console.log(event.target)
     if (this.state.productId !== '') {
       console.log('event: ', event.target.attributes.value.nodeValue)
       this.setState({
@@ -91,7 +92,11 @@ class App extends React.Component {
     this.getReviewInfo(this.state.productId)
   }
 
+
+
   render() {
+
+console.log(this.state.starData)
 
     return (
       <SyledApp>
@@ -135,9 +140,8 @@ class App extends React.Component {
           reviewData={this.state.reviewData}
            />
           </div>
+        <YourOutfit productId={this.state.productId} allProducts={this.state.relatedProducts} starData={this.state.starData} />
 
-        <YourOutfit allProducts={this.state.relatedProducts}
-        reviewData={this.state.reviewData} starData={this.state.starData} />
         {/* <OutFitCreater allProducts={this.state.relatedProducts}/> */}
 
 

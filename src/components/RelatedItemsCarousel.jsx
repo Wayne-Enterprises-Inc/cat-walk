@@ -13,6 +13,7 @@ class RelatedItemsCarousel extends React.Component {
   }
 
   showModal(e) {
+
     this.setState({
       nameCompare: e.target.innerHTML,
       show: !this.state.show,
@@ -23,26 +24,40 @@ class RelatedItemsCarousel extends React.Component {
 
     return (
       <div>
-        <h4>Related Items</h4>
+        <h4 style={{marginLeft: '10%'}}>Related Items</h4>
+        <div>
+
         <CompareModal
-          nameForCompare={this.state.nameCompare}
-          allProducts={this.props.allProducts}
-          onClose={this.showModal}
-          show={this.state.show}
+        cards={this.props.productCard}
+        modalId={this.props.modalId}
+        nameForCompare={this.state.nameCompare}
+        allProducts={this.props.allProducts}
+        onClose={this.showModal}
+        show={this.state.show}
+        modalName={this.props.modalName}
+          modalFeature1={this.props.modalFeature1}
+          modalFeature2={this.props.modalFeature2}
+          oModalName={this.props.oModalName}
+          oModalFeature1={this.props.oModalFeature1}
+          oModalFeature2={this.props.oModalFeature2}
         />
+        </div>
 
         {/* click modal replace */}
         <div >
-        <div style={{ marginLeft: '25%'}}>
+          <Line>
+        <div style={{ marginLeft: '25%', marginRight: '25%'}} >
+
         <Carousel getId={this.props.getId} show={this.state.show} onClick={(e) => this.showModal(e)} slides={this.props.productCardImg} cards={this.props.productCard}/>
         </div>
-
+        </Line>
         </div>
 
       </div>
     );
   }
 }
+
 
 const Card = styled.section`
   text-align: left;
@@ -54,6 +69,9 @@ const Card = styled.section`
 const Wrapper = styled.section`
   display: inline-block;
   margin-right: 10px;
+`;
+const Line = styled.section`
+border-bottom: 1px solid black
 `;
 
 

@@ -11,25 +11,26 @@ class YourOutfit extends React.Component {
       outfit: []
     };
      this.createDivs = this.createDivs.bind(this);
+     this.handleDelete= this.handleDelete.bind(this)
   }
   createDivs() {
 
   this.setState({
 
-  // outfit: this.state.outfit.concat(<OutFitCreater/>)
 
-  outfit: this.state.outfit.concat(<OutFitCreater stars={this.props.starData}/>)
+
+  outfit: this.state.outfit.concat(<OutFitCreater productId={this.props.productId} stars={this.props.starData}/>)
   });
 
+  }
 
-  // outfit: this.state.outfit.concat(<OutFitCreater stars={this.props.starData}/>)
+  handleDelete(e){
+
+     var myobj = document.getElementById(e.target.id);
+    myobj.remove();
 
 
-  };
-  // this.props.create
-
-
-//}
+  }
 
 
   render() {
@@ -38,12 +39,18 @@ class YourOutfit extends React.Component {
 
     return (
       <div>
-      <button onClick={this.createDivs}>Add Outfit</button>
+        <br/><br/>
+
+        <i  style={{marginLeft: '10%', padding: '5px'}} onClick={this.createDivs} className="fas fa-plus-circle"><h5 style={{marginRight: '20%', paddingRight: '15px'}}>Add To Outfit</h5></i>
+
 
 
       {this.state.outfit.map((box, index) =>
 
-        <Wrapper key={index}>
+        <Wrapper key={index} id={index}>
+
+<i id={index} onClick={this.handleDelete} className="fas fa-trash-alt"></i>
+
 
         {box}
 

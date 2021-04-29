@@ -1,47 +1,84 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 
 const Carousel = ({ slides, cards, onClick, show, getId }) => {
   const [current, setCurrent] = useState(0);
+  const [showResultsRight, setShowResultsRight] = React.useState(true);
+  const [showResultsLeft, setShowResultsLeft] = React.useState(true);
   const length = slides.length;
 
-
-  const onClose = (e) => {
-    show = false;
-  }
   const nextSlide = () => {
     setCurrent(current === length - 1 ? 0 : current + 1);
+
+    if (current === length - 2) {
+      setShowResultsRight(false);
+    }
+    if (current === 0) {
+      setShowResultsLeft(false);
+    }
   };
 
   const prevSlide = () => {
     setCurrent(current === 0 ? length - 1 : current - 1);
+
+    if (current !== length - 2) {
+      setShowResultsRight(true);
+    }
+    if (current === 1) {
+      setShowResultsLeft(true);
+    }
   };
 
   if (!Array.isArray(slides) || slides.length <= 0) {
     return null;
   }
 
-
-
   return (
-    <div>
-      <section className="slider">
-        <LeftArrow>
-          <FaArrowAltCircleLeft style={{ marginLeft: '250px' }} className="left-arrow" onClick={prevSlide} />
+    <div style={{ width: "100%" }}>
+      <section
+        style={{ marginRight: "147px", marginLeft: "100px" }}
+        className="slider"
+      >
+        <LeftArrow onClick={prevSlide}>
+          <div>
+            {showResultsLeft ? null : (
+              <FaArrowAltCircleLeft
+                style={{ marginLeft: "250px" }}
+                className="left-arrow"
+              />
+            )}
+          </div>
         </LeftArrow>
-        <RightArrow>
-          <FaArrowAltCircleRight style={{ marginRight: '300px' }} className="right-arrow" onClick={nextSlide} />
+        <RightArrow onClick={nextSlide}>
+          {showResultsRight ? (
+            <FaArrowAltCircleRight
+              style={{ marginRight: "300px" }}
+              className="right-arrow"
+            />
+          ) : null}
         </RightArrow>
-        {slides.map((slide, index) => {
-          // console.log('SLIDE', slide)
-          return (
-            <Wrapper key={index}>
-              <div>
-                <div className={index === current ? "slide active" : "slide"}>
+        <div style={{ display: "flex", width: "100%", alignItems: "center",  justifyContent: 'center', marginRight: '15%', marginLeft: '15%' }}>
+          {slides.map((slide, index) => {
+
+
+            return (
+
+              <div key={index}>
+
+
+
+
+                <div  className={index === current ? "slide active" : "slide"}>
                   {index === current && (
-                    <img onClick={getId}
-                      style={{ width: "200px", height: "200px" }}
+                    <img
+                      onClick={getId}
+                      style={{
+                        width: "200px",
+                        height: "200px",
+                        border: "1px solid black",
+                      }}
                       src={slide[0].thumbnail_url}
                       value={slide[1]}
                       alt="clothes picture"
@@ -52,7 +89,11 @@ const Carousel = ({ slides, cards, onClick, show, getId }) => {
                   {index === current + 1 && (
                     <img
                       onClick={getId}
-                      style={{ width: "200px", height: "200px" }}
+                      style={{
+                        width: "200px",
+                        height: "200px",
+                        border: "1px solid black",
+                      }}
                       src={slide[0].thumbnail_url}
                       value={slide[1]}
                       alt="clothes picture"
@@ -63,60 +104,79 @@ const Carousel = ({ slides, cards, onClick, show, getId }) => {
                   {index === current + 2 && (
                     <img
                       onClick={getId}
-                      style={{ width: "200px", height: "200px" }}
+                      style={{
+                        width: "200px",
+                        height: "200px",
+                        border: "1px solid black",
+                      }}
                       src={slide[0].thumbnail_url}
                       value={slide[1]}
                       alt="clothes picture"
                     />
                   )}
                 </div>
-              </div>
-            </Wrapper>
-          );
-        })}
-      </section>
-      <section onClick={onClick} className="card-slider">
-        {cards.map((card, index) => {
-          return (
-            <Wrapper key={index}>
-              <div className={index === current ? "slide active" : "slide"}>
-                {index === current && card}
-              </div>
-              <div className={index === current ? "slide active" : "slide"}>
-                {index === current + 1 && card}
-              </div>
-              <div className={index === current ? "slide active" : "slide"}>
-                {index === current + 2 && card}
+
               </div>
 
-            </Wrapper>
-          );
-        })}
+            );
+
+          })}
+        </div>
+
       </section>
+      <div  style={{display: "flex", width: "100%", alignItems: "center", justifyContent: 'center'}}onClick={onClick}>
+        <br/><br/><br/><br/>
+          {cards.map((card, index) => {
+            return (
+              <div key={index}>
+
+                <div
+
+                  className={index === current ? "slide active" : "slide"}
+                >
+                  {index === current && card}
+                </div>
+                <div
+
+                  className={index === current ? "slide active" : "slide"}
+                >
+                  {index === current + 1 && card}
+                </div>
+                <div
+
+                  className={index === current ? "slide active" : "slide"}
+                >
+                  {index === current + 2 && card}
+                </div>
+              </div>
+            );
+          })}
+          </div>
+
+      <br />
+      <br />
     </div>
   );
 };
 const RightArrow = styled.section`
   position: absolute;
   top: 60rem;
-  right: -70px;
+  right: 20px;
   font-size: 1rem;
   z-index: 10;
-
 `;
+
 const LeftArrow = styled.section`
   position: absolute;
   top: 60rem;
-  left: 20px;
+  left: 120px;
   font-size: 1rem;
   z-index: 10;
 `;
 const Wrapper = styled.section`
-  display: inline-block;
-
-  width: 200px;
+  display: flex;
+  width: 100%;
 `;
-
 
 const Card = styled.section`
   display: inline-block;
