@@ -85,8 +85,6 @@ const Cart = (props) => {
         <br></br>
         <CartStyles disabled={!props.selectedQuantity}>Add to Cart</CartStyles>
         <br></br>
-
-        <OutfitStyle></OutfitStyle>
         </form>
       </div >
     )

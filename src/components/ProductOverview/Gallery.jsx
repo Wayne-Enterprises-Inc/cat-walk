@@ -112,7 +112,7 @@ class Gallery extends React.Component {
                 borderRadius: '30%',
               }}
               onClick={this.getNextImage}
-            >asdf</i>
+            ></i>
             <Carousel
               currentImgIndex={this.state.currentImgIndex}
               thumbnails={this.props.thumbnails}
