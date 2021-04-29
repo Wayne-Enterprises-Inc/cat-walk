@@ -89,7 +89,7 @@ class OutFitCreater extends React.Component {
     var outfitImg = (
 
       <Wrapper >
-        <Card id='trash'>
+        <Card >
 
           <img style={{ height: "200px" }}  src ={this.state.imageUrl}  alt='Clothes Picture' width="283"/>
           <span >{this.state.renderProduct.name}</span>

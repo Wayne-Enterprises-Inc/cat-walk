@@ -25,10 +25,10 @@ class YourOutfit extends React.Component {
   }
 
   handleDelete(e){
-console.log(e.target.id)
+
      var myobj = document.getElementById(e.target.id);
     myobj.remove();
-    //console.log(myobj)
+
 
   }
 
@@ -43,7 +43,7 @@ console.log(e.target.id)
 
         <i  style={{marginLeft: '10%', padding: '5px'}} onClick={this.createDivs} className="fas fa-plus-circle"><h5 style={{marginRight: '20%', paddingRight: '15px'}}>Add To Outfit</h5></i>
 
-      {/* <button onClick={this.createDivs}>{add}</button> */}
+
 
       {this.state.outfit.map((box, index) =>
 

@@ -130,6 +130,7 @@ FUNCTIONS
 
   componentDidMount() {
     this.getRatings(this.state.currentItemId)
+
   }
 
   displayStars() {

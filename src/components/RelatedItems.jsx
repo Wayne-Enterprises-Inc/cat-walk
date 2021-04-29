@@ -37,97 +37,98 @@ class RelatedItems extends React.Component {
   }
 
 
-  // getRatings() {
-  //   this.state.relatedId.map((oneRating)=>{
+//   getRatings(id) {
 
 
-  //     //Initial GET
-  //     axios.get(`${requests.pullReviews}/meta/?product_id=${oneRating}`)
-  //       .then(data => {
-  //         this.setState({
-  //           //Sets State to Product's Review Data
-  //           reviewData: data.data,
-  //         }/*, () => console.log(this.state.reviewData)*/)
-  //      // }
-  //    // }
-  //       }).then(() => {
-  //         this.setState({
-  //           //From data sets seperate state for ratings and recommended
-  //           // characteristics: this.state.reviewData.characteristics,
-  //           ratings: this.state.reviewData.ratings,
-  //           // recommended: this.state.reviewData.recommended,
-  //         }/*, () => console.log(this.state.characteristics)*/)
-  //       }).then(() => {
-  //       //  this.recommendedReviews(this.state.recommended)
-  //         this.setState({
-  //           //After ratings state is set, it is used to calculate average rating
-  //           averageRating: this.averageReviews(this.state.ratings),
-  //         });
-  //       })
-  //       .then(() => {
-  //         //Runs function to display graph corresponding to AverageRating
-  //         this.displayStars();
-  //       })
-  //       .then(() => {
-  //         this.makeArray(this.state.starPercentage)
-  //       })
-  //       .catch(err => {
-  //         //Catches any errors in process
-  //         console.error('ERROR GETTING REVIEWS: ', err);
-  //       })
-  //     })
-  //   }
-  //   averageReviews(reviews) {
-  //     let reviewsArray = Object.entries(reviews);
-  //     let number = 0;
-  //     let total = 0;
-  //     let average = 0;
-  //     //Loops over array of reviews to pick out each key:value to convert to numeric values
-  //     reviewsArray.forEach(([key, value]) => {
-  //       total = total + Number(value);
-  //       number = number + (key * value);
-  //     })
-  //     //Numeric rating sum divided by total number of reviews give average review, which is rounded to one decimal point
-  //     this.setState({
-  //       totalReviews: total,
-  //     })
-  //     this.eachStarAverage(reviewsArray, total);
-  //     average = Number((number / total).toFixed(1));
-  //     return average;
-  //   }
-  //   eachStarAverage(array, total) {
-  //     let averagesArray = {};
-  //     array.forEach(([key, value]) => {
-  //       averagesArray[key] = [value, (((value / total)*100).toFixed(2) + '%')];
-  //     })
-  //     this.setState({
-  //       reviewAverages: averagesArray
-  //     })
-  //   }
-  //   displayStars() {
 
-  //     const starsTotal = 5;
-  //     //Gives percentage of reviews based on a 5 star count
-  //     const starPercentage = (this.state.averageRating / starsTotal) * 100;
-  //     //Rounds percentage so each Star is worth "20%" and each quarter will be at ex: 0%(empty), 5%(quarter), 10%(half), 15%(3/4), 20%(filled star)
-  //     const starPercentageRounded = `${Math.round(starPercentage/5) * 5}%`
+//       //Initial GET
+//       axios.get(`${requests.pullReviews}/meta/?product_id=${id}`)
+//         .then(data => {
+//           this.setState({
+//             //Sets State to Product's Review Data
+//             reviewData: data.data,
+//           }/*, () => console.log(this.state.reviewData)*/)
+//        // }
+//      // }
+//         }).then(() => {
+//           this.setState({
+//             //From data sets seperate state for ratings and recommended
+//             // characteristics: this.state.reviewData.characteristics,
+//             ratings: this.state.reviewData.ratings,
+//             // recommended: this.state.reviewData.recommended,
+//           }/*, () => console.log(this.state.characteristics)*/)
+//         }).then(() => {
 
-  //     this.setState({
-  //       starPercentage: starPercentageRounded,
-  //     })
-  //     //this.handleRatingChange();
-  //     //console.log(this.state.starPercentage)
-  //   }
+//         //  this.recommendedReviews(this.state.recommended)
+//           this.setState({
+//             //After ratings state is set, it is used to calculate average rating
+//             averageRating: this.averageReviews(this.state.ratings),
+//           });
+//         })
+//         .then(() => {
+//           //Runs function to display graph corresponding to AverageRating
+//           this.displayStars();
+//         })
+//         .then(() => {
+//           this.makeArray(this.state.starPercentage)
+//         })
+//         .catch(err => {
+//           //Catches any errors in process
+//           console.error('ERROR GETTING REVIEWS: ', err);
+//         })
 
-    // makeArray(starPercent){
-    //   var newPercentageArray = this.state.outputArray
-    //   newPercentageArray.push(starPercent)
-    //   this.setState({
-    //     outputArray: newPercentageArray
-    //   }, () => {
-    //     // console.log(this.state.outputArray)
-    //   })
-    // }
+//     }
+//     averageReviews(reviews) {
+//       let reviewsArray = Object.entries(reviews);
+//       let number = 0;
+//       let total = 0;
+//       let average = 0;
+//       //Loops over array of reviews to pick out each key:value to convert to numeric values
+//       reviewsArray.forEach(([key, value]) => {
+//         total = total + Number(value);
+//         number = number + (key * value);
+//       })
+//       //Numeric rating sum divided by total number of reviews give average review, which is rounded to one decimal point
+//       this.setState({
+//         totalReviews: total,
+//       })
+//       this.eachStarAverage(reviewsArray, total);
+//       average = Number((number / total).toFixed(1));
+//       return average;
+//     }
+//     eachStarAverage(array, total) {
+//       let averagesArray = {};
+//       array.forEach(([key, value]) => {
+//         averagesArray[key] = [value, (((value / total)*100).toFixed(2) + '%')];
+//       })
+//       this.setState({
+//         reviewAverages: averagesArray
+//       })
+//     }
+//     displayStars() {
+// var output = []
+//       const starsTotal = 5;
+//       //Gives percentage of reviews based on a 5 star count
+//       const starPercentage = (this.state.averageRating / starsTotal) * 100;
+//       //Rounds percentage so each Star is worth "20%" and each quarter will be at ex: 0%(empty), 5%(quarter), 10%(half), 15%(3/4), 20%(filled star)
+//       const starPercentageRounded = `${Math.round(starPercentage/5) * 5}%`
+// output.push(starPercentageRounded)
+//       this.setState({
+//         starPercentage: output,
+//       })
+//       //this.handleRatingChange();
+//       //console.log(this.state.starPercentage)
+//     }
+
+//     makeArray(starPercent){
+//       var newPercentageArray = this.state.outputArray
+//       newPercentageArray.push(starPercent)
+//       this.setState({
+//         outputArray: newPercentageArray
+//       }, () => {
+//         // console.log(this.state.outputArray)
+//       })
+//     }
   componentDidMount() {
 
 
@@ -182,9 +183,10 @@ class RelatedItems extends React.Component {
 
                       })
                        .then(()=>{
-
-                              // this.getRatings()
-
+                        // this.state.relatedId.map((oneRating)=>{
+                        //  // console.log('OR',oneRating)
+                        //         this.getRatings(oneRating)
+                        // })
 
                        })
 
@@ -297,6 +299,7 @@ class RelatedItems extends React.Component {
         oModalFeature2: oProductForModal.data.features[0].value
       })
     })
+    console.log(event.target.attributes)
     this.setState({
       modalId: event.target.attributes.value.nodeValue
     }, () => {
@@ -320,7 +323,7 @@ class RelatedItems extends React.Component {
 
   render() {
     // console.log('IMAGES2', this.state.imagesToSend)
-    // console.log('RD',this.state.reviewData)
+    // console.log('RD',this.state.starPercentage)
     var productDetails = this.state.allRelated.map(
 
       (productForRender, index) => (
@@ -352,7 +355,7 @@ class RelatedItems extends React.Component {
       )
     );
 
-// console.log('SD',this.state.reviewAverages)
+
     return (
       <div>
         <RelatedItemsCarousel getId={this.props.getId}
