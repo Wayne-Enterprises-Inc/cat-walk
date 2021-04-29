@@ -1,0 +1,348 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  className="sc-fvxABq egHPNc"
+>
+  <div
+    className="sc-fbyett dtGzSM"
+  >
+    <i
+      class="fas fa-tshirt"
+      style={
+        Object {
+          "backgroundColor": "#f8b500",
+          "float": "left",
+          "fontWeight": "bold",
+          "marginBottom": "16px",
+          "marginLeft": "20px",
+          "marginTop": "16px",
+        }
+      }
+    />
+    <p
+      style={
+        Object {
+          "backgroundColor": "#f8b500",
+          "float": "left",
+          "fontWeight": "bold",
+        }
+      }
+    >
+      Clothing Inc.
+    </p>
+    <input
+      placeholder="Product Search..."
+      style={
+        Object {
+          "float": "right",
+          "marginRight": "40px",
+          "marginTop": "15px",
+        }
+      }
+      type="text"
+    />
+  </div>
+  <div
+    className="sc-dtMiey dsqDgF"
+  >
+    <div
+      className="sc-jUotMc gHMKsv"
+    >
+      <div>
+        loading...
+      </div>
+      <div
+        className="sc-cZMLWB bXmjnX"
+      >
+        <div
+          className="sc-fWCJfs gPPPIe"
+        >
+          <div
+            style={
+              Object {
+                "padding": "10px",
+                "width": "300px",
+              }
+            }
+          >
+            <div
+              className="sc-jIkYaL ljRQvZ"
+            >
+              <div
+                className="sc-ZOsLE hkrPdR"
+              >
+                <div
+                  className="sc-hmjpBu tKtDQ"
+                />
+              </div>
+            </div>
+            <div
+              className="sc-jOxuqd bkJvdE"
+              onClick={[Function]}
+            >
+              Read all reviews
+            </div>
+            <h5>
+              :
+            </h5>
+            <h2 />
+            <h3 />
+            <h2>
+              Style &gt; 
+            </h2>
+            <div
+              className="sc-GamvQ hPWtgl"
+            />
+          </div>
+        </div>
+        <div>
+          <form>
+            <select
+              className="sc-bTfYlY eeHBmC"
+              onChange={[Function]}
+            >
+              <option>
+                Select a Size
+              </option>
+            </select>
+            <select
+              className="sc-kHOZQx jLhOie"
+              disabled={true}
+              onClick={[Function]}
+            >
+              <option>
+                Qty: 0
+              </option>
+            </select>
+            <br />
+            <button
+              className="sc-eLwHGX hAeRTH"
+              disabled={true}
+            >
+              Add to Cart
+            </button>
+            <br />
+            <button
+              className="sc-hOGjNT crOBLz"
+            />
+          </form>
+        </div>
+      </div>
+    </div>
+    <div
+      className="sc-jQrCkL bANUka"
+    >
+      <div>
+        <em>
+          <b />
+        </em>
+      </div>
+      <br />
+      <div />
+    </div>
+  </div>
+  <div>
+    <div>
+      <div>
+        <h4>
+          Related Items
+        </h4>
+        <div>
+          <div
+            style={
+              Object {
+                "marginLeft": "25%",
+              }
+            }
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <button
+      onClick={[Function]}
+    >
+      Add Outfit
+    </button>
+  </div>
+  <div
+    className="sc-jJoQpE fvZtPz"
+  >
+    <div
+      className="sc-hiCivh hHeKsX"
+    >
+      RATINGS & REVIEWS
+    </div>
+    <div
+      className="sc-gWXaA-D lkfinj"
+    >
+      <div
+        className="sc-cidCJl hVeMbZ"
+      >
+        <div
+          className="sc-jcFkyM haAsQZ"
+        >
+          N/A
+        </div>
+        <div
+          className="sc-caiKgP qJiku"
+        >
+          <div
+            className="sc-iUKrWq cWmQoJ"
+          >
+            <div
+              className="sc-iAKVOt ilBttS"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="sc-efQUeY kqyVhz"
+      >
+        <div
+          className="sc-jObXwK kjOkvX"
+        />
+        <div
+          className="sc-cTApHj jfGrnB"
+        >
+          5 stars
+        </div>
+        <div
+          className="sc-dPiKHq cSIFfP"
+        >
+          <div
+            className="sc-bBHHQT fZrTSx"
+            width={null}
+          />
+        </div>
+        <div
+          className="sc-jObXwK kjOkvX"
+        />
+        <div
+          className="sc-cTApHj jfGrnB"
+        >
+          4 stars
+        </div>
+        <div
+          className="sc-dPiKHq cSIFfP"
+        >
+          <div
+            className="sc-bBHHQT fZrTSx"
+            width={null}
+          />
+        </div>
+        <div
+          className="sc-jObXwK kjOkvX"
+        />
+        <div
+          className="sc-cTApHj jfGrnB"
+        >
+          3 stars
+        </div>
+        <div
+          className="sc-dPiKHq cSIFfP"
+        >
+          <div
+            className="sc-bBHHQT fZrTSx"
+            width={null}
+          />
+        </div>
+        <div
+          className="sc-jObXwK kjOkvX"
+        />
+        <div
+          className="sc-cTApHj jfGrnB"
+        >
+          2 stars
+        </div>
+        <div
+          className="sc-dPiKHq cSIFfP"
+        >
+          <div
+            className="sc-bBHHQT fZrTSx"
+            width={null}
+          />
+        </div>
+        <div
+          className="sc-jObXwK kjOkvX"
+        />
+        <div
+          className="sc-cTApHj jfGrnB"
+        >
+          1 stars
+        </div>
+        <div
+          className="sc-dPiKHq cSIFfP"
+        >
+          <div
+            className="sc-bBHHQT fZrTSx"
+            width={null}
+          />
+        </div>
+      </div>
+      <div
+        className="sc-cNKpQo cuLYpS"
+      >
+        0
+         of reviews recommended this product
+      </div>
+    </div>
+    <div
+      className="sc-cCcYRi jmpBhT"
+    >
+      <div
+        className="sc-fotPbf kUUlHI"
+      >
+        <div
+          className="sc-fFehDp blBGsh"
+        >
+           reviews, sorted by  
+          <div
+            className="sc-jrQzUz gwhoOm"
+          >
+            <div
+              className="sc-kDThTU kEPsS"
+              onClick={[Function]}
+              onKeyPress={[Function]}
+              role="button"
+              tabIndex={0}
+            >
+              <div
+                className="sc-iqsfdx cuTrvZ"
+              >
+                Relevant
+                 ▼
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="sc-bkkfTU kvjTOP"
+        />
+        <div
+          className="sc-bYoCmx blNjdO"
+        >
+          <div
+            className="sc-kLwgWK hlJEcv"
+          >
+            <button
+              onClick={[Function]}
+            >
+              MORE REVIEWS
+            </button>
+          </div>
+          <div
+            className="sc-ikJzcn dsoCKz"
+          >
+            <button>
+               ADD A REVIEW    +
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

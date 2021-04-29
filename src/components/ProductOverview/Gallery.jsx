@@ -100,15 +100,17 @@ class Gallery extends React.Component {
             )
           })}
           <Thumbnails>
-            <i class="fas fa-arrow-right" style={{
-              marginLeft: '20px',
-              marginBottom: '5px',
-              padding: '5px',
-              backgroundColor: '#f7f7f7',
-              color: '#393e46',
-              border: '1px solid rgba(0, 0, 0, 1)',
-              borderRadius: '30%',
-            }}
+            <i id="arrow"
+              class="fas fa-arrow-right"
+              style={{
+                marginLeft: '20px',
+                marginBottom: '5px',
+                padding: '5px',
+                backgroundColor: '#f7f7f7',
+                color: '#393e46',
+                border: '1px solid rgba(0, 0, 0, 1)',
+                borderRadius: '30%',
+              }}
               onClick={this.getNextImage}
             ></i>
             <Carousel

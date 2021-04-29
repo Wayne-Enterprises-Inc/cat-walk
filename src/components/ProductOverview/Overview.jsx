@@ -109,7 +109,7 @@ class Overview extends React.Component {
   getProductInfo(id) {
     axios.get(requests.pullProducts + `/${id}`)
       .then(data => {
-        //console.log('all info: ', data.data)
+        console.log('all info: ', data.data)
         this.setState({
           productInfo: data.data,
         });

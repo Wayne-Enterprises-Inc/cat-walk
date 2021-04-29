@@ -107,6 +107,7 @@ console.log(this.state.starData)
             marginLeft: '20px',
             marginTop: '16px',
             marginBottom: '16px',
+            padding: '1px',
             backgroundColor: '#f8b500'}}></i>
           <p style={{
             fontWeight: 'bold',
