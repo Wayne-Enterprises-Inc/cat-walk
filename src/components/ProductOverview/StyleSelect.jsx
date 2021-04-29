@@ -46,6 +46,9 @@ const Styles = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 80%;
+  padding-bottom: 20px;
+  border-bottom: 1px solid black;
+
 `
 
 

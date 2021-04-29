@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 const stockArray = (totalStock) => {
@@ -16,14 +16,20 @@ const stockArray = (totalStock) => {
     return numbers
   }
 }
-
 const Cart = (props) => {
+
+
+  // useEffect(() => {
+  //   props.sizeSelectHandle()
+  //   console.log(props.selectedSize)
+  // }, [props.selectedStyle])
   if (props.selected) {
 
     let Skus = [];
     let allSizes = {};
     let totalStock;
     let quantity;
+
     for (let i = 0; i < props.styles.length; i++) {
       if (props.styles[i].style_id === Number(props.selected)) {
         Skus = props.styles[i].skus;
@@ -37,10 +43,11 @@ const Cart = (props) => {
       totalStock = Skus[Number(props.selectedSize)].quantity;
     }
 
+
     return (
       <div>
         <form>
-          <SizeStyles onChange={props.sizeSelectHandle}>
+          <SizeStyles onChange={props.sizeSelectHandle} >
             <option>Select a Size</option>
             {Object.keys(allSizes).map(sizeId => {
               return (
@@ -55,35 +62,39 @@ const Cart = (props) => {
             })}
           </SizeStyles>
 
-          <QuantityStyles>
+          <QuantityStyles
+            onClick={props.quantitySelect}
+            disabled={props.disabled}
+          >
             <option>
               Qty: 0
               </option>
             {stockArray(totalStock).map((quantity, index) => {
               return (
                 <option
-                  key={index}
-                  value={quantity}
-                >
-                  {quantity}
+                  onClick={props.quantitySelect}
+                  key = { index }
+                  value = { quantity }
+              >
+              { quantity }
                 </option>
               )
             })}
           </QuantityStyles>
 
-          <br></br>
-          <CartStyles>Add to Cart</CartStyles>
-          <br></br>
+        <br></br>
+        <CartStyles disabled={!props.selectedQuantity}>Add to Cart</CartStyles>
+        <br></br>
 
-          <OutfitStyle></OutfitStyle>
+        <OutfitStyle></OutfitStyle>
         </form>
-      </div>
+      </div >
     )
   } else {
-    return (
-      <div>Loading...</div>
-    )
-  }
+  return (
+    <div>Loading...</div>
+  )
+}
 };
 
 const CartStyles = styled.button`
