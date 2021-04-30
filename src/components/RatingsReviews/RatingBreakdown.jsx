@@ -98,6 +98,7 @@ getRatings(id) {
     })
     this.eachStarAverage(reviewsArray, total);
     average = Number((number / total).toFixed(1));
+    console.log('AVERAGE', average)
     return average;
   }
 
@@ -130,6 +131,7 @@ getRatings(id) {
   displayStars() {
     const starsTotal = 5;
     //Gives percentage of reviews based on a 5 star count
+    console.log('AVERAGE RATING', this.state.averageRating)
     const starPercentage = (this.state.averageRating / starsTotal) * 100;
     //Rounds percentage so each Star is worth "20%" and each quarter will be at ex: 0%(empty), 5%(quarter), 10%(half), 15%(3/4), 20%(filled star)
     const starPercentageRounded = `${Math.round(starPercentage/5) * 5}%`
@@ -181,10 +183,9 @@ MAIN RENDER
           <ProgressBar><Bar width={reviewAverages[1] ? reviewAverages[1][1] : null}/></ProgressBar>
         </Graph>
         <Recommended>{recommendedPercentage} of reviews recommended this product</Recommended>
-        {/* <SizeBreakdown /> */}
       </LeftWrapper>
       <RightWrapper>
-        <Reviews id={this.state.currentItemId} totalReviews={this.state.totalReviews} starData={this.state.starPercentage}></Reviews>
+        <Reviews id={this.state.currentItemId} totalReviews={this.state.totalReviews} starData={this.state.starPercentage} characteristics={this.state.characteristics}></Reviews>
       </RightWrapper>
     </Container>
     );

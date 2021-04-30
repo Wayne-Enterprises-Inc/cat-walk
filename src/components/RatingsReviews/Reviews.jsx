@@ -4,6 +4,7 @@ import requests from '../../lib/axiosPrefilter.js';
 import styled from 'styled-components';
 import SortedBy from './SortedBy.jsx'
 import moment from 'moment';
+import WriteAReview from './WriteAReview.jsx'
 
 
 
@@ -22,6 +23,7 @@ class Reviews extends React.Component {
       isT: false,
       reviewCounter: 2,
       starPercentage: null,
+      showModal: false,
       // review_id: 289132,
       // rating: 4,
       // summary: 'Best purchase ever',
@@ -39,22 +41,25 @@ class Reviews extends React.Component {
     this.currentSelection = this.currentSelection.bind(this);
     this.moreReviews = this.moreReviews.bind(this);
     this.displayStars = this.displayStars.bind(this);
+    this.setShowModal = this.setShowModal.bind(this);
 
 
-    // this.isT = this.isT.bind(this);
+
 
 
   }
+
+  setShowModal(e) {
+    this.setState({
+      showModal: !this.state.showModal
+    }, () => {console.log(this.state.showModal)})
+  }
+
 
   textToggle() {
     this.setState({ isOpen: !this.state.isOpen })
   }
 
-  //Currently out of commission
-  // isT() {
-  //   console.log('guessing here')
-  //   this.setState({isT: true})
-  // }
 
   getMoreText(text) {
     if (text.length > 250) {
@@ -85,7 +90,7 @@ class Reviews extends React.Component {
           reviewData: data.data,
           visibleReviews: data.data.results.slice(0, this.state.reviewCounter)
         }, () => {
-          console.log(this.state.product_id)
+          console.log(this.state.visibleReviews)
         })
       }).catch(err => {
         console.log('ERROR', err);
@@ -111,15 +116,6 @@ class Reviews extends React.Component {
       })
     }
 
-    //star data
-    // let updatedStars = this.props.starData
-    // if (prevProps.starData !== updatedStars) {
-    //   this.setState({
-    //     starPercentage: updatedStars
-    //   }, () => {
-    //     //console.log('HERE IS THE STAR DATA YOU WILL NEED', this.state.starData)
-    //   })
-    // }
 
   }
 
@@ -143,6 +139,14 @@ class Reviews extends React.Component {
       starPercentage: starPercentageRounded,
     }, () => console.log(this.state.starPercentage))
   }
+
+
+
+
+
+
+
+
 
   render() {
     let showButton = this.state.isT ? (
@@ -217,9 +221,12 @@ class Reviews extends React.Component {
             <button onClick={() => this.moreReviews()}>MORE REVIEWS</button>
           </MoreReviewsButton>
 
-          <AddReviewButton>
-            <button> ADD A REVIEW &nbsp;&nbsp; +</button>
-          </AddReviewButton>
+          <AddReview >
+            <AddReviewButton>
+                <button id='ReviewID' onClick={e => {this.setShowModal(e);}}> ADD A REVIEW &nbsp;&nbsp; +</button>
+            </AddReviewButton>
+            <WriteAReview className='WriteReview' onClose = {this.setShowModal} showModal={this.state.showModal} characteristics={this.props.characteristics} />
+          </AddReview>
         </WrapperFooter>
 
       </RightWrapper>
@@ -237,7 +244,8 @@ const WrapperHeader = styled.div`
 `;
 
 const ReviewList = styled.div`
-
+  max-height: 600px;
+  overflow-y: scroll;
 `;
 
 const IndividualReview = styled.div`
@@ -330,12 +338,40 @@ float: right;
 `;
 
 const WrapperFooter = styled.div`
+  margin-top:25px;
+  display: flex;
+  justify-content: space-around;
 `;
 
 const MoreReviewsButton = styled.div`
+  height: 40px;
+  width: 100px;
+  background-color: LightGray;
+  top: 40px;
+  left: 20px;
+  order: 3;
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  font-size: 16px;
+`;
+
+const AddReview = styled.div`
 `;
 
 const AddReviewButton = styled.div`
+  height: 40px;
+  width: 100px;
+  background-color: LightGray;
+  top: 40px;
+  left: 20px;
+  order: 3;
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  font-size: 16px;
 `;
 
 
