@@ -188,10 +188,9 @@ MAIN RENDER
           <ProgressBar><Bar width={reviewAverages[1] ? reviewAverages[1][1] : null}/></ProgressBar>
         </Graph>
         <Recommended>{recommendedPercentage} of reviews recommended this product</Recommended>
-        {/* <SizeBreakdown /> */}
       </LeftWrapper>
       <RightWrapper>
-        <Reviews id={this.state.currentItemId} totalReviews={this.state.totalReviews} starData={this.state.starPercentage}></Reviews>
+        <Reviews id={this.state.currentItemId} totalReviews={this.state.totalReviews} starData={this.state.starPercentage} characteristics={this.state.characteristics}></Reviews>
       </RightWrapper>
     </Container>
     );

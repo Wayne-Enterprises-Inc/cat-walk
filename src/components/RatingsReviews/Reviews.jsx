@@ -60,11 +60,6 @@ class Reviews extends React.Component {
     this.setState({ isOpen: !this.state.isOpen })
   }
 
-  //Currently out of commission
-  // isT() {
-  //   console.log('guessing here')
-  //   this.setState({isT: true})
-  // }
 
   getMoreText(text) {
     if (text.length > 250) {
@@ -95,7 +90,7 @@ class Reviews extends React.Component {
           reviewData: data.data,
           visibleReviews: data.data.results.slice(0, this.state.reviewCounter)
         }, () => {
-          console.log(this.state.product_id)
+          console.log(this.state.visibleReviews)
         })
       }).catch(err => {
         console.log('ERROR', err);
@@ -121,15 +116,6 @@ class Reviews extends React.Component {
       })
     }
 
-    //star data
-    // let updatedStars = this.props.starData
-    // if (prevProps.starData !== updatedStars) {
-    //   this.setState({
-    //     starPercentage: updatedStars
-    //   }, () => {
-    //     //console.log('HERE IS THE STAR DATA YOU WILL NEED', this.state.starData)
-    //   })
-    // }
 
   }
 
@@ -153,6 +139,14 @@ class Reviews extends React.Component {
       starPercentage: starPercentageRounded,
     }, () => console.log(this.state.starPercentage))
   }
+
+
+
+
+
+
+
+
 
   render() {
     let showButton = this.state.isT ? (
@@ -226,11 +220,11 @@ class Reviews extends React.Component {
             <button onClick={() => this.moreReviews()}>MORE REVIEWS</button>
           </MoreReviewsButton>
 
-          <AddReview>
+          <AddReview >
             <AddReviewButton>
-                <button onClick={e => {this.setShowModal(e);}}> ADD A REVIEW &nbsp;&nbsp; +</button>
+                <button id='ReviewID' onClick={e => {this.setShowModal(e);}}> ADD A REVIEW &nbsp;&nbsp; +</button>
             </AddReviewButton>
-            <WriteAReview onClose = {this.setShowModal} showModal={this.state.showModal} />
+            <WriteAReview className='WriteReview' onClose = {this.setShowModal} showModal={this.state.showModal} characteristics={this.props.characteristics} />
           </AddReview>
         </WrapperFooter>
 
