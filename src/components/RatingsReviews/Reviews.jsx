@@ -337,6 +337,9 @@ float: right;
 `;
 
 const WrapperFooter = styled.div`
+  margin-top:25px;
+  display: flex;
+  justify-content: space-around;
 `;
 
 const MoreReviewsButton = styled.div`

@@ -295,13 +295,19 @@ function WriteAReview ({showModal, onClose, characteristics}) {
                   <img id="image" />
                 </form>
               </Photos>
-              <Nickname>Nickname</Nickname>
+
+              <Nickname>
+                <input type="text" value={TitleMessage} onChange={() => setTitleMessage()} placeholder="Example: jackson11!"/>
+              </Nickname>
+              <Email>
+                <input type="text" value={TitleMessage} onChange={() => setTitleMessage()} placeholder="Example: jackson11@email.com"/>
+              </Email>
             </Body>
           </Header>
         <Footer>
           <Exit>
             <Buttons onClick={close}> Exit </Buttons>
-            <Buttons>Submit</Buttons>
+            <Buttons onClick={close}>Submit</Buttons>
           </Exit>
         </Footer>
       </Content>
@@ -455,7 +461,7 @@ const ReviewBody = styled.div`
 
 const Photos = styled.div`
   grid-area: 'Photos';
-  margin-bottom: 200px;
+  margin-bottom: 110px;
 
   form {
     img {
@@ -472,14 +478,23 @@ const Photos = styled.div`
 `;
 
 const Nickname = styled.div`
-  grid-area: 'Nickname';
+  margin-bottom: 5px;
+  input {
+    width: 100%;
+  }`;
+
+const Email = styled.div`
+  margin-bottom: 5px;
+  input {
+    width: 100%;
+  }
 `;
 
 const Footer = styled.div`
+
 `;
 
 const Exit = styled.div`
-
 `;
 
 const Buttons = styled.div`
