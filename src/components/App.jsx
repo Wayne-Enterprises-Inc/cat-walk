@@ -10,10 +10,9 @@ import OutFitCreater from './OutFitCreater'
 import RatingBreakdown from './RatingsReviews/RatingBreakdown.jsx';
 
 import RelatedItems from './RelatedItems.jsx';
-
-
-
 import Overview from './ProductOverview/Overview.jsx';
+
+import { ContextProvider } from './WidgetContext.jsx'
 
 // testing out styled components
 import styled from 'styled-components';
@@ -96,62 +95,71 @@ class App extends React.Component {
 
   render() {
 
-console.log(this.state.starData)
+    console.log(this.state.starData)
 
     return (
       <SyledApp>
+        <ContextProvider>
         <LogoBar>
-        <i class="fas fa-tshirt" style={{
+          <i class="fas fa-tshirt" style={{
             fontWeight: 'bold',
             float: 'left',
             marginLeft: '20px',
             marginTop: '16px',
             marginBottom: '16px',
             padding: '1px',
-            backgroundColor: '#f8b500'}}></i>
+            backgroundColor: '#f8b500'
+          }}></i>
           <p style={{
             fontWeight: 'bold',
             float: 'left',
             backgroundColor: '#f8b500'
-        }}>Clothing Inc.</p>
-        <input
-        style= {{
-          float: 'right',
-          marginRight: '40px',
-          marginTop: '15px'
-        }}
-        type='text'
-        placeholder='Product Search...'
+          }}>Clothing Inc.</p>
+          <input
+            style={{
+              float: 'right',
+              marginRight: '40px',
+              marginTop: '15px'
+            }}
+            type='text'
+            placeholder='Product Search...'
 
-        ></input>
+          ></input>
         </LogoBar>
-
-        <Overview
-          starData={this.state.starData}
-          productId={this.state.productId}
-          reviewData={this.state.reviewData}
-        />
-
+        </ContextProvider>
+        <ContextProvider>
+          <Overview
+            widgetName='Overview'
+            starData={this.state.starData}
+            productId={this.state.productId}
+            reviewData={this.state.reviewData}
+          />
+        </ContextProvider>
         <div>
+          <ContextProvider>
           <RelatedItems
-          productId={this.state.productId}
-          getId={this.relatedSelectHandle}
-          allProducts={this.state.relatedProducts}
-          starData={this.state.starData}
-          reviewData={this.state.reviewData}
-           />
-          </div>
+            widgetName='RelatedItems'
+            productId={this.state.productId}
+            getId={this.relatedSelectHandle}
+            allProducts={this.state.relatedProducts}
+            starData={this.state.starData}
+            reviewData={this.state.reviewData}
+          />
+          </ContextProvider>
+        </div>
+        <ContextProvider>
         <YourOutfit productId={this.state.productId} allProducts={this.state.relatedProducts} starData={this.state.starData} />
-
+        </ContextProvider>
         {/* <OutFitCreater allProducts={this.state.relatedProducts}/> */}
 
-
+        <ContextProvider>
         <RatingBreakdown
-        onRatingChange={this.handleStarData}
-        productId={this.state.productId}
-        reviewData={this.state.reviewData}
+          widgetName='RatingBreakdown'
+          onRatingChange={this.handleStarData}
+          productId={this.state.productId}
+          reviewData={this.state.reviewData}
         />
-
+        </ContextProvider>
       </SyledApp>
     )
   }
