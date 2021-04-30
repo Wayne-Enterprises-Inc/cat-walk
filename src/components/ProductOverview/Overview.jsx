@@ -8,6 +8,8 @@ import StyleSelect from './StyleSelect.jsx';
 import ProductInfo from './ProductInfo.jsx';
 import Cart from './Cart.jsx';
 
+
+
 class Overview extends React.Component {
   constructor(props) {
     super(props)
@@ -72,7 +74,7 @@ class Overview extends React.Component {
     if (event) {
       this.setState({
         selectedQuantity: event.target.value
-      }, () => { console.log(this.state.selectedQuantity) })
+      }, () => { console.log(event) })
     }
   }
 
